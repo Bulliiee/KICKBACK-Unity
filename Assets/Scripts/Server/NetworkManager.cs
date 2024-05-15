@@ -15,23 +15,26 @@ namespace Highlands.Server
     
     public class NetworkManager : Singleton<NetworkManager>
     {
-        #region 채팅 서버
-
-        private delegate void UpdateCurrentChattingPlace();
+        private void Update()
+        {
+            UpdateChatLog();
+            UpdateBusinessLog();
+        }
         
-        private ChattingServerController _chattingServerController;
+        private delegate void UpdateCurrentChattingPlace();
         
         //Todo : GameManager Stanby
         public CurrentPlayerLocation currentPlayerLocation = CurrentPlayerLocation.Lobby;
 
-        private void Update()
-        {
-            UpdateChatLog();
-        }
-
+        #region 채팅 서버
+        
+        private TCPConnectionController _chattingServer;
+        
         private void UpdateChatLog()
         {
-            var currentChat = _chattingServerController.Incoming();
+            var (data, bytesRead) = _chattingServer.ChatIncoming();
+            ChatMessage message = MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
+
             
             switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocation로 변경
             {
@@ -68,7 +71,7 @@ namespace Highlands.Server
 
             inputField.text = "";
             // 전송
-            _chattingServerController.Deliver(msgpack);
+            _chattingServer.Deliver(msgpack);
             inputField.Select();
             inputField.ActivateInputField();
 
@@ -79,13 +82,19 @@ namespace Highlands.Server
 
         #region 비즈니스 서버
 
-        
+        private TCPConnectionController _businessServer;
+
+        private void UpdateBusinessLog()
+        {
+            var (data, bytesRead) = _businessServer.BusinessIncoming();
+            MessageHandler.unPackMEssage(data, bytesRead);
+        }
 
         #endregion
 
         #region 라이브 서버
 
-        
+
 
         #endregion
     }

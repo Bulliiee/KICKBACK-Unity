@@ -9,7 +9,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class ChannelListElement : MonoBehaviour
 {
-    [FormerlySerializedAs("TCPConnectManagerScript")] public ChattingServerController ChattingServerControllerScript;
+    [FormerlySerializedAs("TCPConnectManagerScript")] public TCPConnectionController TcpConnectionControllerScript;
 
     public TMP_Text roomName_txt;
     public TMP_Text roomUser_txt;
