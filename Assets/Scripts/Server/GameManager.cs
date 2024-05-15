@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Modules;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     void Start()
     {
-        LoadSceneAdditive();
+        // MasterScene에서 필요한 Manager 생성 후 MainStage 이동
+        LoadingSceneManager.LoadScene("MainStage");
     }
 
-    // 매니저 생성 및 관리 위해 씬 중첩
-    void LoadSceneAdditive()
-    {
-        SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
-    }
+
 }
