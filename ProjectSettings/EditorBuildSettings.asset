@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Login.unity
     guid: 420ce848812574a4e958dda46f4a95b3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lobby.unity
     guid: 5d69af100bf18294d897c9f8fb5d7617
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WaitingRoom.unity
     guid: 375d2ea481b6a8c45bde055a8c0711d1
   - enabled: 0
