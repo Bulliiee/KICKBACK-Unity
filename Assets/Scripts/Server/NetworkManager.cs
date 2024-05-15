@@ -15,7 +15,7 @@ namespace Highlands.Server
     
     public class NetworkManager : Singleton<NetworkManager>
     {
-        #region ??? ????
+        #region 채팅 서버
 
         private delegate void UpdateCurrentChattingPlace();
         
@@ -33,16 +33,16 @@ namespace Highlands.Server
         {
             var currentChat = _chattingServerController.Incoming();
             
-            switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocation?? ????
+            switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocation로 변경
             {
                 case CurrentPlayerLocation.Lobby:
-                    UpdateCurrentChattingPlace = ?��? ???? UI ??????? ???? (currentChat);
+                    // UpdateCurrentChattingPlace = 로비 채팅창 UI 업데이트 로직 (currentChat);
                     break;
                 case CurrentPlayerLocation.WaitingRoom:
-                    UpdateCurrentChattingPlace = ???? ???? UI ??????? ???? (currentChat);
+                    // UpdateCurrentChattingPlace = 대기룸 채팅창 UI 업데이트 로직 (currentChat);
                     break;
                 case CurrentPlayerLocation.InGame:
-                    UpdateCurrentChattingPlace = ????? ???? UI ??????? ???? (currentChat);
+                    // UpdateCurrentChattingPlace = 인게임 채팅창 UI 업데이트 로직 (currentChat);
                     break;
             }
         }
@@ -67,7 +67,7 @@ namespace Highlands.Server
             var msgpack = MessagePackSerializer.Serialize(pack);
 
             inputField.text = "";
-            // ????
+            // 전송
             _chattingServerController.Deliver(msgpack);
             inputField.Select();
             inputField.ActivateInputField();
@@ -77,13 +77,13 @@ namespace Highlands.Server
         
         #endregion
 
-        #region ?????? ????
+        #region 비즈니스 서버
 
         
 
         #endregion
 
-        #region ????? ????
+        #region 라이브 서버
 
         
 
