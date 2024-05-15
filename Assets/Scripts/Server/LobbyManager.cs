@@ -25,7 +25,7 @@ public class LobbyManager : MonoBehaviour
 
     void Start()
     {
-        ChattingServerController.Instance.ConnectToServer();
+        // ChattingServerController.Instance.ConnectToServer();
         BusinessManager.Instance.ConnectToServer();
         BusinessManager.Instance.LobbyManagerScript = gameObject.GetComponent<LobbyManager>();
         

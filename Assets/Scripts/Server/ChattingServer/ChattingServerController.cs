@@ -25,6 +25,8 @@ public class ChattingServerController
             Debug.Log("incoming");
             Receiver();
         }
+
+        return null;
     }
 
     public void Connect()
