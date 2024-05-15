@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class WaitingRoomManager : MonoBehaviour
 {
@@ -22,15 +23,16 @@ public class WaitingRoomManager : MonoBehaviour
     public List<Image> isReady;
     private int selectedCharacterIndex = 0;
 
+    [FormerlySerializedAs("businessManager")]
     [Header("Script")]
-    [SerializeField] private BusinessManager businessManager;
+    [SerializeField] private BusinessManager businessServerController;
     [SerializeField] private DataManager dataManager;
     [SerializeField] private GameObject LobbyCanvas;
     private User loginUserInfo;
 
     void Awake()
     {
-        businessManager = FindObjectOfType<BusinessManager>();
+        businessServerController = FindObjectOfType<BusinessManager>();
         dataManager = FindObjectOfType<DataManager>();
 
         LobbyCanvas = GameObject.Find("Lobby Canvas");
@@ -44,7 +46,7 @@ public class WaitingRoomManager : MonoBehaviour
     void Start()
     {
 
-        // 드롭다운의 선택 변화에 대한 리스너 추가
+        // ??????? ???? ????? ???? ?????? ???
         dropdown.onValueChanged.AddListener(delegate 
         {
             ChangeImage(dropdown.value);
@@ -60,13 +62,13 @@ public class WaitingRoomManager : MonoBehaviour
 
     void ChangeImage(int index)
     {
-        // 선택된 인덱스에 해당하는 스프라이트로 이미지 변경
+        // ????? ?ε????? ?????? ??????????? ????? ????
         mapImage.sprite = sprites[index];
     }
 
     public void LeaveRoom()
     {
-        businessManager.jlrRoom(Highlands.Server.Command.LEAVE, dataManager.channelIndex);
+        businessServerController.jlrRoom(Highlands.Server.Command.LEAVE, dataManager.channelIndex);
 
         LobbyCanvas.SetActive(true);
 
@@ -130,29 +132,29 @@ public class WaitingRoomManager : MonoBehaviour
         }
     }
 
-    // 버튼 클릭 시 호출될 메소드. 인덱스를 매개변수로 받음
+    // ??? ??? ?? ???? ????. ?ε????? ????????? ????
     public void ClickCharacter(int buttonIndex)
     {
-        // 모든 체크마크를 먼저 비활성화
+        // ??? ??????? ???? ??????
         for (int i = 0; i < checkMarks.Count; i++)
         {
             checkMarks[i].gameObject.SetActive(false);
         }
 
-        // 클릭된 버튼에 해당하는 체크마크만 활성화
+        // ????? ????? ?????? ??????? ????
         checkMarks[buttonIndex].gameObject.SetActive(true);
     }
 
     public void SelectCharacter(int buttonIndex)
     {
-        // 선택한 캐릭터 인덱스를 업데이트
+        // ?????? ĳ???? ?ε????? ???????
         selectedCharacterIndex = buttonIndex;
     }
 
-    // 오케이 버튼에 연결할 함수
+    // ?????? ????? ?????? ???
     public void ConfirmCharacterSelection()
     {
-        // 사용자가 선택한 캐릭터로 실제 이미지를 변경
+        // ?????? ?????? ĳ????? ???? ??????? ????
         characters[dataManager.myIndex].sprite = characterImages[selectedCharacterIndex];
         characters[dataManager.myIndex].SetNativeSize();
     }

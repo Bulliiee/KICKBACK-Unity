@@ -6,28 +6,29 @@ using UnityEngine;
 using MessagePack;
 using Highlands.Server;
 
-public class ChattingServerController
+public class TCPConnectionController
 {
     private TcpClient _tcpClient;
     private NetworkStream _networkStream;
     
     // 호스트
     private string hostname = "k10c209.p.ssafy.io"; // ec2
-    private int port = 1371;
     // private string hostname = "k10c209.p.ssafy.io"; // 로컬
     // private int port = 1370;
 
-    public Message Incoming()
+    public byte[] Incoming()
     {
         // 데이터가 들어온 경우
         while (_networkStream != null && _networkStream.DataAvailable)
         {
-            Debug.Log("incoming");
+            Debug.Log("Chatting Incoming");
             Receiver();
         }
+
+        return null;
     }
 
-    public void Connect()
+    public void Connect(int port)
     {
         try
         {
@@ -40,7 +41,7 @@ public class ChattingServerController
         catch (Exception e)
         {
             // 연결 중 오류 발생 시
-            Debug.Log($"Failed to connect to the server: {e.Message}");
+            Debug.Log($"Failed to connect to the ChattingServer: {e.Message}");
         }
     }
 
@@ -54,7 +55,7 @@ public class ChattingServerController
     }
 
     // 서버로부터 수신한 메세지 읽기
-    private Message Receiver()
+    private byte[] Receiver()
     {
         if (_tcpClient == null || !_tcpClient.Connected) return null;
         try
@@ -63,8 +64,6 @@ public class ChattingServerController
             {
                 _networkStream = _tcpClient.GetStream();
             }
-
-            StringBuilder message = new StringBuilder();
         
             // 네트워크 스트림에 데이터가 있을 때까지 반복
             while (_networkStream.DataAvailable)
@@ -75,7 +74,8 @@ public class ChattingServerController
                 if (bytesRead > 0)
                 {
                     // MessagePackSerializer를 사용하여 메시지 역직렬화
-                    return MessagePackSerializer.Deserialize<Message>(buffer.AsSpan().Slice(0, bytesRead).ToArray());
+                    // return MessagePackSerializer.Deserialize<ChattingMessage>(buffer.AsSpan().Slice(0, bytesRead).ToArray());
+                    return buffer;
                 }
 
                 return null;

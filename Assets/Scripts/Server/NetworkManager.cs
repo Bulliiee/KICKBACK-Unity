@@ -15,34 +15,36 @@ namespace Highlands.Server
     
     public class NetworkManager : Singleton<NetworkManager>
     {
-        #region Ã¤ÆÃ ¼­¹ö
-
-        private delegate void UpdateCurrentChattingPlace();
-        
-        private ChattingServerController _chattingServerController;
-        
         //Todo : GameManager Stanby
         public CurrentPlayerLocation currentPlayerLocation = CurrentPlayerLocation.Lobby;
-
+        
         private void Update()
         {
             UpdateChatLog();
+            UpdateBusinessLog();
         }
+
+        #region ì±„íŒ… ì„œë²„
+
+        private delegate void UpdateCurrentChattingPlace();
+        
+        private TCPConnectionController _chattingServer;
+        
 
         private void UpdateChatLog()
         {
-            var currentChat = _chattingServerController.Incoming();
+            var data = _chattingServer.Incoming();
             
-            switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocation·Î º¯°æ
+            switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocationë¡œ ë³€ê²½
             {
                 case CurrentPlayerLocation.Lobby:
-                    UpdateCurrentChattingPlace = ·Îºñ Ã¤ÆÃÃ¢ UI ¾÷µ¥ÀÌÆ® ·ÎÁ÷ (currentChat);
+                    // UpdateCurrentChattingPlace = ë¡œë¹„ ì±„íŒ…ì°½ UI ì—…ë°ì´íŠ¸ ë¡œì§ (currentChat);
                     break;
                 case CurrentPlayerLocation.WaitingRoom:
-                    UpdateCurrentChattingPlace = ´ë±â·ë Ã¤ÆÃÃ¢ UI ¾÷µ¥ÀÌÆ® ·ÎÁ÷ (currentChat);
+                    // UpdateCurrentChattingPlace = ëŒ€ê¸°ë£¸ ì±„íŒ…ì°½ UI ì—…ë°ì´íŠ¸ ë¡œì§ (currentChat);
                     break;
                 case CurrentPlayerLocation.InGame:
-                    UpdateCurrentChattingPlace = ÀÎ°ÔÀÓ Ã¤ÆÃÃ¢ UI ¾÷µ¥ÀÌÆ® ·ÎÁ÷ (currentChat);
+                    // UpdateCurrentChattingPlace = ì¸ê²Œì„ ì±„íŒ…ì°½ UI ì—…ë°ì´íŠ¸ ë¡œì§ (currentChat);
                     break;
             }
         }
@@ -56,7 +58,7 @@ namespace Highlands.Server
                 return;
             }
 
-            var pack = new Message
+            var pack = new ChattingMessage
             {
                 command = Command.CHAT,
                 channelIndex = channelIndex,
@@ -67,8 +69,8 @@ namespace Highlands.Server
             var msgpack = MessagePackSerializer.Serialize(pack);
 
             inputField.text = "";
-            // Àü¼Û
-            _chattingServerController.Deliver(msgpack);
+            // ì „ì†¡
+            _chattingServer.Deliver(msgpack);
             inputField.Select();
             inputField.ActivateInputField();
 
@@ -77,13 +79,18 @@ namespace Highlands.Server
         
         #endregion
 
-        #region ºñÁî´Ï½º ¼­¹ö
+        #region ë¹„ì¦ˆë‹ˆìŠ¤ ì„œë²„
 
+        private TCPConnectionController _businessServer;
+
+        private void UpdateBusinessLog()
+        {
+            var data = _businessServer.Incoming();
+        }
         
-
         #endregion
 
-        #region ¶óÀÌºê ¼­¹ö
+        #region ë¼ì´ë¸Œ ì„œë²„
 
         
 
