@@ -116,7 +116,7 @@ public class BusinessManager : MonoBehaviour
             
             List<string> userList = new List<string>();
             List<string> roomList = new List<string>();
-            RoomInfo roomInfo = new RoomInfo();
+            ChannelInfo channelInfo = new ChannelInfo();
             
             while (_networkStream.DataAvailable)
             {
@@ -162,17 +162,17 @@ public class BusinessManager : MonoBehaviour
                             string isReadyList = receivedMessage.IsReady.TrimStart('[').TrimEnd(']');
                             string teamColorList = receivedMessage.TeamColor.TrimStart('[').TrimEnd(']');
 
-                            roomInfo.RoomIndex = receivedMessage.RoomIndex;
-                            dataManager.channelIndex = roomInfo.RoomIndex;
-                            roomInfo.RoomName = receivedMessage.RoomName;
-                            dataManager.channelName = roomInfo.RoomName;
-                            roomInfo.RoomUserList = new List<string>(roomUserList.Split(','));
-                            dataManager.roomUserList = roomInfo.RoomUserList;
-                            dataManager.cnt = roomInfo.RoomUserList.Count;
-                            roomInfo.RoomManager = receivedMessage.RoomManager;
-                            roomInfo.MapName = receivedMessage.MapName;
-                            roomInfo.IsReady = isReadyList.Split(',').Select(s => bool.Parse(s)).ToList();
-                            roomInfo.TeamColor = teamColorList.Split(',').Select(s => int.Parse(s)).ToList();
+                            channelInfo.RoomIndex = receivedMessage.RoomIndex;
+                            dataManager.channelIndex = channelInfo.RoomIndex;
+                            channelInfo.RoomName = receivedMessage.RoomName;
+                            dataManager.channelName = channelInfo.RoomName;
+                            channelInfo.RoomUserList = new List<string>(roomUserList.Split(','));
+                            dataManager.roomUserList = channelInfo.RoomUserList;
+                            dataManager.cnt = channelInfo.RoomUserList.Count;
+                            channelInfo.RoomManager = receivedMessage.RoomManager;
+                            channelInfo.MapName = receivedMessage.MapName;
+                            channelInfo.IsReady = isReadyList.Split(',').Select(s => bool.Parse(s)).ToList();
+                            channelInfo.TeamColor = teamColorList.Split(',').Select(s => int.Parse(s)).ToList();
                         }
                     }
                 }

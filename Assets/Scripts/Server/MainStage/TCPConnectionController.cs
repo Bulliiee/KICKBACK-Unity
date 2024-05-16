@@ -13,11 +13,7 @@ public class TCPConnectionController
     
     // 호스트
     private string hostname = "k10c209.p.ssafy.io"; // ec2
-    // private string hostname = "k10c209.p.ssafy.io"; // 로컬
-    // 채팅
-    // private int port = 1371;
-    // 비즈니스
-    // private int port = 1370;
+    // private string hostname = "localhost"; // 로컬
 
     public (byte[], int) ChatIncoming()
     {
