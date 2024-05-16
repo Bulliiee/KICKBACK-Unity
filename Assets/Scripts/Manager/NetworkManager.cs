@@ -81,6 +81,11 @@ namespace Highlands.Server
         #region 채팅 서버
         
         private TCPConnectionController _chattingServer;
+
+        public void ConnectChattingServer()
+        {
+            _chattingServer.Connect("ChattingServer", 1371);
+        }
         
         private void UpdateChatLog()
         {
@@ -114,6 +119,11 @@ namespace Highlands.Server
         #region 비즈니스 서버
 
         private TCPConnectionController _businessServer;
+
+        public void ConnectBusinessServer()
+        {
+            _businessServer.Connect("BusinessServer", 1370);
+        }
 
         private void UpdateBusinessLog()
         {
