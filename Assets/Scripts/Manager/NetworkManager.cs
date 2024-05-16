@@ -96,7 +96,7 @@ namespace Highlands.Server
             }
         }
 
-        public void SendMessage(TMP_InputField inputField, int channelIndex, string nickname)
+        public void SendChatMessage(TMP_InputField inputField, int channelIndex, string nickname)
         {
             var message = inputField.text;
 
@@ -133,7 +133,12 @@ namespace Highlands.Server
         private void UpdateBusinessLog()
         {
             var (data, bytesRead) = _businessServer.BusinessIncoming();
-            MessageHandler.unPackMEssage(data, bytesRead);
+            MessageHandler.UnPackMessage(data, bytesRead);
+        }
+
+        public void SendBusinessMessage(byte[] buffer)
+        {
+            _businessServer.Deliver(buffer);
         }
 
         #endregion

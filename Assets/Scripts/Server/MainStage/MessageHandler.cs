@@ -9,11 +9,11 @@ namespace Highlands.Server
 {
     public class MessageHandler
     {
-        public static void unPackMEssage(byte[] buffer, int bytesRead)
+        public static void UnPackMessage(byte[] buffer, int bytesRead)
         {
             List<string> userList = new List<string>();
-            List<string> roomList = new List<string>();
-            RoomInfo roomInfo = new RoomInfo();
+            List<string> channelList = new List<string>();
+            ChannelInfo channelInfo = new ChannelInfo();
             
             // MessagePackSerializer를 사용하여 메시지 역직렬화
             RecieveLoginMessage receivedMessage =
@@ -30,27 +30,29 @@ namespace Highlands.Server
                     userList = new List<string>(trimmedString.Split(','));
                     // LobbyManagerScript.getAllUsers(userList);
                     break;
-                case "roomList":
+                case "channelList":
                     trimmedString = receivedMessage.List.TrimStart('[').TrimEnd(']');
-                    roomList = new List<string>(trimmedString.Split(new string[] { "}, " }, StringSplitOptions.None));
+                    channelList = new List<string>(trimmedString.Split(new string[] { "}, " }, StringSplitOptions.None));
                     // LobbyManagerScript.getRoomList(roomList);
                     break;
-                case "roomInfo":
-                    string roomUserList = receivedMessage.List.TrimStart('[').TrimEnd(']');
+                case "channelInfo":
+                    string channelUserList = receivedMessage.List.TrimStart('[').TrimEnd(']');
                     string isReadyList = receivedMessage.IsReady.TrimStart('[').TrimEnd(']');
                     string teamColorList = receivedMessage.TeamColor.TrimStart('[').TrimEnd(']');
-
-                    roomInfo.RoomIndex = receivedMessage.RoomIndex;
-                    // dataManager.channelIndex = roomInfo.RoomIndex;
-                    roomInfo.RoomName = receivedMessage.RoomName;
-                    // dataManager.channelName = roomInfo.RoomName;
-                    roomInfo.RoomUserList = new List<string>(roomUserList.Split(','));
-                    // dataManager.roomUserList = roomInfo.RoomUserList;
-                    // dataManager.cnt = roomInfo.RoomUserList.Count;
-                    roomInfo.RoomManager = receivedMessage.RoomManager;
-                    roomInfo.MapName = receivedMessage.MapName;
-                    roomInfo.IsReady = isReadyList.Split(',').Select(s => bool.Parse(s)).ToList();
-                    roomInfo.TeamColor = teamColorList.Split(',').Select(s => int.Parse(s)).ToList();
+                    string userCharacterList = receivedMessage.UserCharacter.TrimStart('[').TrimEnd(']');
+                    
+                    channelInfo.ChannelIndex = receivedMessage.ChannelIndex;
+                    // dataManager.channelIndex = channelInfo.ChannelIndex;
+                    channelInfo.ChannelName = receivedMessage.ChannelName;
+                    // dataManager.channelName = channelInfo.ChannelName;
+                    channelInfo.ChannelUserList = new List<string>(channelUserList.Split(','));
+                    // dataManager.roomUserList = channelInfo.ChannelUserList;
+                    // dataManager.cnt = channelInfo.ChannelUserList.Count;
+                    channelInfo.ChannelManager = receivedMessage.ChannelManager;
+                    channelInfo.MapName = receivedMessage.MapName;
+                    channelInfo.IsReady = isReadyList.Split(',').Select(s => bool.Parse(s)).ToList();
+                    channelInfo.TeamColor = teamColorList.Split(',').Select(s => int.Parse(s)).ToList();
+                    channelInfo.UserCharacter = userCharacterList.Split(',').Select(s => int.Parse(s)).ToList();
                     break;
                 default:
                     Debug.Log("언패킹 에러(메시지 핸들러)");
