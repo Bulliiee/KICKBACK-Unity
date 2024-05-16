@@ -5,7 +5,7 @@ using System.Numerics;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class HTTPController : MonoBehaviour
+public class HTTPController
 {
     private string url = "https://k10c209.p.ssafy.io/api/v1";
     private string accessToken = "";
