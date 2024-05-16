@@ -162,17 +162,17 @@ public class BusinessManager : MonoBehaviour
                             string isReadyList = receivedMessage.IsReady.TrimStart('[').TrimEnd(']');
                             string teamColorList = receivedMessage.TeamColor.TrimStart('[').TrimEnd(']');
 
-                            channelInfo.RoomIndex = receivedMessage.RoomIndex;
-                            dataManager.channelIndex = channelInfo.RoomIndex;
-                            channelInfo.RoomName = receivedMessage.RoomName;
-                            dataManager.channelName = channelInfo.RoomName;
-                            channelInfo.RoomUserList = new List<string>(roomUserList.Split(','));
-                            dataManager.roomUserList = channelInfo.RoomUserList;
-                            dataManager.cnt = channelInfo.RoomUserList.Count;
-                            channelInfo.RoomManager = receivedMessage.RoomManager;
-                            channelInfo.MapName = receivedMessage.MapName;
-                            channelInfo.IsReady = isReadyList.Split(',').Select(s => bool.Parse(s)).ToList();
-                            channelInfo.TeamColor = teamColorList.Split(',').Select(s => int.Parse(s)).ToList();
+                            // channelInfo.RoomIndex = receivedMessage.RoomIndex;
+                            // dataManager.channelIndex = channelInfo.RoomIndex;
+                            // channelInfo.RoomName = receivedMessage.RoomName;
+                            // dataManager.channelName = channelInfo.RoomName;
+                            // channelInfo.RoomUserList = new List<string>(roomUserList.Split(','));
+                            // dataManager.roomUserList = channelInfo.RoomUserList;
+                            // dataManager.cnt = channelInfo.RoomUserList.Count;
+                            // channelInfo.RoomManager = receivedMessage.RoomManager;
+                            // channelInfo.MapName = receivedMessage.MapName;
+                            // channelInfo.IsReady = isReadyList.Split(',').Select(s => bool.Parse(s)).ToList();
+                            // channelInfo.TeamColor = teamColorList.Split(',').Select(s => int.Parse(s)).ToList();
                         }
                     }
                 }

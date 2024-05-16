@@ -47,12 +47,12 @@ public class TCPConnectionController
             _tcpClient = new TcpClient(hostname, port);
             _networkStream = _tcpClient.GetStream();
 
-            Debug.Log($"{server} connect complete");
+            Debug.Log($"{server} connect success");
         }
         catch (Exception e)
         {
             // 연결 중 오류 발생 시
-            Debug.Log($"Failed to connect to the server: {e.Message}");
+            Debug.Log($"Failed to connect server: {e.Message}");
         }
     }
 

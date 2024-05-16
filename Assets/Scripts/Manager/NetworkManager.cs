@@ -24,6 +24,12 @@ namespace Highlands.Server
                 UpdateChatLog();
                 UpdateBusinessLog();
             }
+
+            if (currentPlayerLocation == CurrentPlayerLocation.InGame)
+            {
+                // 라이브 서버 로직
+                UpdateLiveLog();
+            }
         }
         
         private delegate void UpdateCurrentChattingPlace();
@@ -79,8 +85,7 @@ namespace Highlands.Server
         private void UpdateChatLog()
         {
             var (data, bytesRead) = _chattingServer.ChatIncoming();
-            ChatMessage message = MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
-
+            var message = MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
             
             switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocation로 변경
             {
@@ -96,32 +101,12 @@ namespace Highlands.Server
             }
         }
 
-        public void SendChatMessage(TMP_InputField inputField, int channelIndex, string nickname)
+        public void SendChatMessage(byte[] buffer)
         {
-            var message = inputField.text;
-
-            if (message.Equals(""))
-            {
-                return;
-            }
-
-            var pack = new Message
-            {
-                command = Command.CHAT,
-                channelIndex = channelIndex,
-                userName = nickname,
-                message = message
-            };
-
-            var msgpack = MessagePackSerializer.Serialize(pack);
-
-            inputField.text = "";
             // 전송
-            _chattingServer.Deliver(msgpack);
-            inputField.Select();
-            inputField.ActivateInputField();
+            _chattingServer.Deliver(buffer);
 
-            Debug.Log("send complete");
+            Debug.Log("Chatting send complete");
         }
         
         #endregion
@@ -133,20 +118,34 @@ namespace Highlands.Server
         private void UpdateBusinessLog()
         {
             var (data, bytesRead) = _businessServer.BusinessIncoming();
-            MessageHandler.UnPackMessage(data, bytesRead);
+            MessageHandler.UnPackBusinessMessage(data, bytesRead);
         }
 
         public void SendBusinessMessage(byte[] buffer)
         {
             _businessServer.Deliver(buffer);
+            
+            Debug.Log("Business send complete");
         }
 
         #endregion
 
         #region 라이브 서버
 
+        private UDPConnectionController _liveServer;
 
+        private void UpdateLiveLog()
+        {
+            var (data, bytesRead) = _liveServer.LiveReceiver();
+            // 핸들링
+        }
 
+        public void SendLiveMessage(byte[] buffer)
+        {
+            _liveServer.Deliver(buffer);
+            Debug.Log("Live send complete");
+        }
+        
         #endregion
     }
 }
