@@ -13,7 +13,7 @@ namespace Highlands.Server
         WaitingRoom,
         InGame
     }
-    
+
     public class NetworkManager : Singleton<NetworkManager>
     {
         private void Update()
@@ -31,16 +31,16 @@ namespace Highlands.Server
                 UpdateLiveLog();
             }
         }
-        
+
         private delegate void UpdateCurrentChattingPlace();
-        
+
         //Todo : GameManager Stanby
         public CurrentPlayerLocation currentPlayerLocation = CurrentPlayerLocation.Login;
 
         #region 인증
 
         private HTTPController _httpController = new HTTPController();
-        
+
         // Get요청 보내기
         public void GetRequest<T>(string requestData, string requestUrl, Action<T> resultCallback)
         {
@@ -66,43 +66,46 @@ namespace Highlands.Server
                 }
             }));
         }
-    
+
         // Post 요청 보내기
         public void PostRequest<T>(T t, string requestUrl, Action<long> resultCallback)
         {
-            StartCoroutine(_httpController.SendPostRequest(t, requestUrl, (result) =>
-            {
-                resultCallback?.Invoke(result);
-            }));
+            StartCoroutine(_httpController.SendPostRequest(t, requestUrl,
+                (result) => { resultCallback?.Invoke(result); }));
         }
 
         #endregion
 
         #region 채팅 서버
-        
-        private TCPConnectionController _chattingServer;
+
+        private TCPConnectionController _chattingServer = new TCPConnectionController();
 
         public void ConnectChattingServer()
         {
             _chattingServer.Connect("ChattingServer", 1371);
         }
-        
+
         private void UpdateChatLog()
         {
             var (data, bytesRead) = _chattingServer.ChatIncoming();
-            var message = MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
-            
-            switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocation로 변경
+
+            if (data != null)
             {
-                case CurrentPlayerLocation.Lobby:
-                    // UpdateCurrentChattingPlace = 로비 채팅창 UI 업데이트 로직 (currentChat);
-                    break;
-                case CurrentPlayerLocation.WaitingRoom:
-                    // UpdateCurrentChattingPlace = 대기룸 채팅창 UI 업데이트 로직 (currentChat);
-                    break;
-                case CurrentPlayerLocation.InGame:
-                    // UpdateCurrentChattingPlace = 인게임 채팅창 UI 업데이트 로직 (currentChat);
-                    break;
+                var message =
+                    MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
+
+                switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocation로 변경
+                {
+                    case CurrentPlayerLocation.Lobby:
+                        // UpdateCurrentChattingPlace = 로비 채팅창 UI 업데이트 로직 (currentChat);
+                        break;
+                    case CurrentPlayerLocation.WaitingRoom:
+                        // UpdateCurrentChattingPlace = 대기룸 채팅창 UI 업데이트 로직 (currentChat);
+                        break;
+                    case CurrentPlayerLocation.InGame:
+                        // UpdateCurrentChattingPlace = 인게임 채팅창 UI 업데이트 로직 (currentChat);
+                        break;
+                }
             }
         }
 
@@ -113,12 +116,12 @@ namespace Highlands.Server
 
             Debug.Log("Chatting send complete");
         }
-        
+
         #endregion
 
         #region 비즈니스 서버
 
-        private TCPConnectionController _businessServer;
+        private TCPConnectionController _businessServer = new TCPConnectionController();
 
         public void ConnectBusinessServer()
         {
@@ -128,13 +131,17 @@ namespace Highlands.Server
         private void UpdateBusinessLog()
         {
             var (data, bytesRead) = _businessServer.BusinessIncoming();
-            MessageHandler.UnPackBusinessMessage(data, bytesRead);
+
+            if (data != null)
+            {
+                MessageHandler.UnPackBusinessMessage(data, bytesRead);
+            }
         }
 
         public void SendBusinessMessage(byte[] buffer)
         {
             _businessServer.Deliver(buffer);
-            
+
             Debug.Log("Business send complete");
         }
 
@@ -142,7 +149,7 @@ namespace Highlands.Server
 
         #region 라이브 서버
 
-        private UDPConnectionController _liveServer;
+        private UDPConnectionController _liveServer = new UDPConnectionController();
 
         private void UpdateLiveLog()
         {
@@ -155,7 +162,7 @@ namespace Highlands.Server
             _liveServer.Deliver(buffer);
             Debug.Log("Live send complete");
         }
-        
+
         #endregion
     }
 }
