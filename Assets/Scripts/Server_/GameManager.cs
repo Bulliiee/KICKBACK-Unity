@@ -22,20 +22,30 @@ public class GameManager : Singleton<GameManager>
 
     public void ChangeMainStageCanvas(string canvasName)
     {
+        StartCoroutine(ChangeMainStageCanvasCoroutine(canvasName));
+    }
+
+    private IEnumerator ChangeMainStageCanvasCoroutine(string canvasName)
+    {
+        // 현재 씬이 MainStage가 아니라면 씬을 로드합니다.
         if (SceneManager.GetActiveScene().name != "MainStage")
         {
-            LoadingSceneManager.LoadScene("MainStage");
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainStage");
+
+            // 씬 로드가 완료될 때까지 대기합니다.
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
         }
 
+        // 씬 로드가 완료된 후, 캔버스 상태를 변경합니다.
         for (int i = 0; i < 3; i++)
         {
-            if (canvasName.Equals(canvases[i]))
+            GameObject canvas = GameObject.Find(canvases[i]);
+            if (canvas != null)
             {
-                GameObject.Find(canvasName).SetActive(true);
-            }
-            else
-            {
-                GameObject.Find(canvasName).SetActive(false);
+                canvas.SetActive(canvasName.Equals(canvases[i]));
             }
         }
     }
