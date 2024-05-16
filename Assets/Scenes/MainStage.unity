@@ -1102,7 +1102,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.9019608}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 0.8}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.69803923}
+    m_SelectedColor: {r: 0.96862745, g: 0.90588236, b: 0.9882353, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1189,7 +1189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.96862745, g: 0.90588236, b: 0.9882353, a: 1}
+  m_Color: {r: 0.70980394, g: 0.8745098, b: 0.9647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3281,7 +3281,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.9019608}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 0.8}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.69803923}
+    m_SelectedColor: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 0.69803923}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -8836,7 +8836,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.9019608}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 0.8}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.69803923}
+    m_SelectedColor: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 0.69803923}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -9941,7 +9941,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.9019608}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 0.8}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.69803923}
+    m_SelectedColor: {r: 0.96862745, g: 0.90588236, b: 0.9882353, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -10752,7 +10752,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.9019608}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 0.8}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.69803923}
+    m_SelectedColor: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 0.69803923}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -15008,6 +15008,7 @@ MonoBehaviour:
   signupConfirmButton: {fileID: 1212986331}
   signupExitButton: {fileID: 988338406}
   loginConfirmButton: {fileID: 1960255843}
+  loginErrorPopupCloseButton: {fileID: 1975395142}
   quitButton: {fileID: 2033625339}
   loginEmailInput: {fileID: 1230347909}
   loginPasswordInput: {fileID: 185432588}
@@ -15015,7 +15016,7 @@ MonoBehaviour:
   signupEmailInput: {fileID: 451109304}
   signupPasswordInput: {fileID: 1094398147}
   signupPasswordConfirmInput: {fileID: 1337968063}
-  SignupFeedbackText: {fileID: 170489092}
+  signupFeedbackText: {fileID: 170489092}
   signupPopup: {fileID: 351685295}
   loginErrorPopup: {fileID: 2124175872}
 --- !u!1 &1723741773
@@ -17618,18 +17619,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoginManager, Assembly-CSharp
-        m_MethodName: closeErrPopUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &2013757049
 GameObject:
   m_ObjectHideFlags: 0
@@ -18328,7 +18317,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.9019608}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 0.8}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.69803923}
+    m_SelectedColor: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 0.69803923}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -18567,7 +18556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9529412, g: 0.8509804, b: 0.98039216, a: 1}
+  m_Color: {r: 0.70980394, g: 0.8745098, b: 0.9647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -30,6 +30,10 @@ public class HTTPController
             // 요청 성공 시
             if (request.result == UnityWebRequest.Result.Success)
             {
+                if (accessToken == "")
+                {
+                    accessToken = request.GetResponseHeader("accessToken");
+                }
                 resultCallback?.Invoke(200);
             }
             // 요청 실패 시 에러 코드

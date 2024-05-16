@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Modules;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : Singleton<GameManager>
 {
-    public User user;
+    public User loginUserInfo;
     
     string[] canvases = {
         "Login Canvas",
@@ -39,10 +40,11 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
+        GameObject UI = GameObject.Find("UI");
         // 씬 로드가 완료된 후, 캔버스 상태를 변경합니다.
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < canvases.Length; i++)
         {
-            GameObject canvas = GameObject.Find(canvases[i]);
+            GameObject canvas = UI.transform.GetChild(i).gameObject;
             if (canvas != null)
             {
                 canvas.SetActive(canvasName.Equals(canvases[i]));
