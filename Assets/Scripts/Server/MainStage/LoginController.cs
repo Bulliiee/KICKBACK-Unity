@@ -236,6 +236,8 @@ public class LoginController : MonoBehaviour
                 });
 
                 GameManager.Instance.ChangeMainStageCanvas("Lobby Canvas");
+                NetworkManager.Instance.ConnectBusinessServer();
+                NetworkManager.Instance.ConnectChattingServer();
                 NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.Lobby;
             }
             else

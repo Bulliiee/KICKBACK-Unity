@@ -80,7 +80,7 @@ namespace Highlands.Server
 
         #region 채팅 서버
         
-        private TCPConnectionController _chattingServer;
+        private TCPConnectionController _chattingServer = new TCPConnectionController();
 
         public void ConnectChattingServer()
         {
@@ -118,7 +118,7 @@ namespace Highlands.Server
 
         #region 비즈니스 서버
 
-        private TCPConnectionController _businessServer;
+        private TCPConnectionController _businessServer = new TCPConnectionController();
 
         public void ConnectBusinessServer()
         {
