@@ -10,6 +10,7 @@ public class LobbyController : MonoBehaviour
 {
     [Header("버튼")]
     [SerializeField] private Button tutorialButton;
+    [SerializeField] private Button tutorialCloseButton;
     [SerializeField] private Button exitGameButton;
     [SerializeField] private Button chattingSendButton;
 
@@ -34,13 +35,23 @@ public class LobbyController : MonoBehaviour
     private List<string> _channelList;
     private ChannelInfo _channelInfo;
 
-    #region 채널목록
-
-    public void SetUserList(List<string> userList)
+    void Start()
     {
-        
+        tutorialButton.onClick.AddListener(TutorialButtonClicked);
+        tutorialCloseButton.onClick.AddListener(TutorialCloseButtonClicked);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && tutorialPopup.activeSelf)
+        {
+            TutorialCloseButtonClicked();
+        }
+    }
+    
+    #region 채널목록
+
+    // 채널 목록 불러오기
     public void SetChannelList(List<string> receiveChannelListJson)
     {
         // 기존 방 목록 제거
@@ -71,17 +82,15 @@ public class LobbyController : MonoBehaviour
             channelElement.transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
-
-    public void SetChannelInfo()
-    {
-        
-        
-    }
-
+    
     #endregion
 
     #region 유저목록
 
+    public void SetUserList(List<string> userList)
+    {
+        
+    }
 
 
     #endregion
@@ -89,6 +98,22 @@ public class LobbyController : MonoBehaviour
     #region 채팅
 
 
+
+    #endregion
+
+    #region 기타
+
+    // 튜토리얼 창 열기
+    private void TutorialButtonClicked()
+    {
+        tutorialPopup.SetActive(true);
+    }
+    
+    // 튜토리얼 창 닫기
+    private void TutorialCloseButtonClicked()
+    {
+        tutorialPopup.SetActive(false);
+    }
 
     #endregion
 }
