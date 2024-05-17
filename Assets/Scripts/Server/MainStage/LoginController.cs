@@ -234,13 +234,13 @@ public class LoginController : MonoBehaviour
                 {
                     GameManager.Instance.loginUserInfo = userInfo;
                     GameManager.Instance.loginUserInfo.NickName = GameManager.Instance.loginUserInfo.dataBody.nickname;
+                    
+                    GameManager.Instance.ChangeMainStageCanvas("Lobby Canvas");
+                    NetworkManager.Instance.ConnectBusinessServer();
+                    NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackInitialMessage());
+                    NetworkManager.Instance.ConnectChattingServer();
+                    NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.Lobby;
                 });
-
-                GameManager.Instance.ChangeMainStageCanvas("Lobby Canvas");
-                NetworkManager.Instance.ConnectBusinessServer();
-                NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackInitialMessage());
-                NetworkManager.Instance.ConnectChattingServer();
-                NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.Lobby;
             }
             else
             {

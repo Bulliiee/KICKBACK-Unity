@@ -13,6 +13,7 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private Button tutorialCloseButton;
     [SerializeField] private Button exitGameButton;
     [SerializeField] private Button chattingSendButton;
+    [SerializeField] private Button createChannelButton;
 
     [Header("인풋필드")]
     [SerializeField] private TMP_InputField chattingInput;
@@ -30,6 +31,7 @@ public class LobbyController : MonoBehaviour
 
     [Header("기타")] 
     [SerializeField] private ObjectPool channelObjectPool;
+    [SerializeField] private MakingRoomPopUp _makingRoomPopUp;
 
     private List<string> _userList;
     private List<string> _channelList;
@@ -60,6 +62,7 @@ public class LobbyController : MonoBehaviour
             channelObjectPool.ReturnObject(channelListContent.transform.GetChild(i).gameObject);
         }
         
+        Debug.Log("sadfsadfsd" + receiveChannelListJson.Count);
         // 새로운 방 생성
         for (int i = 0; i < receiveChannelListJson.Count; i++)
         {
@@ -89,7 +92,7 @@ public class LobbyController : MonoBehaviour
 
     public void SetUserList(List<string> userList)
     {
-        
+        Debug.Log(userList[0]);
     }
 
 

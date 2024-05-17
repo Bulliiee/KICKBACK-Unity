@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PG;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +9,9 @@ public class MakingRoomPopUp : MonoBehaviour
 {
     [SerializeField] private GameObject m_Room;
     [SerializeField] private TMP_InputField roomName;
-    [SerializeField] private TMP_InputField roomPwd;
     [SerializeField] private Button closeButton;
+    [SerializeField] private Button createChannelButton;
+    [SerializeField] private TMP_Text warningText;
     public List<Button> modeButtons;
     public List<Image> checkMarks;
     public List<TMP_Text> modeTxts;
@@ -18,8 +20,11 @@ public class MakingRoomPopUp : MonoBehaviour
     void Start()
     {
         m_Room.SetActive(false);
+        warningText.text = "";
+        warningText.SetActive(false);
 
         closeButton.onClick.AddListener(CloseBtn);
+        createChannelButton.onClick.AddListener(CreateChannelButtonClicked);
 
         for (int i = 0; i < checkMarks.Count; i++)
         {
@@ -31,7 +36,6 @@ public class MakingRoomPopUp : MonoBehaviour
     public void OpenPopUp()
     {
         roomName.text = "";
-        roomPwd.text = "";
         m_Room.SetActive(true);
 
         checkMarks[0].gameObject.SetActive(true);
@@ -40,7 +44,6 @@ public class MakingRoomPopUp : MonoBehaviour
     public void CloseBtn()
     {  
         roomName.text = "";
-        roomPwd.text = "";
         m_Room.SetActive(false);
 
         // 모든 체크마크를 먼저 비활성화
@@ -63,5 +66,22 @@ public class MakingRoomPopUp : MonoBehaviour
         checkMarks[buttonIndex].gameObject.SetActive(true);
         // 모드 이름 할당
         modeName = modeTxts[buttonIndex].text;
+    }
+
+    public void CreateChannelButtonClicked()
+    {
+        // 방 제목 없을 때
+        if (roomName.text == "")
+        {
+            warningText.text = "방 제목을 입력 하세요!";
+            warningText.SetActive(true);
+        }
+        // 방 제목 있을 때(정상 생성
+        else
+        {
+            warningText.text = "";
+            warningText.SetActive(false);
+            // TODO: 로직 작성
+        }
     }
 }

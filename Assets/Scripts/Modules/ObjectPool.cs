@@ -38,7 +38,6 @@ public class ObjectPool : MonoBehaviour
             return obj;
         }
 
-        Debug.Log("pooled");
         GameObject pooledObj = objectPool.Dequeue();
         pooledObj.SetActive(true);
         return pooledObj;
@@ -47,8 +46,8 @@ public class ObjectPool : MonoBehaviour
     // 오브젝트 반환
     public void ReturnObject(GameObject obj)
     {
-        obj.SetActive(false);
         obj.transform.SetParent(transform);
         objectPool.Enqueue(obj);
+        obj.SetActive(false);
     }
 }
