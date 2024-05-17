@@ -58,7 +58,24 @@ namespace Highlands.Server
 
             return msgpack;
         }
+        
         // 2. 방 생성시 전송할 메시지
+        public static byte[] PackCreateMessage(string channelName, string mapName, string gameMode)
+        {
+            var message = new CreateMessage
+            {
+                Command = Command.CREATE,
+                UserName = GameManager.Instance.loginUserInfo.NickName, // 방 만드는 유저 닉네임
+                ChannelName = channelName,         // 방 제목
+                MapName = mapName,          // 맵 이름
+                GameMode = gameMode,
+                EscapeString = "\n"
+            };
+
+            byte[] bytes = MessagePackSerializer.Serialize(message);
+
+            return bytes;
+        }
         
         // 3. 방 입장시 전송할 메시지
         
