@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Highlands.Server;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 public class LobbyController : MonoBehaviour
 {
@@ -35,14 +37,30 @@ public class LobbyController : MonoBehaviour
     private List<string> _channelList;
     private ChannelInfo _channelInfo;
 
+    private bool chatFocus = false;
+
     void Start()
     {
         tutorialButton.onClick.AddListener(TutorialButtonClicked);
         tutorialCloseButton.onClick.AddListener(TutorialCloseButtonClicked);
+        chattingSendButton.onClick.AddListener(ChattingSendButtonClicked);
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (chatFocus)
+            {
+                ChattingSendButtonClicked();
+            }
+            else
+            {
+                chattingInput.Select();
+                chatFocus = true;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape) && tutorialPopup.activeSelf)
         {
             TutorialCloseButtonClicked();
@@ -116,6 +134,16 @@ public class LobbyController : MonoBehaviour
     #endregion
 
     #region 채팅
+
+    public void ChattingSendButtonClicked()
+    {
+        var message = MessageHandler.PackChatMessage(chattingInput.text, 0);
+        NetworkManager.Instance.SendChatMessage(message);
+
+        chattingInput.text = "";
+        chattingInput.Select();
+        chattingInput.ActivateInputField();
+    }
 
     #endregion
 

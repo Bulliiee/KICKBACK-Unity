@@ -3,12 +3,12 @@
 namespace Highlands.Server
 {
     [MessagePackObject]
-    public class Message
+    public class ChatMessage
     {
-        [Key(0)] public virtual Command command { get; set; }
-        [Key(1)] public virtual int channelIndex { get; set; }
-        [Key(2)] public virtual string userName { get; set; }
-        [Key(3)] public virtual string message { get; set; }
+        [Key(0)] public virtual Command Command { get; set; }
+        [Key(1)] public virtual int ChannelIndex { get; set; }
+        [Key(2)] public virtual string UserName { get; set; }
+        [Key(3)] public virtual string Message { get; set; }
     }
 
     [MessagePackObject]
