@@ -61,7 +61,6 @@ public class ChannelListElement : MonoBehaviour
     // 방 리스트에서 버튼 누르면
     private void ChannelListButtonClicked()
     {
-        Debug.Log("asdf");
         if (!isOnGame)
         {
             ReceiveChannelElement temp = new ReceiveChannelElement();

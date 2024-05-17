@@ -98,8 +98,6 @@ public class LobbyController : MonoBehaviour
             userObjectPool.ReturnObject(userListContent.transform.GetChild(i).gameObject);
         }
 
-        Debug.Log("==================================");
-
         for (int i = 0; i < userList.Count; i++)
         {
             // 오브젝트 풀링
