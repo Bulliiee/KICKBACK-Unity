@@ -14,11 +14,9 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private Button chattingSendButton;
     [SerializeField] private Button createChannelButton;
 
-    [Header("인풋필드")] 
-    [SerializeField] private TMP_InputField chattingInput;
+    [Header("인풋필드")] [SerializeField] private TMP_InputField chattingInput;
 
-    [Header("게임오브젝트")] 
-    [SerializeField] private GameObject channelListContent;
+    [Header("게임오브젝트")] [SerializeField] private GameObject channelListContent;
     [SerializeField] private GameObject userListContent;
     [SerializeField] private GameObject chattingListContent;
     [SerializeField] private GameObject tutorialPopup;
@@ -56,7 +54,8 @@ public class LobbyController : MonoBehaviour
     public void SetChannelList(List<string> receiveChannelListJson)
     {
         // 기존 방 목록 제거
-        for (int i = 0; i < channelListContent.transform.childCount; i++)
+        int channelCount = channelListContent.transform.childCount;
+        for (int i = channelCount - 1; i >= 0; i--)
         {
             channelObjectPool.ReturnObject(channelListContent.transform.GetChild(i).gameObject);
         }
@@ -91,14 +90,15 @@ public class LobbyController : MonoBehaviour
 
     public void SetUserList(List<string> userList)
     {
-        Debug.Log("유저 들어오거나 나감, 카운트: " + userList.Count);
-        Debug.Log("현재 유저 목록 수: " + userListContent.transform.childCount);
         // 기존 방 목록 제거
-        for (int i = 0; i < userListContent.transform.childCount; i++)
+        int userCount = userListContent.transform.childCount;
+        for (int i = userCount - 1; i >= 0; i--)
         {
             userObjectPool.ReturnObject(userListContent.transform.GetChild(i).gameObject);
         }
-        
+
+        Debug.Log("==================================");
+
         for (int i = 0; i < userList.Count; i++)
         {
             // 오브젝트 풀링

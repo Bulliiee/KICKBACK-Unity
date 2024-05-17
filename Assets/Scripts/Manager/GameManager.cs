@@ -8,13 +8,14 @@ using UnityEngine.Serialization;
 public class GameManager : Singleton<GameManager>
 {
     public User loginUserInfo;
-    
-    string[] canvases = {
+
+    string[] canvases =
+    {
         "Login Canvas",
         "Lobby Canvas",
         "Channel Canvas"
     };
-    
+
     private void Start()
     {
         // MasterScene에서 필요한 Manager 생성 후 MainStage의 로그인으로 이동
@@ -54,7 +55,5 @@ public class GameManager : Singleton<GameManager>
 
     public void GoToIngame()
     {
-        
     }
-
 }
