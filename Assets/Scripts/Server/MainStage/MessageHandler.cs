@@ -45,7 +45,19 @@ namespace Highlands.Server
         // 패킹
         
         // 1. 최초 접속시 전송할 메시지
-        
+        public static byte[] PackInitialMessage()
+        {
+            var pack = new InitialSendMessage
+            {
+                Command = Command.CLIENT,
+                UserName = GameManager.Instance.loginUserInfo.NickName,
+                EscapeString = "\n"
+            };
+
+            var msgpack = MessagePackSerializer.Serialize(pack);
+
+            return msgpack;
+        }
         // 2. 방 생성시 전송할 메시지
         
         // 3. 방 입장시 전송할 메시지
