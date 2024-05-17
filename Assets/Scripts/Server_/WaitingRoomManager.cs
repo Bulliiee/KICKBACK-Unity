@@ -44,7 +44,7 @@ public class WaitingRoomManager : MonoBehaviour
     void Start()
     {
 
-        // µå·Ó´Ù¿îÀÇ ¼±ÅÃ º¯È­¿¡ ´ëÇÑ ¸®½º³Ê Ãß°¡
+        // ë“œë¡­ë‹¤ìš´ì˜ ì„ íƒ ë³€í™”ì— ëŒ€í•œ ë¦¬ìŠ¤ë„ˆ ì¶”ê°€
         dropdown.onValueChanged.AddListener(delegate 
         {
             ChangeImage(dropdown.value);
@@ -60,7 +60,7 @@ public class WaitingRoomManager : MonoBehaviour
 
     void ChangeImage(int index)
     {
-        // ¼±ÅÃµÈ ÀÎµ¦½º¿¡ ÇØ´çÇÏ´Â ½ºÇÁ¶óÀÌÆ®·Î ÀÌ¹ÌÁö º¯°æ
+        // ì„ íƒëœ ì¸ë±ìŠ¤ì— í•´ë‹¹í•˜ëŠ” ìŠ¤í”„ë¼ì´íŠ¸ë¡œ ì´ë¯¸ì§€ ë³€ê²½
         mapImage.sprite = sprites[index];
     }
 
@@ -130,29 +130,29 @@ public class WaitingRoomManager : MonoBehaviour
         }
     }
 
-    // ¹öÆ° Å¬¸¯ ½Ã È£ÃâµÉ ¸Ş¼Òµå. ÀÎµ¦½º¸¦ ¸Å°³º¯¼ö·Î ¹ŞÀ½
+    // ë²„íŠ¼ í´ë¦­ ì‹œ í˜¸ì¶œë  ë©”ì†Œë“œ. ì¸ë±ìŠ¤ë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ìŒ
     public void ClickCharacter(int buttonIndex)
     {
-        // ¸ğµç Ã¼Å©¸¶Å©¸¦ ¸ÕÀú ºñÈ°¼ºÈ­
+        // ëª¨ë“  ì²´í¬ë§ˆí¬ë¥¼ ë¨¼ì € ë¹„í™œì„±í™”
         for (int i = 0; i < checkMarks.Count; i++)
         {
             checkMarks[i].gameObject.SetActive(false);
         }
 
-        // Å¬¸¯µÈ ¹öÆ°¿¡ ÇØ´çÇÏ´Â Ã¼Å©¸¶Å©¸¸ È°¼ºÈ­
+        // í´ë¦­ëœ ë²„íŠ¼ì— í•´ë‹¹í•˜ëŠ” ì²´í¬ë§ˆí¬ë§Œ í™œì„±í™”
         checkMarks[buttonIndex].gameObject.SetActive(true);
     }
 
     public void SelectCharacter(int buttonIndex)
     {
-        // ¼±ÅÃÇÑ Ä³¸¯ÅÍ ÀÎµ¦½º¸¦ ¾÷µ¥ÀÌÆ®
+        // ì„ íƒí•œ ìºë¦­í„° ì¸ë±ìŠ¤ë¥¼ ì—…ë°ì´íŠ¸
         selectedCharacterIndex = buttonIndex;
     }
 
-    // ¿ÀÄÉÀÌ ¹öÆ°¿¡ ¿¬°áÇÒ ÇÔ¼ö
+    // ì˜¤ì¼€ì´ ë²„íŠ¼ì— ì—°ê²°í•  í•¨ìˆ˜
     public void ConfirmCharacterSelection()
     {
-        // »ç¿ëÀÚ°¡ ¼±ÅÃÇÑ Ä³¸¯ÅÍ·Î ½ÇÁ¦ ÀÌ¹ÌÁö¸¦ º¯°æ
+        // ì‚¬ìš©ìê°€ ì„ íƒí•œ ìºë¦­í„°ë¡œ ì‹¤ì œ ì´ë¯¸ì§€ë¥¼ ë³€ê²½
         characters[dataManager.myIndex].sprite = characterImages[selectedCharacterIndex];
         characters[dataManager.myIndex].SetNativeSize();
     }

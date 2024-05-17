@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Server/NetworkManager.cs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Server_/LobbyManager.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/Server_/LoginManager.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Server_/WaitingRoomManager.cs" charset="UTF-8" />
   </component>
 </project>
