@@ -133,6 +133,7 @@ namespace Highlands.Server
 
             if (data != null)
             {
+                Debug.Log("receive data");
                 MessageHandler.UnPackBusinessMessage(data, bytesRead);
             }
         }

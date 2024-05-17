@@ -265,7 +265,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4834511096287844404}
-  - component: {fileID: 2197978286749896301}
   m_Layer: 5
   m_Name: UserListElement
   m_TagString: Untagged
@@ -296,22 +295,6 @@ RectTransform:
   m_AnchoredPosition: {x: 7.6595, y: 1.1785278}
   m_SizeDelta: {x: 431.8163, y: 68.0768}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2197978286749896301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4834511096287844405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fb0b2f562b6491394c0112bf4923e3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lobbyManagerScript: {fileID: 0}
-  DetailBtn: {fileID: 0}
-  UserNameText: {fileID: 4834511095472767199}
-  nickname: 
 --- !u!1 &4834511097089316510
 GameObject:
   m_ObjectHideFlags: 0

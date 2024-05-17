@@ -8,7 +8,6 @@ public class LobbyController : MonoBehaviour
 {
     [Header("버튼")]
     [SerializeField] private Button tutorialButton;
-    [SerializeField] private Button createChannelPopupButton;
     [SerializeField] private Button exitGameButton;
     [SerializeField] private Button chattingSendButton;
 
@@ -19,23 +18,49 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private GameObject channelListContent;
     [SerializeField] private GameObject userListContent;
     [SerializeField] private GameObject chattingListContent;
-    [SerializeField] private GameObject createChannelPopup;
+    [SerializeField] private GameObject tutorialPopup;
 
     [Header("프리팹")]
     [SerializeField] private GameObject channelElement;
     [SerializeField] private GameObject userElement;
     [SerializeField] private GameObject chattingElement;
-    
-    
-    // Start is called before the first frame update
-    void Start()
+
+    private List<string> _userList;
+    private List<string> _channelList;
+    private ChannelInfo _channelInfo;
+
+    #region 채널목록
+
+    public void SetUserList(List<string> userList)
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetChannelList(List<string> channelList)
+    {
+        _channelList = channelList;
+        for (int i = 0; i < _channelList.Count; i++)
+        {
+            Debug.Log(_channelList[i]);
+        }
+    }
+
+    public void SetChannelInfo()
     {
         
     }
+
+    #endregion
+
+    #region 유저목록
+
+
+
+    #endregion
+
+    #region 채팅
+
+
+
+    #endregion
 }

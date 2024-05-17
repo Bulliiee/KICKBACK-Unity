@@ -20,7 +20,12 @@ public class MakingRoomPopUp : MonoBehaviour
         m_Room.SetActive(false);
 
         closeButton.onClick.AddListener(CloseBtn);
-        modeButtons[0].onClick.AddListener(() => ClickMode(0));
+
+        for (int i = 0; i < checkMarks.Count; i++)
+        {
+            int index = i;
+            modeButtons[i].onClick.AddListener(() => ClickMode(index));
+        }
     }
 
     public void OpenPopUp()

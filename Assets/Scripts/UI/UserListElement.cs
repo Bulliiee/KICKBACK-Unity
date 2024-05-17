@@ -19,6 +19,6 @@ public class UserListElement : MonoBehaviour
     private void Start()
     {
         // 이벤트 붙이기
-        lobbyManagerScript = GameObject.Find("LobbyManager").GetComponent<LobbyManager>();
+        // lobbyManagerScript = GameObject.Find("LobbyManager").GetComponent<LobbyManager>();
     }
 }
