@@ -11,30 +11,22 @@ namespace Highlands.Server
     {
         #region 채팅
 
-        public static byte[] PackChatMessage(TMP_InputField inputField, int channelIndex, string nickname)
+        public static byte[] PackChatMessage(string message, int channelIndex)
         {
-            var message = inputField.text;
-
             if (message.Equals(""))
             {
                 return null;
             }
 
-            var pack = new Message
+            var pack = new ChatMessage
             {
-                command = Command.CHAT,
-                channelIndex = channelIndex,
-                userName = nickname,
-                message = message
+                Command = Command.CHAT,
+                ChannelIndex = channelIndex,
+                UserName = GameManager.Instance.loginUserInfo.NickName,
+                Message = message
             };
 
-            var msgpack = MessagePackSerializer.Serialize(pack);
-
-            inputField.text = "";
-            inputField.Select();
-            inputField.ActivateInputField();
-
-            return msgpack;
+            return MessagePackSerializer.Serialize(pack);
         }
 
         #endregion
