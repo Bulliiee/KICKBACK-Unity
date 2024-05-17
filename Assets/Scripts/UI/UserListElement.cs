@@ -4,7 +4,7 @@ using TMPro;
 
 public class UserListElement : MonoBehaviour
 {
-    public LobbyManager lobbyManagerScript;
+    // public LobbyManager lobbyManagerScript;
     public Button DetailBtn;
     public TMP_Text UserNameText;
     [SerializeField] private new string nickname;

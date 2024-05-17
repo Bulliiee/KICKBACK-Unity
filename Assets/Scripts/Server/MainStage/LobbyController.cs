@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class LobbyController : MonoBehaviour
 {
@@ -25,6 +27,9 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private GameObject userElement;
     [SerializeField] private GameObject chattingElement;
 
+    [Header("기타")] 
+    [SerializeField] private ObjectPool channelObjectPool;
+
     private List<string> _userList;
     private List<string> _channelList;
     private ChannelInfo _channelInfo;
@@ -36,17 +41,40 @@ public class LobbyController : MonoBehaviour
         
     }
 
-    public void SetChannelList(List<string> channelList)
+    public void SetChannelList(List<string> receiveChannelListJson)
     {
-        _channelList = channelList;
-        for (int i = 0; i < _channelList.Count; i++)
+        // 기존 방 목록 제거
+        for (int i = 0; i < channelListContent.transform.childCount; i++)
         {
-            Debug.Log(_channelList[i]);
+            channelObjectPool.ReturnObject(channelListContent.transform.GetChild(i).gameObject);
+        }
+        
+        // 새로운 방 생성
+        for (int i = 0; i < receiveChannelListJson.Count; i++)
+        {
+            // 받은 데이터 파싱
+            string tempJson = receiveChannelListJson[i];
+            if (i != receiveChannelListJson.Count-1)
+            {
+                tempJson += "}";
+            }
+            ReceiveChannelElement temp = JsonUtility.FromJson<ReceiveChannelElement>(tempJson);
+            
+            // 오브젝트 풀링
+            GameObject channelElement = channelObjectPool.GetObject();
+            // 값 설정 및 텍스트 보이기
+            channelElement.GetComponent<ChannelListElement>().SetDatas(temp);
+            channelElement.GetComponent<ChannelListElement>().SetText();
+            // 부모 정하기
+            channelElement.transform.SetParent(channelListContent.transform);
+            // 사이즈 조절
+            channelElement.transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 
     public void SetChannelInfo()
     {
+        
         
     }
 

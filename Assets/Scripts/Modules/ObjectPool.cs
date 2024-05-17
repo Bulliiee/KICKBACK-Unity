@@ -38,6 +38,7 @@ public class ObjectPool : MonoBehaviour
             return obj;
         }
 
+        Debug.Log("pooled");
         GameObject pooledObj = objectPool.Dequeue();
         pooledObj.SetActive(true);
         return pooledObj;

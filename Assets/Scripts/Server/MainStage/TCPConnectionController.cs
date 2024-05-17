@@ -12,8 +12,8 @@ public class TCPConnectionController
     private NetworkStream _networkStream;
     
     // 호스트
-    // private string hostname = "k10c209.p.ssafy.io"; // ec2
-    private string hostname = "localhost"; // 로컬
+    private string hostname = "k10c209.p.ssafy.io"; // ec2
+    // private string hostname = "localhost"; // 로컬
 
     public (byte[], int) ChatIncoming()
     {
@@ -33,7 +33,7 @@ public class TCPConnectionController
         while (_networkStream != null && _networkStream.DataAvailable)
         {
             Debug.Log("Incoming from BusinessServer");
-            BusinessReceiver();
+            return BusinessReceiver();
         }
 
         return (null, 0);
@@ -43,7 +43,7 @@ public class TCPConnectionController
     {
         try
         {
-            // TCP 서버에 연결
+            // TCP 서버에 연결 
             _tcpClient = new TcpClient(hostname, port);
             _networkStream = _tcpClient.GetStream();
 

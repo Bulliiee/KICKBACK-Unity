@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5327499375038420885}
-  - component: {fileID: -8864929308717894912}
+  - component: {fileID: 8125889906365024114}
   m_Layer: 5
   m_Name: ChannelListElement
   m_TagString: Untagged
@@ -134,7 +134,7 @@ RectTransform:
   m_AnchoredPosition: {x: -130.6427, y: -23.273987}
   m_SizeDelta: {x: 536.4751, y: 46.548}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-8864929308717894912
+--- !u!114 &8125889906365024114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,15 +146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b776e5d2c0d14a07b542baf6e992495e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TCPConnectManagerScript: {fileID: 0}
-  roomName_txt: {fileID: 5327499376749532006}
-  roomUser_txt: {fileID: 5517029463379065669}
+  channelName_txt: {fileID: 5327499376749532006}
+  channelUser_txt: {fileID: 5517029463379065669}
   isOnGame_txt: {fileID: 3392857206057115045}
-  roomIndex: 0
-  roomName: 
-  mapName: 
-  roomUser: 0
-  isOnGame: 0
 --- !u!1 &5327499376363436754
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +270,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8864929308717894912}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ChannelListElement, Assembly-CSharp
         m_MethodName: ChannelListElementClicked
         m_Mode: 1
