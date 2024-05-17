@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using System.Net.Sockets;
 using UnityEngine;
-
 using MessagePack;
 using Highlands.Server;
 
@@ -10,10 +9,10 @@ public class TCPConnectionController
 {
     private TcpClient _tcpClient;
     private NetworkStream _networkStream;
-    
+
     // 호스트
-    // private string hostname = "k10c209.p.ssafy.io"; // ec2
-    private string hostname = "192.168.100.146"; // 01
+    private string hostname = "k10c209.p.ssafy.io"; // ec2
+    // private string hostname = "192.168.100.146"; // 01
     // private string hostname = "localhost"; // 로컬
 
     public (byte[], int) ChatIncoming()
@@ -93,7 +92,7 @@ public class TCPConnectionController
                 return (null, 0);
             }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.Log("채팅서버 응답 읽기 실패 : " + e.Message);
         }
@@ -117,7 +116,7 @@ public class TCPConnectionController
                 byte[] messageBuffer = new byte[4];
                 int bytesRead = _networkStream.Read(messageBuffer, 0, 4); // 실제 데이터를 읽음
                 Array.Reverse(messageBuffer);
-                
+
                 if (bytesRead == 4)
                 {
                     int length = BitConverter.ToInt32(messageBuffer, 0);
@@ -134,14 +133,14 @@ public class TCPConnectionController
                 return (null, 0);
             }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.Log("비즈니스서버 응답 읽기 실패 : " + e.Message);
         }
 
         return (null, 0);
     }
-    
+
     public void DisconnectFromServer()
     {
         // 연결 종료

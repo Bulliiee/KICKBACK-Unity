@@ -15,7 +15,7 @@ public class ObjectPool : MonoBehaviour
         Instance = this;
         InitializePool();
     }
-    
+
     // 오브젝트 풀 초기화
     private void InitializePool()
     {
@@ -26,7 +26,7 @@ public class ObjectPool : MonoBehaviour
             objectPool.Enqueue(obj);
         }
     }
-    
+
     // 오브젝트 요청
     public GameObject GetObject()
     {

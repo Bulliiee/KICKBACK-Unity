@@ -42,7 +42,7 @@ namespace Highlands.Server
         #region 비즈니스
 
         // 패킹
-        
+
         // 1. 최초 접속시 전송할 메시지
         public static byte[] PackInitialMessage()
         {
@@ -55,7 +55,7 @@ namespace Highlands.Server
 
             return MessagePackSerializer.Serialize(pack);
         }
-        
+
         // 2. 방 생성시 전송할 메시지
         public static byte[] PackCreateMessage(string channelName, string mapName, string gameMode)
         {
@@ -63,8 +63,8 @@ namespace Highlands.Server
             {
                 Command = Command.CREATE,
                 UserName = GameManager.Instance.loginUserInfo.NickName, // 방 만드는 유저 닉네임
-                ChannelName = channelName,         // 방 제목
-                MapName = mapName,          // 맵 이름
+                ChannelName = channelName, // 방 제목
+                MapName = mapName, // 맵 이름
                 GameMode = gameMode,
                 EscapeString = "\n"
             };
@@ -142,6 +142,7 @@ namespace Highlands.Server
             return MessagePackSerializer.Serialize(message);
         }
         
+
         // 언패킹 
         public static void UnPackBusinessMessage(byte[] buffer, int bytesRead)
         {
@@ -180,7 +181,7 @@ namespace Highlands.Server
                     {
                         channelList.Clear();
                     }
-                    
+
                     lobbyController.SetChannelList(channelList);
                     // LobbyManagerScript.getRoomList(roomList);
                     break;
@@ -208,13 +209,13 @@ namespace Highlands.Server
                     break;
             }
         }
-        
+
         #endregion
 
         #region 라이브
 
         // 1. 게임시작 할 때 전송할 메시지
-        
+
         // 2. 게임이 끝났을 때 전송할 메시지
 
         #endregion
