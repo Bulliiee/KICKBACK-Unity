@@ -13,6 +13,9 @@
         END,
         CHAT,
         MAP,
+        RPOSITION,
+        SPOSITION,
         TEAMCHANGE,
+        CHARCHANGE
     }
 }

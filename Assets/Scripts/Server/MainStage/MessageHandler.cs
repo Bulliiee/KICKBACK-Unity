@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Highlands.Server.BusinessServer;
 using MessagePack;
 using TMPro;
 using UnityEngine;
@@ -54,9 +53,7 @@ namespace Highlands.Server
                 EscapeString = "\n"
             };
 
-            var msgpack = MessagePackSerializer.Serialize(pack);
-
-            return msgpack;
+            return MessagePackSerializer.Serialize(pack);
         }
         
         // 2. 방 생성시 전송할 메시지
@@ -72,26 +69,78 @@ namespace Highlands.Server
                 EscapeString = "\n"
             };
 
-            byte[] bytes = MessagePackSerializer.Serialize(message);
-
-            return bytes;
+            return MessagePackSerializer.Serialize(message);
         }
         
-        // 3. 방 입장시 전송할 메시지
+        // 3, 4, 5. 방 입장, 나가기, 레디시 전송할 메시지
+        public static byte[] PackJLRMessage(int channelIndex, Command command)
+        {
+            var message = new JLRMessage()
+            {
+                Command = command,
+                UserName = GameManager.Instance.loginUserInfo.NickName,
+                ChannelIndex = channelIndex,
+                EscapeString = "\n"
+            };
+
+            return MessagePackSerializer.Serialize(message);
+        }
         
-        // 4. 방 나갈때 전송할 메시지
+        // 6, 7. 게임 시작, 종료할 때 전송할 메시지
+        public byte[] PackStartOrEndMessage(Command command, int channelIndex)
+        {
+            var message = new StartOrEndMessage
+            {
+                Command = command,
+                ChannelIndex = channelIndex,
+                EscapeString = "\n"
+            };
+
+            return MessagePackSerializer.Serialize(message);
+        }
         
-        // 5. 방에서 준비할 때 전송할 메시지
+        // 7. 맵 바꿀 떼 전송할 메시지
+        public byte[] PackChangeMapMessage(string mapName, int channelIndex)
+        {
+            var message = new ChangeMapMessage
+            {
+                Command = Command.MAP,
+                MapName = mapName,
+                ChannelIndex = channelIndex,
+                EscapeString = "\n"
+            };
+
+            return MessagePackSerializer.Serialize(message);
+        }
         
-        // 6. 게임 시작할 때 전송할 메시지
-        
-        // 7. 게임이 끝났을 때 전송할 메시지
-        
-        // 8. 맵 바꿀 떼 전송할 메시지
-        
-        // 10. 팀 바꿀 때 전송할 메시지 
+        // 8. 팀 바꿀 때 전송할 메시지 
+        public byte[] PackTeamChangeMessage(int channelIndex)
+        {
+            var message = new TeamChangeMessage
+            {
+                Command = Command.TEAMCHANGE,
+                ChannelIndex = channelIndex,
+                UserName = GameManager.Instance.loginUserInfo.NickName,
+                EscapeString = "\n"
+            };
+
+            return MessagePackSerializer.Serialize(message);
+        }
                     
-        // 10. 캐릭터 변공할 때 전송할 메시지
+        // 9. 캐릭터 변공할 때 전송할 메시지
+        public byte[] PackCharacterChangeMessage(int channelIndex, int characterIndex)
+        {
+            var message = new CharacterChangeMessage
+            {
+                Command = Command.CHARCHANGE,
+                ChannelIndex = channelIndex,
+                UserName = GameManager.Instance.loginUserInfo.NickName,
+                CharacterIndex = characterIndex,
+                EscapeString = "\n"
+            };
+
+            return MessagePackSerializer.Serialize(message);
+        }
         
         // 언패킹 
         public static void UnPackBusinessMessage(byte[] buffer, int bytesRead)
