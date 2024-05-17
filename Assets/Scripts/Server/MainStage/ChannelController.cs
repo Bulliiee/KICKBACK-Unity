@@ -52,7 +52,10 @@ public class ChannelController : MonoBehaviour
     private void SendChattingMessage()
     {
         string myName = GameManager.Instance.loginUserInfo.dataBody.nickname;
-        var buffer = MessageHandler.PackChatMessage(chattingInput, 0, myName);
+        int channelIndex;
+        var buffer = MessageHandler.PackChatMessage(chattingInput, channelIndex, myName);
+        
+        NetworkManager.Instance.SendChatMessage(buffer);
         throw new System.NotImplementedException();
     }
 
