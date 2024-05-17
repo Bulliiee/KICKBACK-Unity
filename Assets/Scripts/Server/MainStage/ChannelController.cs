@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Text;
 using Highlands.Server;
 using TMPro;
 using UnityEngine;
@@ -9,7 +11,7 @@ public class ChannelController : MonoBehaviour
     [SerializeField] private GameObject[] playerCard;
 
     // Chatting
-    [SerializeField] private GameObject chattingList;
+    [SerializeField] private GameObject scrollView;
     [SerializeField] private TMP_Text chattingMessage;
     [SerializeField] private TMP_InputField chattingInput;
     [SerializeField] private Button chattingSendButton;
@@ -26,7 +28,7 @@ public class ChannelController : MonoBehaviour
 
     void Start()
     {
-        TMP_Text nickname = playerCard[0].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+        var nickname = playerCard[0].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
         nickname.text = "asdf";
     }
 
@@ -36,6 +38,7 @@ public class ChannelController : MonoBehaviour
         {
             if (chattingInput.isFocused)
             {
+                Debug.Log(chattingInput.text);
                 // 채팅창 포커스인 경우 채팅 보내기
                 SendChattingMessage();
             }
@@ -51,12 +54,53 @@ public class ChannelController : MonoBehaviour
 
     private void SendChattingMessage()
     {
-        string myName = GameManager.Instance.loginUserInfo.dataBody.nickname;
-        int channelIndex;
-        var buffer = MessageHandler.PackChatMessage(chattingInput, channelIndex, myName);
+        // var myName = GameManager.Instance.loginUserInfo.NickName;
+        // var myName = "test";
+        // int channelIndex = 0; // 받아와야 되요 ㅎ;
+        // var buffer = MessageHandler.PackChatMessage(chattingInput, channelIndex, myName);
+        Debug.Log(chattingInput.text);
+        chattingInput.text = "";
+        // NetworkManager.Instance.SendChatMessage(buffer);
+    }
+
+    public void UpdateChatMessage(ChatMessage message)
+    {
+        var sb = new StringBuilder();
+        var myName = GameManager.Instance.loginUserInfo.NickName;
+
+        if (myName.Equals(message.UserName))
+        {
+            sb.Append(message.UserName).Append("(나): ").Append(message.Message);
+        }
+        else
+        {
+            sb.Append(message.UserName).Append(": ").Append(message.Message);
+        }
+
+        Transform content = scrollView.transform.Find("Viewport/Content");
+        TMP_Text temp = Instantiate(chattingMessage);
+
+        temp.text = sb.ToString();
+        temp.transform.SetParent(content, false);
         
-        NetworkManager.Instance.SendChatMessage(buffer);
-        throw new System.NotImplementedException();
+        // 20개 이상 위에서부터 제거
+        if (content.childCount >= 20)
+        {
+            Destroy(content.GetChild(0).gameObject);
+        }
+
+        StartCoroutine(ScrollToBottom(scrollView));
+    }
+
+    IEnumerator ScrollToBottom(GameObject scrollView)
+    {
+        yield return null;
+
+        var content = scrollView.transform.Find("Viewport/Content");
+        
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)content);
+        
+        scrollView.GetComponent<ScrollRect>().verticalNormalizedPosition = 0f;
     }
 
     #endregion
