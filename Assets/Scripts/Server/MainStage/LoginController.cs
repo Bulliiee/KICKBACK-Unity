@@ -233,6 +233,7 @@ public class LoginController : MonoBehaviour
                 NetworkManager.Instance.GetRequest<User>("", "/member/get", (userInfo) =>
                 {
                     GameManager.Instance.loginUserInfo = userInfo;
+                    GameManager.Instance.loginUserInfo.NickName = GameManager.Instance.loginUserInfo.dataBody.nickname;
                 });
 
                 GameManager.Instance.ChangeMainStageCanvas("Lobby Canvas");

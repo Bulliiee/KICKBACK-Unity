@@ -9,6 +9,7 @@ public class MakingRoomPopUp : MonoBehaviour
     [SerializeField] private GameObject m_Room;
     [SerializeField] private TMP_InputField roomName;
     [SerializeField] private TMP_InputField roomPwd;
+    [SerializeField] private Button closeButton;
     public List<Button> modeButtons;
     public List<Image> checkMarks;
     public List<TMP_Text> modeTxts;
@@ -17,6 +18,9 @@ public class MakingRoomPopUp : MonoBehaviour
     void Start()
     {
         m_Room.SetActive(false);
+
+        closeButton.onClick.AddListener(CloseBtn);
+        modeButtons[0].onClick.AddListener(() => ClickMode(0));
     }
 
     public void OpenPopUp()
@@ -34,25 +38,25 @@ public class MakingRoomPopUp : MonoBehaviour
         roomPwd.text = "";
         m_Room.SetActive(false);
 
-        // ¸ğµç Ã¼Å©¸¶Å©¸¦ ¸ÕÀú ºñÈ°¼ºÈ­
+        // ëª¨ë“  ì²´í¬ë§ˆí¬ë¥¼ ë¨¼ì € ë¹„í™œì„±í™”
         for (int i = 0; i < checkMarks.Count; i++)
         {
             checkMarks[i].gameObject.SetActive(false);
         }
     }
 
-    // ¹öÆ° Å¬¸¯ ½Ã È£ÃâµÉ ¸Ş¼Òµå. ÀÎµ¦½º¸¦ ¸Å°³º¯¼ö·Î ¹ŞÀ½
+    // ë²„íŠ¼ í´ë¦­ ì‹œ í˜¸ì¶œë  ë©”ì†Œë“œ. ì¸ë±ìŠ¤ë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ìŒ
     public void ClickMode(int buttonIndex)
     {
-        // ¸ğµç Ã¼Å©¸¶Å©¸¦ ¸ÕÀú ºñÈ°¼ºÈ­
+        // ëª¨ë“  ì²´í¬ë§ˆí¬ë¥¼ ë¨¼ì € ë¹„í™œì„±í™”
         for (int i = 0; i < checkMarks.Count; i++)
         {
             checkMarks[i].gameObject.SetActive(false);
         }
 
-        // Å¬¸¯µÈ ¹öÆ°¿¡ ÇØ´çÇÏ´Â Ã¼Å©¸¶Å©¸¸ È°¼ºÈ­
+        // í´ë¦­ëœ ë²„íŠ¼ì— í•´ë‹¹í•˜ëŠ” ì²´í¬ë§ˆí¬ë§Œ í™œì„±í™”
         checkMarks[buttonIndex].gameObject.SetActive(true);
-        // ¸ğµå ÀÌ¸§ ÇÒ´ç
+        // ëª¨ë“œ ì´ë¦„ í• ë‹¹
         modeName = modeTxts[buttonIndex].text;
     }
 }
