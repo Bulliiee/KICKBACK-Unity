@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Highlands.Server;
 using UnityEngine;
 using UnityEngine.UI;
@@ -141,6 +142,49 @@ public class LobbyController : MonoBehaviour
         chattingInput.text = "";
         chattingInput.Select();
         chattingInput.ActivateInputField();
+    }
+    
+    public void UpdateChatMessage(ChatMessage message)
+    {
+        var sb = new StringBuilder();
+        var myName = GameManager.Instance.loginUserInfo.NickName;
+
+        if (myName.Equals(message.UserName))
+        {
+            sb.Append(message.UserName).Append("(나): ").Append(message.Message);
+        }
+        else
+        {
+            sb.Append(message.UserName).Append(": ").Append(message.Message);
+        }
+
+        var content = chattingListContent.transform;
+        var temp = Instantiate(chattingElement, content, false);
+        
+        var tempTextComponent = temp.GetComponent<TMP_Text>();
+        if (tempTextComponent != null)
+        {
+            tempTextComponent.text = sb.ToString();
+        }
+
+        // 20개 이상 위에서부터 제거
+        if (content.childCount >= 20)
+        {
+            Destroy(content.GetChild(0).gameObject);
+        }
+
+        StartCoroutine(ScrollToBottom());
+    }
+
+    IEnumerator ScrollToBottom()
+    {
+        yield return null;
+
+        var content = chattingListContent.transform;
+        
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)content);
+        
+        content.parent.parent.GetComponent<ScrollRect>().verticalNormalizedPosition = 0f;
     }
 
     #endregion
