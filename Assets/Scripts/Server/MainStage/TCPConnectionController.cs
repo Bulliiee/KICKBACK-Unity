@@ -21,7 +21,7 @@ public class TCPConnectionController
         while (_networkStream != null && _networkStream.DataAvailable)
         {
             Debug.Log("Incoming from ChattingServer");
-            ChatReceiver();
+            return ChatReceiver();
         }
 
         return (null, 0);
@@ -52,7 +52,7 @@ public class TCPConnectionController
         catch (Exception e)
         {
             // 연결 중 오류 발생 시
-            Debug.Log($"Failed to connect server: {e.Message}");
+            Debug.Log($"Failed to connect server: {server}");
         }
     }
 

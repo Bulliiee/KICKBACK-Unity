@@ -90,21 +90,11 @@ namespace Highlands.Server
 
             if (data != null)
             {
-                var message =
-                    MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
+                var message = MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
 
-                switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocation로 변경
-                {
-                    case CurrentPlayerLocation.Lobby:
-                        // UpdateCurrentChattingPlace = 로비 채팅창 UI 업데이트 로직 (currentChat);
-                        break;
-                    case CurrentPlayerLocation.WaitingRoom:
-                        // UpdateCurrentChattingPlace = 대기룸 채팅창 UI 업데이트 로직 (currentChat);
-                        break;
-                    case CurrentPlayerLocation.InGame:
-                        // UpdateCurrentChattingPlace = 인게임 채팅창 UI 업데이트 로직 (currentChat);
-                        break;
-                }
+                var lobbyController = GameObject.Find("LobbyController").GetComponent<LobbyController>();
+                
+                lobbyController.UpdateChatMessage(message);
             }
         }
 

@@ -78,11 +78,10 @@ public class ChannelController : MonoBehaviour
         }
 
         Transform content = scrollView.transform.Find("Viewport/Content");
-        TMP_Text temp = Instantiate(chattingMessage);
+        TMP_Text temp = Instantiate(chattingMessage, content, false);
 
         temp.text = sb.ToString();
-        temp.transform.SetParent(content, false);
-        
+
         // 20개 이상 위에서부터 제거
         if (content.childCount >= 20)
         {
