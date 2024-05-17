@@ -2392,6 +2392,8 @@ MonoBehaviour:
   userElement: {fileID: 4834511096287844405, guid: 5d47f31171398b84e813511e7c3f513c, type: 3}
   chattingElement: {fileID: 5061940835538020210, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
   channelObjectPool: {fileID: 406718048}
+  userObjectPool: {fileID: 517496464}
+  chattingObjectPool: {fileID: 661376108}
   _makingRoomPopUp: {fileID: 0}
 --- !u!1 &346333505
 GameObject:
