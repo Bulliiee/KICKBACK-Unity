@@ -20,6 +20,7 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private GameObject userListContent;
     [SerializeField] private GameObject chattingListContent;
     [SerializeField] private GameObject tutorialPopup;
+    [SerializeField] private GameObject enterChannelPopup;
 
     [Header("프리팹")] [SerializeField] private GameObject channelElement;
     [SerializeField] private GameObject userElement;

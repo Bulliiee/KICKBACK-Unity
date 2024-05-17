@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b776e5d2c0d14a07b542baf6e992495e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  channelListButton: {fileID: 5327499376363436756}
+  channelInfoPopup: {fileID: 0}
   channelName_txt: {fileID: 5327499376749532006}
   channelUser_txt: {fileID: 5517029463379065669}
   isOnGame_txt: {fileID: 3392857206057115045}
