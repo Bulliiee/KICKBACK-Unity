@@ -164,9 +164,9 @@ namespace Highlands.Server
             {
                 case "userList":
                     trimmedString = receivedMessage.List.TrimStart('[').TrimEnd(']');
-                    userList = new List<string>(trimmedString.Split(','));
+                    // userList = new List<string>(trimmedString.Split(','));
+                    userList = new List<string>(trimmedString.Split(new string[] { ", " }, StringSplitOptions.None));
 
-                    Debug.Log(receivedMessage.List);
                     lobbyController.SetUserList(userList);
                     // LobbyManagerScript.getAllUsers(userList);
                     break;
@@ -174,6 +174,12 @@ namespace Highlands.Server
                     trimmedString = receivedMessage.List.TrimStart('[').TrimEnd(']');
                     channelList =
                         new List<string>(trimmedString.Split(new string[] { "}, " }, StringSplitOptions.None));
+
+                    // 파싱 시 아무것도 없을 때 처리
+                    if (channelList[0] == "")
+                    {
+                        channelList.Clear();
+                    }
                     
                     lobbyController.SetChannelList(channelList);
                     // LobbyManagerScript.getRoomList(roomList);

@@ -12,8 +12,8 @@ public class TCPConnectionController
     private NetworkStream _networkStream;
     
     // 호스트
-    private string hostname = "k10c209.p.ssafy.io"; // ec2
-    // private string hostname = "192.168.100.146"; // 01
+    // private string hostname = "k10c209.p.ssafy.io"; // ec2
+    private string hostname = "192.168.100.146"; // 01
     // private string hostname = "localhost"; // 로컬
 
     public (byte[], int) ChatIncoming()
