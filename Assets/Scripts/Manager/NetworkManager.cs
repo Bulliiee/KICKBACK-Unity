@@ -1,7 +1,6 @@
 using System;
 using MessagePack;
 using Modules;
-using TMPro;
 using UnityEngine;
 
 namespace Highlands.Server
