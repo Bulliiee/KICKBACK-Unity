@@ -90,8 +90,7 @@ namespace Highlands.Server
 
             if (data != null)
             {
-                var message =
-                    MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
+                var message = MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
 
                 switch (currentPlayerLocation) //TODO : GameManager.Instance.CurrentPlayerLocation로 변경
                 {

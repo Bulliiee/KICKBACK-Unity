@@ -21,12 +21,12 @@ namespace Highlands.Server
                 return null;
             }
 
-            var pack = new Message
+            var pack = new ChatMessage
             {
-                command = Command.CHAT,
-                channelIndex = channelIndex,
-                userName = nickname,
-                message = message
+                Command = Command.CHAT,
+                ChannelIndex = channelIndex,
+                UserName = nickname,
+                Message = message
             };
 
             var msgpack = MessagePackSerializer.Serialize(pack);
