@@ -157,21 +157,23 @@ namespace Highlands.Server
             string type = receivedMessage.Type;
             string trimmedString;
 
+            LobbyController lobbyController =
+                GameObject.Find("LobbyController").GetComponent<LobbyController>();
+
             switch (type)
             {
                 case "userList":
                     trimmedString = receivedMessage.List.TrimStart('[').TrimEnd(']');
                     userList = new List<string>(trimmedString.Split(','));
-                    
+
+                    Debug.Log(receivedMessage.List);
+                    lobbyController.SetUserList(userList);
                     // LobbyManagerScript.getAllUsers(userList);
                     break;
                 case "channelList":
                     trimmedString = receivedMessage.List.TrimStart('[').TrimEnd(']');
                     channelList =
                         new List<string>(trimmedString.Split(new string[] { "}, " }, StringSplitOptions.None));
-                    
-                    LobbyController lobbyController =
-                        GameObject.Find("LobbyController").GetComponent<LobbyController>();
                     
                     lobbyController.SetChannelList(channelList);
                     // LobbyManagerScript.getRoomList(roomList);
