@@ -52,7 +52,7 @@ public class TCPConnectionController
         catch (Exception e)
         {
             // 연결 중 오류 발생 시
-            Debug.Log($"Failed to connect server: {server}");
+            Debug.Log($"Failed to connect server: {e.Message}");
         }
     }
 

@@ -30,9 +30,7 @@ namespace Highlands.Server
                 UpdateLiveLog();
             }
         }
-
-        private delegate void UpdateCurrentChattingPlace();
-
+        
         //Todo : GameManager Stanby
         public CurrentPlayerLocation currentPlayerLocation = CurrentPlayerLocation.Login;
 
@@ -90,9 +88,11 @@ namespace Highlands.Server
 
             if (data != null)
             {
-                var message = MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
+                var message =
+                    MessagePackSerializer.Deserialize<ChatMessage>(data.AsSpan().Slice(0, bytesRead).ToArray());
 
-                var lobbyController = GameObject.Find("LobbyController").GetComponent<LobbyController>();
+                var lobbyController =
+                    GameObject.Find("LobbyController").GetComponent<LobbyController>();
                 
                 lobbyController.UpdateChatMessage(message);
             }

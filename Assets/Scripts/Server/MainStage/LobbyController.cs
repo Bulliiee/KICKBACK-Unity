@@ -136,6 +136,10 @@ public class LobbyController : MonoBehaviour
 
     public void ChattingSendButtonClicked()
     {
+        if (chattingInput.text == "")
+        {
+            return;
+        }
         var message = MessageHandler.PackChatMessage(chattingInput.text, 0);
         NetworkManager.Instance.SendChatMessage(message);
 
