@@ -223,10 +223,10 @@ namespace Highlands.Server
                     string userCharacterListString = receivedMessage.UserCharacter.TrimStart('[').TrimEnd(']');
 
                     // 스피드전인 경우
-                    if (teamColorListString == "")
-                    {
-                        channelInfo.gameMode = "speed";
-                    }
+                    // if (teamColorListString == "")
+                    // {
+                        channelInfo.gameMode = receivedMessage.GameMode;
+                    // }
                     
                     // 리스트 형태 저장
                     channelInfo.channelUserList = new List<string>(channelUserListString.Split(new string[] { ", " }, StringSplitOptions.None));
