@@ -91,7 +91,13 @@ public class MakingRoomPopUp : MonoBehaviour
         {
             warningText.text = "";
             warningText.SetActive(false);
-            NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackCreateMessage(roomName.text, "empty", modeName));
+
+            string mapName = "Cebu";
+            if (modeName == "soccer")
+            {
+                mapName = "Football Stadium";
+            }
+            NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackCreateMessage(roomName.text, mapName, modeName));
         }
     }
 }

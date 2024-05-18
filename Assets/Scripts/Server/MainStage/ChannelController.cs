@@ -35,15 +35,15 @@ public class ChannelController : MonoBehaviour
 
     [Header("캐릭터 선택")] 
     [SerializeField] private GameObject characterSelectPopup;
-    
+
     [Header("기타")] 
-    public List<Sprite> speedMapSprites; // 변경할 스프라이트 목록
-    public List<Sprite> soccerMapSprites;
+    [SerializeField] private List<Sprite> mapSprites;
 
     private bool chatFocus = false;
 
     void OnEnable()
     {
+        // 방장 여부에 따라 버튼 변경
         if (NetworkManager.Instance.currentChannelInfo.channelManager.Equals(
                 GameManager.Instance.loginUserInfo.NickName))
         {
@@ -55,7 +55,23 @@ public class ChannelController : MonoBehaviour
             startButton.SetActive(false);
             readyButton.SetActive(true);
         }
+
+        // 게임 모드에 따라 버튼 변경
+        if (NetworkManager.Instance.currentChannelInfo.gameMode == "speed")
+        {
+            changeTeamButton.gameObject.SetActive(false);
+            dropdown.gameObject.SetActive(true);
+        }
+        else if (NetworkManager.Instance.currentChannelInfo.gameMode == "soccer")
+        {
+            changeTeamButton.gameObject.SetActive(true);
+            dropdown.gameObject.SetActive(false);
+        }
+
+        // 선택한 맵에 따라 관련된 것 설정
+        SetMap();
         
+        // 플레이어 카드 설정
         SetPlayerCard();
     }
 
@@ -90,6 +106,32 @@ public class ChannelController : MonoBehaviour
     {
         NetworkManager.Instance.currentChannelInfo = channelInfo;
         SetPlayerCard();
+    }
+    
+    // 드롭다운 설정
+    
+    
+    // 맵 이미지, 이름 설정
+    private void SetMap()
+    {
+        string currentMapName = NetworkManager.Instance.currentChannelInfo.mapName;
+
+        string[] mapNames =
+        {
+            "Cebu",
+            "Mexico",
+            "Downhill",
+            "Football Stadium"
+        };
+
+        for (int i = 0; i < mapNames.Length; i++)
+        {
+            if (currentMapName == mapNames[i])
+            {
+                mapImage.sprite = mapSprites[i];
+                mapName.text = mapNames[i];
+            }
+        }
     }
 
     // 플레이어 카드 설정
