@@ -42,6 +42,19 @@ namespace Highlands.Server
             return MessagePackSerializer.Serialize(pack);
         }
 
+        public static byte[] PackChatLeaveMessage()
+        {
+            var pack = new ChatMessage
+            {
+                Command = Command.LEAVE,
+                ChannelIndex = NetworkManager.Instance.currentChannelInfo.channelIndex,
+                UserName = GameManager.Instance.loginUserInfo.NickName,
+                Message = "leave"
+            };
+
+            return MessagePackSerializer.Serialize(pack);
+        }
+
         #endregion
 
         #region 비즈니스
