@@ -4,6 +4,7 @@ using System.Text;
 using Highlands.Server;
 using PG;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,31 +14,27 @@ public class ChannelController : MonoBehaviour
     [Header("유저")] [SerializeField] private GameObject[] playerCard;
 
     // Chatting
-    [Header("채팅")] 
-    [SerializeField] private ObjectPool chattingObjectPool;
+    [Header("채팅")] [SerializeField] private ObjectPool chattingObjectPool;
     [SerializeField] private GameObject chattingListContent;
     [SerializeField] private TMP_InputField chattingInput;
     [SerializeField] private Button chattingSendButton;
 
     // Map 
-    [Header("맵")] 
-    [SerializeField] private Image mapImage;
+    [Header("맵")] [SerializeField] private Image mapImage;
     [SerializeField] private TMP_Text mapName;
     [SerializeField] private TMP_Dropdown dropdown;
 
     // Button
-    [Header("버튼")] 
-    [SerializeField] private Button changeTeamButton;
+    [Header("버튼")] [SerializeField] private Button changeTeamButton;
     [SerializeField] private Button characterSelectButton;
     [SerializeField] private Button startButton;
     [SerializeField] private Button readyButton;
     [SerializeField] private Button exitButton;
 
-    [Header("캐릭터 선택")] 
-    [SerializeField] private GameObject characterSelectPopup;
+    [Header("캐릭터 선택")] [SerializeField] private GameObject characterSelectPopup;
 
-    [Header("기타")] 
-    [SerializeField] private List<Sprite> mapSprites;
+    [Header("기타")] [SerializeField] private List<Sprite> mapSprites;
+    [SerializeField] private List<Sprite> characterSprites;
 
     private bool chatFocus = false;
 
@@ -70,7 +67,7 @@ public class ChannelController : MonoBehaviour
 
         // 선택한 맵에 따라 관련된 것 설정
         SetMap();
-        
+
         // 플레이어 카드 설정
         SetPlayerCard();
     }
@@ -82,11 +79,8 @@ public class ChannelController : MonoBehaviour
         startButton.onClick.AddListener(StartButtonClicked);
         chattingSendButton.onClick.AddListener(ChattingSendButtonClicked);
         characterSelectButton.onClick.AddListener(CharacterSelectPopupOpen);
-        
-        dropdown.onValueChanged.AddListener(delegate
-        {
-            SelectMapDropdown(dropdown);
-        });
+
+        dropdown.onValueChanged.AddListener(delegate { SelectMapDropdown(dropdown); });
     }
 
     void Update()
@@ -112,14 +106,14 @@ public class ChannelController : MonoBehaviour
         NetworkManager.Instance.currentChannelInfo = channelInfo;
         SetPlayerCard();
     }
-    
+
     // 드롭다운 설정
     public void SelectMapDropdown(TMP_Dropdown changedDropdown)
     {
         NetworkManager.Instance.currentChannelInfo.mapName = changedDropdown.options[changedDropdown.value].text;
         SetMap();
     }
-    
+
     // 맵 이미지, 이름 설정
     private void SetMap()
     {
@@ -151,6 +145,9 @@ public class ChannelController : MonoBehaviour
         {
             TMP_Text nickname = playerCard[i].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
             nickname.text = "";
+
+            Image playerCharacter = playerCard[i].transform.GetChild(1).GetComponent<Image>();
+            playerCharacter.SetActive(false);
         }
 
         // 재설정
@@ -158,6 +155,13 @@ public class ChannelController : MonoBehaviour
         {
             TMP_Text nickname = playerCard[i].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
             nickname.text = NetworkManager.Instance.currentChannelInfo.channelUserList[i];
+
+            if (!nickname.text.Equals(""))
+            {
+                Image playerCharacter = playerCard[i].transform.GetChild(1).GetComponent<Image>();
+                playerCharacter.sprite = characterSprites[NetworkManager.Instance.currentChannelInfo.userCharacter[i]];
+                playerCharacter.SetActive(true);
+            }
         }
     }
 
@@ -231,10 +235,10 @@ public class ChannelController : MonoBehaviour
     {
         // 먼저 나가야 로비에서 필요한 정보 받는데 순서 맞음
         GameManager.Instance.ChangeMainStageCanvas("Lobby Canvas");
-        
+
         NetworkManager.Instance.SendBusinessMessage(
             MessageHandler.PackJLRMessage(NetworkManager.Instance.currentChannelInfo.channelIndex, Command.LEAVE));
-     
+
         NetworkManager.Instance.SendChatMessage(
             MessageHandler.PackChatLeaveMessage());
 
@@ -260,5 +264,5 @@ public class ChannelController : MonoBehaviour
         // TODO: 현재 선택된 캐릭터 체크마크
     }
 
-#endregion
+    #endregion
 }
