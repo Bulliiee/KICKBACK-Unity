@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Highlands.Server;
 using PG;
 using TMPro;
 using UnityEngine;
@@ -76,6 +77,7 @@ public class MakingRoomPopUp : MonoBehaviour
         
     }
 
+    // 방 생성 버튼 클릭 시
     public void CreateChannelButtonClicked()
     {
         // 방 제목 없을 때
@@ -89,7 +91,7 @@ public class MakingRoomPopUp : MonoBehaviour
         {
             warningText.text = "";
             warningText.SetActive(false);
-            // TODO: 로직 작성
+            NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackCreateMessage(roomName.text, "", modeName));
         }
     }
 }

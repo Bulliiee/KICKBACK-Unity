@@ -149,8 +149,8 @@ namespace Highlands.Server
             string type = receivedMessage.Type;
             string trimmedString;
 
-            LobbyController lobbyController =
-                GameObject.Find("LobbyController").GetComponent<LobbyController>();
+            LobbyController lobbyController;
+            ChannelController channelController;
 
             switch (type)
             {
@@ -159,6 +159,9 @@ namespace Highlands.Server
                     // userList = new List<string>(trimmedString.Split(','));
                     userList = new List<string>(trimmedString.Split(new string[] { ", " }, StringSplitOptions.None));
 
+                    lobbyController =
+                        GameObject.Find("LobbyController").GetComponent<LobbyController>();
+                    
                     lobbyController.SetUserList(userList);
                     // LobbyManagerScript.getAllUsers(userList);
                     break;
@@ -173,6 +176,9 @@ namespace Highlands.Server
                         channelList.Clear();
                     }
 
+                    lobbyController =
+                        GameObject.Find("LobbyController").GetComponent<LobbyController>();
+                    
                     lobbyController.SetChannelList(channelList);
                     // LobbyManagerScript.getRoomList(roomList);
                     break;
@@ -207,8 +213,23 @@ namespace Highlands.Server
 
                     // 본인 인덱스 찾기
                     channelInfo.SetMyIndex();
+
+                    Debug.Log("채널 정보 들어옴");
+                    try
+                    {
+                        lobbyController =
+                            GameObject.Find("LobbyController").GetComponent<LobbyController>();
+                        
+                        lobbyController.SetChannelInfo(channelInfo);
+                    }
+                    catch (Exception e)
+                    {
+                        channelController = 
+                            GameObject.Find("ChannelController").GetComponent<ChannelController>();
+                        
+                        channelController.SetChannelInfo(channelInfo);
+                    }
                     
-                    lobbyController.EnterChannel(channelInfo);
                     break;
                 default:
                     Debug.Log("언패킹 에러(메시지 핸들러)");

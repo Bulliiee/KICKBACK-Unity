@@ -49,6 +49,13 @@ public class ChannelController : MonoBehaviour
         }
     }
 
+    // 채널 정보 설정
+    public void SetChannelInfo(ChannelInfo channelInfo)
+    {
+        NetworkManager.Instance.currentChannelInfo = channelInfo;
+        SetPlayerCard();
+    }
+
     // 플레이어 카드 설정
     private void SetPlayerCard()
     {

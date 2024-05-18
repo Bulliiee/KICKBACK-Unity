@@ -69,7 +69,7 @@ public class LobbyController : MonoBehaviour
         }
     }
 
-    #region 채널목록
+    #region 채널
 
     // 채널 목록 불러오기
     public void SetChannelList(List<string> receiveChannelListJson)
@@ -105,11 +105,13 @@ public class LobbyController : MonoBehaviour
         }
     }
 
-    // 채널 입장
-    public void EnterChannel(ChannelInfo channelInfo)
+    // 채널 정보 설정 및 채널 화면 이동
+    public void SetChannelInfo(ChannelInfo channelInfo)
     {
         NetworkManager.Instance.currentChannelInfo = channelInfo;
+
         GameManager.Instance.ChangeMainStageCanvas("Channel Canvas");
+        NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.WaitingRoom;
     }
 
     #endregion
