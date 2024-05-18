@@ -105,7 +105,7 @@ namespace Highlands.Server
         }
         
         // 6, 7. 게임 시작, 종료할 때 전송할 메시지
-        public byte[] PackStartOrEndMessage(Command command, int channelIndex)
+        public static byte[] PackStartOrEndMessage(Command command, int channelIndex)
         {
             var message = new StartOrEndMessage
             {
@@ -118,7 +118,7 @@ namespace Highlands.Server
         }
         
         // 7. 맵 바꿀 떼 전송할 메시지
-        public byte[] PackChangeMapMessage(string mapName, int channelIndex)
+        public static byte[] PackChangeMapMessage(string mapName, int channelIndex)
         {
             var message = new ChangeMapMessage
             {
@@ -132,7 +132,7 @@ namespace Highlands.Server
         }
         
         // 8. 팀 바꿀 때 전송할 메시지 
-        public byte[] PackTeamChangeMessage(int channelIndex)
+        public static byte[] PackTeamChangeMessage(int channelIndex)
         {
             var message = new TeamChangeMessage
             {
@@ -146,7 +146,7 @@ namespace Highlands.Server
         }
                     
         // 9. 캐릭터 변공할 때 전송할 메시지
-        public byte[] PackCharacterChangeMessage(int channelIndex, int characterIndex)
+        public static byte[] PackCharacterChangeMessage(int channelIndex, int characterIndex)
         {
             var message = new CharacterChangeMessage
             {
