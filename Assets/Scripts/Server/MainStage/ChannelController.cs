@@ -53,11 +53,13 @@ public class ChannelController : MonoBehaviour
         {
             startButton.SetActive(true);
             readyButton.SetActive(false);
+            dropdown.gameObject.SetActive(true);
         }
         else
         {
             startButton.SetActive(false);
             readyButton.SetActive(true);
+            dropdown.gameObject.SetActive(false);
         }
 
         // 게임 모드에 따라 버튼 변경
@@ -71,6 +73,9 @@ public class ChannelController : MonoBehaviour
             changeTeamButton.gameObject.SetActive(true);
             dropdown.gameObject.SetActive(false);
         }
+        
+        // 드롭다운 초기화
+        dropdown.value = 0;
 
         // 선택한 맵에 따라 관련된 것 설정
         SetMap();
@@ -275,7 +280,6 @@ public class ChannelController : MonoBehaviour
     private void CharacterSelectPopupOpen()
     {
         characterSelectPopup.SetActive(true);
-        // TODO: 현재 선택된 캐릭터 체크마크
     }
 
     #endregion
