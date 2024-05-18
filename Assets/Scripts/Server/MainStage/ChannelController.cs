@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Highlands.Server;
+using PG;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,47 +10,57 @@ using UnityEngine.UI;
 public class ChannelController : MonoBehaviour
 {
     // User 
-    [Header("유저")]
-    [SerializeField] private GameObject[] playerCard;
+    [Header("유저")] [SerializeField] private GameObject[] playerCard;
 
     // Chatting
     [Header("채팅")] 
     [SerializeField] private ObjectPool chattingObjectPool;
     [SerializeField] private GameObject chattingListContent;
-    // [SerializeField] private GameObject chattingMessageElement;
     [SerializeField] private TMP_InputField chattingInput;
     [SerializeField] private Button chattingSendButton;
 
     // Map 
-    [Header("맵")]
-    [SerializeField] private Image mapImage;
+    [Header("맵")] [SerializeField] private Image mapImage;
     [SerializeField] private TMP_Text mapName;
     [SerializeField] private TMP_Dropdown dropdown;
 
     // Button
-    [Header("버튼")] 
-    [SerializeField] private Button changeTeamButton;
+    [Header("버튼")] [SerializeField] private Button changeTeamButton;
     [SerializeField] private Button characterSelectButton;
     [SerializeField] private Button startButton;
     [SerializeField] private Button readyButton;
     [SerializeField] private Button exitButton;
-    
-    [Header("기타")]
-    public List<Sprite> speedMapSprites; // 변경할 스프라이트 목록
+
+    [Header("기타")] public List<Sprite> speedMapSprites; // 변경할 스프라이트 목록
     public List<Sprite> soccerMapSprites;
-    
+
     private bool chatFocus = false;
 
     void OnEnable()
     {
+        if (NetworkManager.Instance.currentChannelInfo.channelManager.Equals(
+                GameManager.Instance.loginUserInfo.NickName))
+        {
+            startButton.SetActive(true);
+            readyButton.SetActive(false);
+        }
+        else
+        {
+            startButton.SetActive(false);
+            readyButton.SetActive(true);
+        }
+        
         SetPlayerCard();
     }
 
     void Start()
     {
+        exitButton.onClick.AddListener(ExitButtonClicked);
+        readyButton.onClick.AddListener(ReadyButtonClicked);
+        startButton.onClick.AddListener(StartButtonClicked);
         chattingSendButton.onClick.AddListener(ChattingSendButtonClicked);
     }
-    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
@@ -83,7 +94,7 @@ public class ChannelController : MonoBehaviour
             TMP_Text nickname = playerCard[i].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
             nickname.text = "";
         }
-        
+
         // 재설정
         for (int i = 0; i < NetworkManager.Instance.currentChannelInfo.channelUserList.Count; i++)
         {
@@ -103,7 +114,7 @@ public class ChannelController : MonoBehaviour
 
         var message = MessageHandler.PackChatMessage(chattingInput.text,
             NetworkManager.Instance.currentChannelInfo.channelIndex);
-        
+
         NetworkManager.Instance.SendChatMessage(message);
 
         chattingInput.text = "";
@@ -133,15 +144,6 @@ public class ChannelController : MonoBehaviour
         chattingElement.transform.SetParent(chattingListContent.transform);
         // 사이즈 조절
         chattingElement.transform.localScale = new Vector3(1f, 1f, 1f);
-        
-        // var content = chattingListContent.transform;
-        // var temp = Instantiate(chattingElement, content, true);
-        //
-        // var tempTextComponent = temp.GetComponent<TMP_Text>();
-        // if (tempTextComponent != null)
-        // {
-        //     tempTextComponent.text = sb.ToString();
-        // }
 
         // 20개 이상 위에서부터 제거
         if (chattingListContent.transform.childCount >= 20)
@@ -157,12 +159,33 @@ public class ChannelController : MonoBehaviour
         yield return null;
 
         var content = chattingListContent.transform;
-        
+
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)content);
-        
+
         content.parent.parent.GetComponent<ScrollRect>().verticalNormalizedPosition = 0f;
     }
 
     #endregion
-    
+
+    #region 버튼
+
+    private void ExitButtonClicked()
+    {
+        NetworkManager.Instance.SendBusinessMessage(
+            MessageHandler.PackJLRMessage(NetworkManager.Instance.currentChannelInfo.channelIndex, Command.LEAVE));
+    }
+
+    private void ReadyButtonClicked()
+    {
+        NetworkManager.Instance.SendBusinessMessage(
+            MessageHandler.PackJLRMessage(NetworkManager.Instance.currentChannelInfo.channelIndex, Command.READY));
+    }
+
+    private void StartButtonClicked()
+    {
+        NetworkManager.Instance.SendBusinessMessage(
+            MessageHandler.PackJLRMessage(NetworkManager.Instance.currentChannelInfo.channelIndex, Command.START));
+    }
+
+#endregion
 }
