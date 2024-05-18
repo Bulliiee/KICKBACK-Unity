@@ -99,6 +99,12 @@ namespace Highlands.Server
 
                         lobbyController.UpdateChatMessage(message);
                         break;
+                    case CurrentPlayerLocation.WaitingRoom:
+                        var channelController =
+                            GameObject.Find("ChannelController").GetComponent<ChannelController>();
+
+                        channelController.UpdateChatMessage(message);
+                        break;
                     default:
                         break;
                 }

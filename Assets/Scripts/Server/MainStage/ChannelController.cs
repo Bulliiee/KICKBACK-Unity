@@ -14,8 +14,8 @@ public class ChannelController : MonoBehaviour
 
     // Chatting
     [Header("채팅")]
-    [SerializeField] private GameObject scrollView;
-    [SerializeField] private TMP_Text chattingMessage;
+    [SerializeField] private GameObject chattingListContent;
+    [SerializeField] private GameObject chattingElement;
     [SerializeField] private TMP_InputField chattingInput;
     [SerializeField] private Button chattingSendButton;
 
@@ -36,26 +36,32 @@ public class ChannelController : MonoBehaviour
     [Header("기타")]
     public List<Sprite> speedMapSprites; // 변경할 스프라이트 목록
     public List<Sprite> soccerMapSprites;
+    
+    private bool chatFocus = false;
 
     void OnEnable()
     {
         SetPlayerCard();
     }
 
+    void Start()
+    {
+        chattingSendButton.onClick.AddListener(ChattingSendButtonClicked);
+    }
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (chattingInput.isFocused)
+            if (chatFocus)
             {
-                Debug.Log(chattingInput.text);
-                // 채팅창 포커스인 경우 채팅 보내기
-                SendChattingMessage();
+                ChattingSendButtonClicked();
             }
             else
             {
                 // 채팅창 포커스 시키기
                 chattingInput.Select();
+                chatFocus = true;
             }
         }
     }
@@ -87,15 +93,21 @@ public class ChannelController : MonoBehaviour
 
     #region 채팅
 
-    private void SendChattingMessage()
+    private void ChattingSendButtonClicked()
     {
-        // var myName = GameManager.Instance.loginUserInfo.NickName;
-        // var myName = "test";
-        // int channelIndex = 0; // 받아와야 되요 ㅎ;
-        // var buffer = MessageHandler.PackChatMessage(chattingInput, channelIndex, myName);
-        Debug.Log(chattingInput.text);
+        if (chattingInput.text == "")
+        {
+            return;
+        }
+
+        var message = MessageHandler.PackChatMessage(chattingInput.text,
+            NetworkManager.Instance.currentChannelInfo.channelIndex);
+        
+        NetworkManager.Instance.SendChatMessage(message);
+
         chattingInput.text = "";
-        // NetworkManager.Instance.SendChatMessage(buffer);
+        chattingInput.Select();
+        chattingInput.ActivateInputField();
     }
 
     public void UpdateChatMessage(ChatMessage message)
@@ -112,30 +124,33 @@ public class ChannelController : MonoBehaviour
             sb.Append(message.UserName).Append(": ").Append(message.Message);
         }
 
-        Transform content = scrollView.transform.Find("Viewport/Content");
-        TMP_Text temp = Instantiate(chattingMessage);
+        var content = chattingListContent.transform;
+        var temp = Instantiate(chattingElement, content, true);
 
-        temp.text = sb.ToString();
-        temp.transform.SetParent(content, false);
-        
+        var tempTextComponent = temp.GetComponent<TMP_Text>();
+        if (tempTextComponent != null)
+        {
+            tempTextComponent.text = sb.ToString();
+        }
+
         // 20개 이상 위에서부터 제거
         if (content.childCount >= 20)
         {
             Destroy(content.GetChild(0).gameObject);
         }
 
-        StartCoroutine(ScrollToBottom(scrollView));
+        StartCoroutine(ScrollToBottom());
     }
 
-    IEnumerator ScrollToBottom(GameObject scrollView)
+    IEnumerator ScrollToBottom()
     {
         yield return null;
 
-        var content = scrollView.transform.Find("Viewport/Content");
+        var content = chattingListContent.transform;
         
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)content);
         
-        scrollView.GetComponent<ScrollRect>().verticalNormalizedPosition = 0f;
+        content.parent.parent.GetComponent<ScrollRect>().verticalNormalizedPosition = 0f;
     }
 
     #endregion

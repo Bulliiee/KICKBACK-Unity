@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1772,6 +1772,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188808560}
   m_CullTransparentMesh: 0
+--- !u!1 &208288909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5061940835538020210, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+  m_PrefabInstance: {fileID: 333355763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &208288910 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+  m_PrefabInstance: {fileID: 333355763}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &212705856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2702,6 +2712,111 @@ MonoBehaviour:
   userObjectPool: {fileID: 517496464}
   chattingObjectPool: {fileID: 661376108}
   _makingRoomPopUp: {fileID: 0}
+--- !u!1001 &333355763
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1799914098}
+    m_Modifications:
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 27.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 244.95229
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -13.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5061940835538020210, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_Name
+      value: MessageElement
+      objectReference: {fileID: 0}
+    - target: {fileID: 5061940835538020210, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242494321501213945, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+      propertyPath: m_text
+      value: sadasdsadasd
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
 --- !u!1 &346333505
 GameObject:
   m_ObjectHideFlags: 0
@@ -17125,8 +17240,8 @@ MonoBehaviour:
   - {fileID: 831391331}
   - {fileID: 1163843566}
   - {fileID: 1167672753}
-  scrollView: {fileID: 935531499}
-  chattingMessage: {fileID: 7242494321501213945, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+  chattingListContent: {fileID: 1799914097}
+  chattingElement: {fileID: 208288909}
   chattingInput: {fileID: 354305696}
   chattingSendButton: {fileID: 495014220}
   mapImage: {fileID: 2142644384}
@@ -17248,7 +17363,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 208288910}
   m_Father: {fileID: 1888745455}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -37954,7 +38070,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 934896676867731853}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.47619048
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

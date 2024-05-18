@@ -153,6 +153,7 @@ public class LobbyController : MonoBehaviour
             return;
         }
         var message = MessageHandler.PackChatMessage(chattingInput.text, 0);
+        
         NetworkManager.Instance.SendChatMessage(message);
 
         chattingInput.text = "";
