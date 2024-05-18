@@ -175,19 +175,19 @@ public class LobbyController : MonoBehaviour
             sb.Append(message.UserName).Append(": ").Append(message.Message);
         }
 
-        var content = chattingListContent.transform;
-        var temp = Instantiate(chattingElement, content, false);
-        
-        var tempTextComponent = temp.GetComponent<TMP_Text>();
-        if (tempTextComponent != null)
-        {
-            tempTextComponent.text = sb.ToString();
-        }
+        // 오브젝트 풀링
+        GameObject chattingElement = chattingObjectPool.GetObject();
+        // 값 설정 및 채팅 보이기
+        chattingElement.GetComponent<TMP_Text>().text = sb.ToString();
+        // 부모 정하기
+        chattingElement.transform.SetParent(chattingListContent.transform);
+        // 사이즈 조절
+        chattingElement.transform.localScale = new Vector3(1f, 1f, 1f);
 
         // 20개 이상 위에서부터 제거
-        if (content.childCount >= 20)
+        if (chattingListContent.transform.childCount >= 20)
         {
-            Destroy(content.GetChild(0).gameObject);
+            chattingObjectPool.ReturnObject(chattingListContent.transform.GetChild(0).gameObject);
         }
 
         StartCoroutine(ScrollToBottom());
