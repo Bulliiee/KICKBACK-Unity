@@ -118,7 +118,7 @@ public class LobbyController : MonoBehaviour
 
     public void SetUserList(List<string> userList)
     {
-        // 기존 방 목록 제거
+        // 기존 유저 목록 제거
         int userCount = userListContent.transform.childCount;
         for (int i = userCount - 1; i >= 0; i--)
         {

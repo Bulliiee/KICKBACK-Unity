@@ -26,10 +26,9 @@ public class ChannelController : MonoBehaviour
     [SerializeField] private Button readyButton;
     [SerializeField] private Button exitButton;
 
-    void Start()
+    void OnEnable()
     {
-        var nickname = playerCard[0].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
-        nickname.text = "asdf";
+        SetPlayerCard();
     }
 
     void Update()
@@ -47,6 +46,24 @@ public class ChannelController : MonoBehaviour
                 // 채팅창 포커스 시키기
                 chattingInput.Select();
             }
+        }
+    }
+
+    // 플레이어 카드 설정
+    private void SetPlayerCard()
+    {
+        // 기존 플레이어 카드 지우기
+        for (int i = 0; i < 6; i++)
+        {
+            TMP_Text nickname = playerCard[i].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+            nickname.text = "";
+        }
+        
+        // 재설정
+        for (int i = 0; i < NetworkManager.Instance.currentChannelInfo.channelUserList.Count; i++)
+        {
+            TMP_Text nickname = playerCard[i].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+            nickname.text = NetworkManager.Instance.currentChannelInfo.channelUserList[i];
         }
     }
 

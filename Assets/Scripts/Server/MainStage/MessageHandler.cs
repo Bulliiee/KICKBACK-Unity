@@ -197,7 +197,7 @@ namespace Highlands.Server
                     }
                     
                     // 리스트 형태 저장
-                    channelInfo.channelUserList = new List<string>(channelUserListString.Split(','));
+                    channelInfo.channelUserList = new List<string>(channelUserListString.Split(new string[] { ", " }, StringSplitOptions.None));
                     channelInfo.isReady = isReadyListString.Split(',').Select(s => bool.Parse(s)).ToList();
                     if (channelInfo.gameMode == "soccer")
                     {
