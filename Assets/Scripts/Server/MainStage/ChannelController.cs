@@ -13,9 +13,10 @@ public class ChannelController : MonoBehaviour
     [SerializeField] private GameObject[] playerCard;
 
     // Chatting
-    [Header("채팅")]
+    [Header("채팅")] 
+    [SerializeField] private ObjectPool chattingObjectPool;
     [SerializeField] private GameObject chattingListContent;
-    [SerializeField] private GameObject chattingElement;
+    // [SerializeField] private GameObject chattingMessageElement;
     [SerializeField] private TMP_InputField chattingInput;
     [SerializeField] private Button chattingSendButton;
 
@@ -124,19 +125,28 @@ public class ChannelController : MonoBehaviour
             sb.Append(message.UserName).Append(": ").Append(message.Message);
         }
 
-        var content = chattingListContent.transform;
-        var temp = Instantiate(chattingElement, content, true);
-
-        var tempTextComponent = temp.GetComponent<TMP_Text>();
-        if (tempTextComponent != null)
-        {
-            tempTextComponent.text = sb.ToString();
-        }
+        // 오브젝트 풀링
+        GameObject chattingElement = chattingObjectPool.GetObject();
+        // 값 설정 및 채팅 보이기
+        chattingElement.GetComponent<TMP_Text>().text = sb.ToString();
+        // 부모 정하기
+        chattingElement.transform.SetParent(chattingListContent.transform);
+        // 사이즈 조절
+        chattingElement.transform.localScale = new Vector3(1f, 1f, 1f);
+        
+        // var content = chattingListContent.transform;
+        // var temp = Instantiate(chattingElement, content, true);
+        //
+        // var tempTextComponent = temp.GetComponent<TMP_Text>();
+        // if (tempTextComponent != null)
+        // {
+        //     tempTextComponent.text = sb.ToString();
+        // }
 
         // 20개 이상 위에서부터 제거
-        if (content.childCount >= 20)
+        if (chattingListContent.transform.childCount >= 20)
         {
-            Destroy(content.GetChild(0).gameObject);
+            chattingObjectPool.ReturnObject(chattingListContent.transform.GetChild(0).gameObject);
         }
 
         StartCoroutine(ScrollToBottom());

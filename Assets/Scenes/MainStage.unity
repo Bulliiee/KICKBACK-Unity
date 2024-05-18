@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1772,11 +1772,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188808560}
   m_CullTransparentMesh: 0
---- !u!1 &208288909 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5061940835538020210, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
-  m_PrefabInstance: {fileID: 333355763}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &208288910 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2327044709538367974, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
@@ -3102,7 +3097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7674727960285084790, guid: b96c86edc867bd940a77963bed0c94eb, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7674727960285084790, guid: b96c86edc867bd940a77963bed0c94eb, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4863,7 +4858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4552671922391780416, guid: 2ee7ab0d750296e42abe967481736af4, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4552671922391780416, guid: 2ee7ab0d750296e42abe967481736af4, type: 3}
       propertyPath: m_AnchorMax.x
@@ -9549,7 +9544,7 @@ RectTransform:
   - {fileID: 1888745455}
   - {fileID: 86533470}
   m_Father: {fileID: 1584649625}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15986,6 +15981,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2128996533}
   - {fileID: 1896319684}
   - {fileID: 354305697}
   - {fileID: 935531500}
@@ -17240,8 +17236,8 @@ MonoBehaviour:
   - {fileID: 831391331}
   - {fileID: 1163843566}
   - {fileID: 1167672753}
+  chattingObjectPool: {fileID: 2128996534}
   chattingListContent: {fileID: 1799914097}
-  chattingElement: {fileID: 208288909}
   chattingInput: {fileID: 354305696}
   chattingSendButton: {fileID: 495014220}
   mapImage: {fileID: 2142644384}
@@ -18573,7 +18569,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1584649625}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -20986,6 +20982,57 @@ Transform:
   m_Father: {fileID: 997306108}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2128996532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2128996533}
+  - component: {fileID: 2128996534}
+  m_Layer: 5
+  m_Name: ChattingObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2128996533
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128996532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1584649625}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2128996534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128996532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af5b6e71692dac43afcbb8aa90bc644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPrefab: {fileID: 5061940835538020210, guid: 38e7599f2bac2ec47aacd2a05814d331, type: 3}
+  poolSize: 500
 --- !u!1 &2138356442
 GameObject:
   m_ObjectHideFlags: 0
