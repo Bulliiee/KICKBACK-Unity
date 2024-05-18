@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Highlands.Server;
+using PG;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -16,7 +18,6 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private Button tutorialCloseButton;
     [SerializeField] private Button exitGameButton;
     [SerializeField] private Button chattingSendButton;
-    [SerializeField] private Button createChannelButton;
 
     [Header("인풋필드")] 
     [SerializeField] private TMP_InputField chattingInput;
@@ -25,19 +26,14 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private GameObject channelListContent;
     [SerializeField] private GameObject userListContent;
     [SerializeField] private GameObject chattingListContent;
+    [SerializeField] private GameObject createChannelPopup;
     [SerializeField] private GameObject tutorialPopup;
     [SerializeField] private GameObject enterChannelPopup;
-
-    [Header("프리팹")] 
-    [SerializeField] private GameObject channelElement;
-    [SerializeField] private GameObject userElement;
-    [SerializeField] private GameObject chattingElement;
 
     [Header("기타")] 
     [SerializeField] private ObjectPool channelObjectPool;
     [SerializeField] private ObjectPool userObjectPool;
     [SerializeField] private ObjectPool chattingObjectPool;
-    [SerializeField] private MakingRoomPopUp _makingRoomPopUp;
 
     private bool chatFocus = false;
 
@@ -46,6 +42,22 @@ public class LobbyController : MonoBehaviour
         tutorialButton.onClick.AddListener(TutorialButtonClicked);
         tutorialCloseButton.onClick.AddListener(TutorialCloseButtonClicked);
         chattingSendButton.onClick.AddListener(ChattingSendButtonClicked);
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("OnEnable Lobby");
+        // 팝업 끄기
+        createChannelPopup.SetActive(false);
+        enterChannelPopup.SetActive(false);
+        tutorialPopup.SetActive(false);
+        
+        // 채팅 리스트 초기화
+        int chattingCount = chattingListContent.transform.childCount;
+        for (int i = chattingCount - 1; i >= 0; i--)
+        {
+            chattingObjectPool.ReturnObject(chattingListContent.transform.GetChild(i).gameObject);
+        }
     }
 
     void Update()

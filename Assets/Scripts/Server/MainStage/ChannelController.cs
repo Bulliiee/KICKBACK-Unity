@@ -20,18 +20,24 @@ public class ChannelController : MonoBehaviour
     [SerializeField] private Button chattingSendButton;
 
     // Map 
-    [Header("맵")] [SerializeField] private Image mapImage;
+    [Header("맵")] 
+    [SerializeField] private Image mapImage;
     [SerializeField] private TMP_Text mapName;
     [SerializeField] private TMP_Dropdown dropdown;
 
     // Button
-    [Header("버튼")] [SerializeField] private Button changeTeamButton;
+    [Header("버튼")] 
+    [SerializeField] private Button changeTeamButton;
     [SerializeField] private Button characterSelectButton;
     [SerializeField] private Button startButton;
     [SerializeField] private Button readyButton;
     [SerializeField] private Button exitButton;
 
-    [Header("기타")] public List<Sprite> speedMapSprites; // 변경할 스프라이트 목록
+    [Header("캐릭터 선택")] 
+    [SerializeField] private GameObject characterSelectPopup;
+    
+    [Header("기타")] 
+    public List<Sprite> speedMapSprites; // 변경할 스프라이트 목록
     public List<Sprite> soccerMapSprites;
 
     private bool chatFocus = false;
@@ -59,6 +65,7 @@ public class ChannelController : MonoBehaviour
         readyButton.onClick.AddListener(ReadyButtonClicked);
         startButton.onClick.AddListener(StartButtonClicked);
         chattingSendButton.onClick.AddListener(ChattingSendButtonClicked);
+        characterSelectButton.onClick.AddListener(CharacterSelectPopupOpen);
     }
 
     void Update()
@@ -179,6 +186,8 @@ public class ChannelController : MonoBehaviour
      
         NetworkManager.Instance.SendChatMessage(
             MessageHandler.PackChatLeaveMessage());
+
+        NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.Lobby;
     }
 
     private void ReadyButtonClicked()
@@ -191,6 +200,13 @@ public class ChannelController : MonoBehaviour
     {
         NetworkManager.Instance.SendBusinessMessage(
             MessageHandler.PackJLRMessage(NetworkManager.Instance.currentChannelInfo.channelIndex, Command.START));
+    }
+
+    // 캐릭터 선택 팝업 켜기
+    private void CharacterSelectPopupOpen()
+    {
+        characterSelectPopup.SetActive(true);
+        // TODO: 현재 선택된 캐릭터 체크마크
     }
 
 #endregion
