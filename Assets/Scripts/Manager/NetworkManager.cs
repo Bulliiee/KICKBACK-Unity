@@ -118,6 +118,7 @@ namespace Highlands.Server
         #region 비즈니스 서버
 
         private TCPConnectionController _businessServer = new TCPConnectionController();
+        public ChannelInfo currentChannelInfo;
 
         public void ConnectBusinessServer()
         {
@@ -130,7 +131,6 @@ namespace Highlands.Server
 
             if (data != null)
             {
-                Debug.Log("receive data");
                 MessageHandler.UnPackBusinessMessage(data, bytesRead);
             }
         }

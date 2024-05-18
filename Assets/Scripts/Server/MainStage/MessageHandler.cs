@@ -140,7 +140,6 @@ namespace Highlands.Server
         {
             List<string> userList = new List<string>();
             List<string> channelList = new List<string>();
-            ChannelInfo channelInfo = new ChannelInfo();
 
             // MessagePackSerializer를 사용하여 메시지 역직렬화
             RecieveLoginMessage receivedMessage =
@@ -178,23 +177,38 @@ namespace Highlands.Server
                     // LobbyManagerScript.getRoomList(roomList);
                     break;
                 case "channelInfo":
-                    string channelUserList = receivedMessage.List.TrimStart('[').TrimEnd(']');
-                    string isReadyList = receivedMessage.IsReady.TrimStart('[').TrimEnd(']');
-                    string teamColorList = receivedMessage.TeamColor.TrimStart('[').TrimEnd(']');
-                    string userCharacterList = receivedMessage.UserCharacter.TrimStart('[').TrimEnd(']');
+                    // 기본 데이터 저장
+                    ChannelInfo channelInfo = new ChannelInfo();
+                    channelInfo.channelIndex = receivedMessage.ChannelIndex;
+                    channelInfo.channelName = receivedMessage.ChannelName;
+                    channelInfo.channelManager = receivedMessage.ChannelManager;
+                    channelInfo.mapName = receivedMessage.MapName;
+                    
+                    // 리스트 형태 파싱
+                    string channelUserListString = receivedMessage.List.TrimStart('[').TrimEnd(']');
+                    string isReadyListString = receivedMessage.IsReady.TrimStart('[').TrimEnd(']');
+                    string teamColorListString = receivedMessage.TeamColor.TrimStart('[').TrimEnd(']');
+                    string userCharacterListString = receivedMessage.UserCharacter.TrimStart('[').TrimEnd(']');
 
-                    channelInfo.ChannelIndex = receivedMessage.ChannelIndex;
-                    // dataManager.channelIndex = channelInfo.ChannelIndex;
-                    channelInfo.ChannelName = receivedMessage.ChannelName;
-                    // dataManager.channelName = channelInfo.ChannelName;
-                    channelInfo.ChannelUserList = new List<string>(channelUserList.Split(','));
-                    // dataManager.roomUserList = channelInfo.ChannelUserList;
-                    // dataManager.cnt = channelInfo.ChannelUserList.Count;
-                    channelInfo.ChannelManager = receivedMessage.ChannelManager;
-                    channelInfo.MapName = receivedMessage.MapName;
-                    channelInfo.IsReady = isReadyList.Split(',').Select(s => bool.Parse(s)).ToList();
-                    channelInfo.TeamColor = teamColorList.Split(',').Select(s => int.Parse(s)).ToList();
-                    channelInfo.UserCharacter = userCharacterList.Split(',').Select(s => int.Parse(s)).ToList();
+                    // 스피드전인 경우
+                    if (teamColorListString == "")
+                    {
+                        channelInfo.gameMode = "speed";
+                    }
+                    
+                    // 리스트 형태 저장
+                    channelInfo.channelUserList = new List<string>(channelUserListString.Split(','));
+                    channelInfo.isReady = isReadyListString.Split(',').Select(s => bool.Parse(s)).ToList();
+                    if (channelInfo.gameMode == "soccer")
+                    {
+                        channelInfo.teamColor = teamColorListString.Split(',').Select(s => int.Parse(s)).ToList();
+                    }
+                    channelInfo.userCharacter = userCharacterListString.Split(',').Select(s => int.Parse(s)).ToList();
+
+                    // 본인 인덱스 찾기
+                    channelInfo.SetMyIndex();
+                    
+                    lobbyController.EnterChannel(channelInfo);
                     break;
                 default:
                     Debug.Log("언패킹 에러(메시지 핸들러)");

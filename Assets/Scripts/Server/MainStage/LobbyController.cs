@@ -11,32 +11,33 @@ using UnityEngine.EventSystems;
 
 public class LobbyController : MonoBehaviour
 {
-    [Header("버튼")] [SerializeField] private Button tutorialButton;
+    [Header("버튼")] 
+    [SerializeField] private Button tutorialButton;
     [SerializeField] private Button tutorialCloseButton;
     [SerializeField] private Button exitGameButton;
     [SerializeField] private Button chattingSendButton;
     [SerializeField] private Button createChannelButton;
 
-    [Header("인풋필드")] [SerializeField] private TMP_InputField chattingInput;
+    [Header("인풋필드")] 
+    [SerializeField] private TMP_InputField chattingInput;
 
-    [Header("게임오브젝트")] [SerializeField] private GameObject channelListContent;
+    [Header("게임오브젝트")] 
+    [SerializeField] private GameObject channelListContent;
     [SerializeField] private GameObject userListContent;
     [SerializeField] private GameObject chattingListContent;
     [SerializeField] private GameObject tutorialPopup;
     [SerializeField] private GameObject enterChannelPopup;
 
-    [Header("프리팹")] [SerializeField] private GameObject channelElement;
+    [Header("프리팹")] 
+    [SerializeField] private GameObject channelElement;
     [SerializeField] private GameObject userElement;
     [SerializeField] private GameObject chattingElement;
 
-    [Header("기타")] [SerializeField] private ObjectPool channelObjectPool;
+    [Header("기타")] 
+    [SerializeField] private ObjectPool channelObjectPool;
     [SerializeField] private ObjectPool userObjectPool;
     [SerializeField] private ObjectPool chattingObjectPool;
     [SerializeField] private MakingRoomPopUp _makingRoomPopUp;
-
-    private List<string> _userList;
-    private List<string> _channelList;
-    private ChannelInfo _channelInfo;
 
     private bool chatFocus = false;
 
@@ -90,7 +91,7 @@ public class LobbyController : MonoBehaviour
                 tempJson += "}";
             }
 
-            ReceiveChannelElement temp = JsonUtility.FromJson<ReceiveChannelElement>(tempJson);
+            ChannelInfo temp = JsonUtility.FromJson<ChannelInfo>(tempJson);
 
             // 오브젝트 풀링
             GameObject channelElement = channelObjectPool.GetObject();
@@ -102,6 +103,13 @@ public class LobbyController : MonoBehaviour
             // 사이즈 조절
             channelElement.transform.localScale = new Vector3(1f, 1f, 1f);
         }
+    }
+
+    // 채널 입장
+    public void EnterChannel(ChannelInfo channelInfo)
+    {
+        NetworkManager.Instance.currentChannelInfo = channelInfo;
+        GameManager.Instance.ChangeMainStageCanvas("Channel Canvas");
     }
 
     #endregion

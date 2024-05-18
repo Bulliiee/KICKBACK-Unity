@@ -7,13 +7,35 @@ using TMPro;
 using UnityEngine.UI;
 
 [Serializable]
-public class ReceiveChannelElement
+public class ChannelInfo
 {
-    public int channelIndex;
-    public string channelName;
-    public bool isOnGame;
-    public string mapName;
-    public int channelUser;
+    public int channelIndex;                // 채널 번호
+    public string channelName;              // 채널 이름
+    public List<string> channelUserList;    // 채널 유저 리스트
+    public string channelManager;           // 방장
+    public string mapName;                  // 선택된 맵 이름
+    public List<bool> isReady;              // 레디 여부
+    public List<int> teamColor;             // 축구모드 팀 색깔
+    public List<int> userCharacter;         // 선택한 캐릭터
+    
+    public bool isOnGame;                   // 게임중 여부
+    public int channelUser;                 // 채널 유저 수
+    public string gameMode;                 // 게임 모드(스피드/축구)
+
+    public int myIndex;                     // channelUserList에서 내 인덱스
+
+    // 내 인덱스 찾기
+    public void SetMyIndex()
+    {
+        for (int i = 0; i < channelUserList.Count; i++)
+        {
+            if (channelUserList[i] == GameManager.Instance.loginUserInfo.NickName)
+            {
+                myIndex = i;
+                return;
+            }
+        }
+    }
 }
 
 public class ChannelListElement : MonoBehaviour
@@ -23,23 +45,19 @@ public class ChannelListElement : MonoBehaviour
     public TMP_Text channelUser_txt;
     public TMP_Text isOnGame_txt;
 
-    public int channelIndex { get; set; }
-    public string channelName { get; set; }
-    public bool isOnGame { get; set; }
-    public string mapName { get; set; }
-    public int channelUser { get; set; }
+    public ChannelInfo channelListInfo;
 
     void Start()
     {
         channelListButton.onClick.AddListener(ChannelListButtonClicked);
     }
-    
+
     public void SetText()
     {
-        channelName_txt.text = channelName;
-        channelUser_txt.text = $"({channelUser} / 6)";
+        channelName_txt.text = channelListInfo.channelName;
+        channelUser_txt.text = $"({channelListInfo.channelUser} / 6)";
 
-        if (!isOnGame)
+        if (!channelListInfo.isOnGame)
         {
             isOnGame_txt.text = "(대기 중)";
         }
@@ -49,28 +67,19 @@ public class ChannelListElement : MonoBehaviour
         }
     }
 
-    public void SetDatas(ReceiveChannelElement receiveChannelElement)
+    public void SetDatas(ChannelInfo channelInfo)
     {
-        this.channelIndex = receiveChannelElement.channelIndex;
-        this.channelName = receiveChannelElement.channelName;
-        this.isOnGame = receiveChannelElement.isOnGame;
-        this.mapName = receiveChannelElement.mapName;
-        this.channelUser = receiveChannelElement.channelUser;
+        channelListInfo = channelInfo;
     }
 
     // 방 리스트에서 버튼 누르면
     private void ChannelListButtonClicked()
     {
-        if (!isOnGame)
+        if (!channelListInfo.isOnGame)
         {
-            ReceiveChannelElement temp = new ReceiveChannelElement();
-            temp.channelIndex = this.channelIndex;
-            temp.channelName = this.channelName;
-            temp.channelUser = this.channelUser;
-
-            GameObject.Find("Enter Channel").GetComponent<EnterChannelPopUp>().OpenEnterChannelPopup(temp);
+            GameObject.Find("Enter Channel").GetComponent<EnterChannelPopUp>().OpenEnterChannelPopup(channelListInfo);
         }
-        
+
         // BusinessManager.Instance.jlrRoom(Command.JOIN, channelIndex);  // chk
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class ChannelInfo
+public class ChannelInfoo
 {
     [Header("ChannelInfo")]
     [SerializeField] private int channelIndex; // 방 번호
