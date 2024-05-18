@@ -176,7 +176,9 @@ public class ChannelController : MonoBehaviour
         
         NetworkManager.Instance.SendBusinessMessage(
             MessageHandler.PackJLRMessage(NetworkManager.Instance.currentChannelInfo.channelIndex, Command.LEAVE));
-        
+     
+        NetworkManager.Instance.SendChatMessage(
+            MessageHandler.PackChatLeaveMessage());
     }
 
     private void ReadyButtonClicked()
