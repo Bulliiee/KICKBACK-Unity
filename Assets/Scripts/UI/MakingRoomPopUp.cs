@@ -91,7 +91,7 @@ public class MakingRoomPopUp : MonoBehaviour
         {
             warningText.text = "";
             warningText.SetActive(false);
-            NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackCreateMessage(roomName.text, "", modeName));
+            NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackCreateMessage(roomName.text, "empty", modeName));
         }
     }
 }

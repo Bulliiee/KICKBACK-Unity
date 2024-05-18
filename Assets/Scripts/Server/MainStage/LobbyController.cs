@@ -81,7 +81,7 @@ public class LobbyController : MonoBehaviour
             channelObjectPool.ReturnObject(channelListContent.transform.GetChild(i).gameObject);
         }
 
-        // 새로운 방 생성
+        // 새로운 방 목록 생성
         for (int i = 0; i < receiveChannelListJson.Count; i++)
         {
             // 받은 데이터 파싱
