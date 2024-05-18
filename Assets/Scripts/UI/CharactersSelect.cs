@@ -1,7 +1,9 @@
-namespace Highlands.UI
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CharactersSelect : MonoBehaviour
 {
-    public class CharactersSelect
-    {
-        
-    }
+    [SerializeField] private Button closeButton;
+    [SerializeField] private Button selectButton;
+    // [SerializeField] 
 }
