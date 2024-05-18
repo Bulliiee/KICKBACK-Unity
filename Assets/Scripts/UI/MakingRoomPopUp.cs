@@ -65,7 +65,15 @@ public class MakingRoomPopUp : MonoBehaviour
         // 클릭된 버튼에 해당하는 체크마크만 활성화
         checkMarks[buttonIndex].gameObject.SetActive(true);
         // 모드 이름 할당
-        modeName = modeTxts[buttonIndex].text;
+        if (modeTxts[buttonIndex].text == "스피드 모드")
+        {
+            modeName = "speed";
+        }
+        else if (modeTxts[buttonIndex].text == "축구 모드")
+        {
+            modeName = "soccer";
+        }
+        
     }
 
     public void CreateChannelButtonClicked()

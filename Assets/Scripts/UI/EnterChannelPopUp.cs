@@ -27,12 +27,7 @@ public class EnterChannelPopUp : MonoBehaviour
         closeButton.onClick.AddListener(CloseButtonClicked);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // 채널 요소 눌렀을 때 팝업 띄우기
     public void OpenEnterChannelPopup(ReceiveChannelElement channelInfo)
     {
         this.channelIndex = channelInfo.channelIndex;
@@ -42,11 +37,13 @@ public class EnterChannelPopUp : MonoBehaviour
         enterChannelPopup.SetActive(true);
     }
 
+    // 채널 입장 버튼 클릭 시
     private void EnterChannelButtonClicked()
     {
         Debug.Log("채널번호 " + channelIndex + "에 " + GameManager.Instance.loginUserInfo.NickName + " 참가!");
     }
 
+    // 채널 닫기 버튼 클릭 시
     private void CloseButtonClicked()
     {
         enterChannelPopup.SetActive(false);
