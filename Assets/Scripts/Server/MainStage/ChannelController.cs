@@ -171,8 +171,12 @@ public class ChannelController : MonoBehaviour
 
     private void ExitButtonClicked()
     {
+        // 먼저 나가야 로비에서 필요한 정보 받는데 순서 맞음
+        GameManager.Instance.ChangeMainStageCanvas("Lobby Canvas");
+        
         NetworkManager.Instance.SendBusinessMessage(
             MessageHandler.PackJLRMessage(NetworkManager.Instance.currentChannelInfo.channelIndex, Command.LEAVE));
+        
     }
 
     private void ReadyButtonClicked()
