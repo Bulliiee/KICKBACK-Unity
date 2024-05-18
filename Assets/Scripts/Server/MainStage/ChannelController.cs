@@ -40,6 +40,13 @@ public class ChannelController : MonoBehaviour
 
     void OnEnable()
     {
+        // 채팅 리스트 초기화
+        int chattingCount = chattingListContent.transform.childCount;
+        for (int i = chattingCount - 1; i >= 0; i--)
+        {
+            chattingObjectPool.ReturnObject(chattingListContent.transform.GetChild(i).gameObject);
+        }
+        
         // 방장 여부에 따라 버튼 변경
         if (NetworkManager.Instance.currentChannelInfo.channelManager.Equals(
                 GameManager.Instance.loginUserInfo.NickName))

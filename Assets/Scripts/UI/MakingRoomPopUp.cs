@@ -37,9 +37,11 @@ public class MakingRoomPopUp : MonoBehaviour
     public void OpenPopUp()
     {
         roomName.text = "";
+        warningText.text = "";
         m_Room.SetActive(true);
 
-        checkMarks[0].gameObject.SetActive(true);
+        checkMarks[0].gameObject.SetActive(false);
+        checkMarks[1].gameObject.SetActive(false);
     }
 
     public void CloseBtn()
@@ -89,6 +91,12 @@ public class MakingRoomPopUp : MonoBehaviour
         // 방 제목 있을 때(정상 생성
         else
         {
+            if (modeName == "")
+            {
+                warningText.text = "모드를 선택 하세요!";
+                warningText.SetActive(true);
+                return;
+            }
             warningText.text = "";
             warningText.SetActive(false);
 
