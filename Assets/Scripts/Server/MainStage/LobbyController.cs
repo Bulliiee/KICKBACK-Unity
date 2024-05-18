@@ -109,6 +109,8 @@ public class LobbyController : MonoBehaviour
     public void SetChannelInfo(ChannelInfo channelInfo)
     {
         NetworkManager.Instance.currentChannelInfo = channelInfo;
+        
+        NetworkManager.Instance.SendChatMessage(MessageHandler.PackChatMoveMessage(NetworkManager.Instance.currentChannelInfo.channelIndex));
 
         GameManager.Instance.ChangeMainStageCanvas("Channel Canvas");
         NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.WaitingRoom;
