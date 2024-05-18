@@ -32,7 +32,7 @@ public class TCPConnectionController
         // 데이터가 들어온 경우
         while (_networkStream != null && _networkStream.DataAvailable)
         {
-            Debug.Log("Incoming from BusinessServer");
+            // Debug.Log("Incoming from BusinessServer");
             return BusinessReceiver();
         }
 

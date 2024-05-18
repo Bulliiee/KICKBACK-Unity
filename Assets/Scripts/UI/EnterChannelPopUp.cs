@@ -50,7 +50,7 @@ public class EnterChannelPopUp : MonoBehaviour
     // 채널 입장 버튼 클릭 시
     private void EnterChannelButtonClicked()
     {
-        Debug.Log("채널번호 " + channelIndex + "에 " + GameManager.Instance.loginUserInfo.NickName + " 참가!");
+        // Debug.Log("채널번호 " + channelIndex + "에 " + GameManager.Instance.loginUserInfo.NickName + " 참가!");
         NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackJLRMessage(channelIndex, Command.JOIN));
     }
 

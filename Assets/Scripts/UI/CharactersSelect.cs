@@ -21,7 +21,7 @@ public class CharactersSelect : MonoBehaviour
         
         for (int i = 0; i < characters.Length; i++)
         {
-            int index = i + 1;
+            int index = i;
             characters[i].onClick.AddListener(() => SetCharacterIndex(index));
         }
     }

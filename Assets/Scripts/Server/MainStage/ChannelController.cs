@@ -82,6 +82,11 @@ public class ChannelController : MonoBehaviour
         startButton.onClick.AddListener(StartButtonClicked);
         chattingSendButton.onClick.AddListener(ChattingSendButtonClicked);
         characterSelectButton.onClick.AddListener(CharacterSelectPopupOpen);
+        
+        dropdown.onValueChanged.AddListener(delegate
+        {
+            SelectMapDropdown(dropdown);
+        });
     }
 
     void Update()
@@ -109,7 +114,11 @@ public class ChannelController : MonoBehaviour
     }
     
     // 드롭다운 설정
-    
+    public void SelectMapDropdown(TMP_Dropdown changedDropdown)
+    {
+        NetworkManager.Instance.currentChannelInfo.mapName = changedDropdown.options[changedDropdown.value].text;
+        SetMap();
+    }
     
     // 맵 이미지, 이름 설정
     private void SetMap()

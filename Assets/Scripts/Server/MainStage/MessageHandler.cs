@@ -240,7 +240,7 @@ namespace Highlands.Server
                     // 본인 인덱스 찾기
                     channelInfo.SetMyIndex();
 
-                    Debug.Log("채널 정보 들어옴");
+                    // Debug.Log("채널 정보 들어옴");
                     try
                     {
                         lobbyController =

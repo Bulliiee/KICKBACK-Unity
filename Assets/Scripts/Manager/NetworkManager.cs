@@ -116,7 +116,7 @@ namespace Highlands.Server
             // 전송
             _chattingServer.Deliver(buffer);
 
-            Debug.Log("Chatting send complete");
+            // Debug.Log("Chatting send complete");
         }
 
         #endregion
@@ -145,7 +145,7 @@ namespace Highlands.Server
         {
             _businessServer.Deliver(buffer);
 
-            Debug.Log("Business send complete");
+            // Debug.Log("Business send complete");
         }
 
         #endregion
