@@ -112,13 +112,19 @@ public class ChannelController : MonoBehaviour
     {
         NetworkManager.Instance.currentChannelInfo = channelInfo;
         SetPlayerCard();
+        SetMap();
     }
 
     // 드롭다운 설정
     public void SelectMapDropdown(TMP_Dropdown changedDropdown)
     {
-        NetworkManager.Instance.currentChannelInfo.mapName = changedDropdown.options[changedDropdown.value].text;
-        SetMap();
+        string tempName = changedDropdown.options[changedDropdown.value].text;
+        int currChannelIndex = NetworkManager.Instance.currentChannelInfo.channelIndex; 
+        
+        NetworkManager.Instance.currentChannelInfo.mapName = tempName;
+        // 서버에 맵 바꿨다고 알려주기
+        NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackChangeMapMessage(tempName, currChannelIndex));
+        // SetMap();   // 서버에서 인포 쏴주면 SetChannelInfo() -> SetMap() 해서 안해도 됨
     }
 
     // 맵 이미지, 이름 설정
@@ -145,6 +151,7 @@ public class ChannelController : MonoBehaviour
     }
 
     // 플레이어 카드 설정
+    // TODO: 레디
     private void SetPlayerCard()
     {
         // 기존 플레이어 카드 지우기
