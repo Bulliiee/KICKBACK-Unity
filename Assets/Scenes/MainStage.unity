@@ -17130,11 +17130,19 @@ MonoBehaviour:
   chattingInput: {fileID: 354305696}
   chattingSendButton: {fileID: 495014220}
   mapImage: {fileID: 2142644384}
+  mapName: {fileID: 1541013525}
   dropdown: {fileID: 6072902833826095804}
+  changeTeamButton: {fileID: 4128253149683022940}
   characterSelectButton: {fileID: 4128253149996565802}
   startButton: {fileID: 462178228}
   readyButton: {fileID: 4128253150310647076}
   exitButton: {fileID: 4128253151467958055}
+  speedMapSprites:
+  - {fileID: 21300000, guid: cda6fb9a4559c1544a29a516aa69d2f2, type: 3}
+  - {fileID: 21300000, guid: 712c6311f40a1fb4e97bfdede763663e, type: 3}
+  - {fileID: 21300000, guid: 52cdc283b812a9e4cbde57366a72002e, type: 3}
+  soccerMapSprites:
+  - {fileID: 21300000, guid: cfa4f13f3ff912442b0d975ada59a144, type: 3}
 --- !u!1 &1797743648
 GameObject:
   m_ObjectHideFlags: 0

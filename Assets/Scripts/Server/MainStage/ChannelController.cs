@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using Highlands.Server;
 using TMPro;
@@ -8,23 +9,33 @@ using UnityEngine.UI;
 public class ChannelController : MonoBehaviour
 {
     // User 
+    [Header("유저")]
     [SerializeField] private GameObject[] playerCard;
 
     // Chatting
+    [Header("채팅")]
     [SerializeField] private GameObject scrollView;
     [SerializeField] private TMP_Text chattingMessage;
     [SerializeField] private TMP_InputField chattingInput;
     [SerializeField] private Button chattingSendButton;
 
     // Map 
+    [Header("맵")]
     [SerializeField] private Image mapImage;
+    [SerializeField] private TMP_Text mapName;
     [SerializeField] private TMP_Dropdown dropdown;
 
     // Button
+    [Header("버튼")] 
+    [SerializeField] private Button changeTeamButton;
     [SerializeField] private Button characterSelectButton;
     [SerializeField] private Button startButton;
     [SerializeField] private Button readyButton;
     [SerializeField] private Button exitButton;
+    
+    [Header("기타")]
+    public List<Sprite> speedMapSprites; // 변경할 스프라이트 목록
+    public List<Sprite> soccerMapSprites;
 
     void OnEnable()
     {
