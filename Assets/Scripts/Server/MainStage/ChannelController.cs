@@ -98,6 +98,7 @@ public class ChannelController : MonoBehaviour
         startButton.onClick.AddListener(StartButtonClicked);
         chattingSendButton.onClick.AddListener(ChattingSendButtonClicked);
         characterSelectButton.onClick.AddListener(CharacterSelectPopupOpen);
+        changeTeamButton.onClick.AddListener(ChangeTeamButtonClicked);
 
         dropdown.onValueChanged.AddListener(delegate { SelectMapDropdown(dropdown); });
     }
@@ -174,6 +175,9 @@ public class ChannelController : MonoBehaviour
             TMP_Text nickname = playerCard[i].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
             nickname.text = "";
 
+            Image team = playerCard[i].transform.GetChild(0).GetComponent<Image>();
+            team.color = new Color(0.6584118f, 0.5814791f, 0.6886792f);
+            
             Image playerCharacter = playerCard[i].transform.GetChild(1).GetComponent<Image>();
             playerCharacter.SetActive(false);
 
@@ -186,6 +190,21 @@ public class ChannelController : MonoBehaviour
         {
             TMP_Text nickname = playerCard[i].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
             nickname.text = NetworkManager.Instance.currentChannelInfo.channelUserList[i];
+
+            if (NetworkManager.Instance.currentChannelInfo.gameMode.Equals("soccer"))
+            {
+                Image color = playerCard[i].transform.GetChild(0).GetComponent<Image>();
+
+                if (NetworkManager.Instance.currentChannelInfo.teamColor[i] == 0)
+                {
+                    color.color = new Color(0f, 0.07142854f, 1f);
+                }
+                else
+                {
+                    color.color = new Color(1f, 0f, 0.0947485f);
+                }
+            }
+            
 
             if (!nickname.text.Equals(""))
             {
@@ -350,6 +369,14 @@ public class ChannelController : MonoBehaviour
                 NetworkManager.Instance.currentChannelInfo.gameMode));
     }
 
+    // 팀 변경
+    private void ChangeTeamButtonClicked()
+    {
+        NetworkManager.Instance.SendBusinessMessage(
+            MessageHandler.PackTeamChangeMessage(
+                NetworkManager.Instance.currentChannelInfo.channelIndex));
+    }
+    
     // 캐릭터 선택 팝업 켜기
     private void CharacterSelectPopupOpen()
     {

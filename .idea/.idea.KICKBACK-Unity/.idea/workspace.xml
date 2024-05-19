@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5a440d2-85b9-4cbe-a0fb-c8585dd36ef7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.KICKBACK-Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KICKBACK-Unity/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Server/MainStage/ChannelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Server/MainStage/ChannelController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,35 +19,35 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2ggSkaelM2XYkpBUr6EEkYS6d78" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/Users/patrick/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
-      "/Users/patrick/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache",
-      "/Users/patrick/.local/share/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/patrick/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/patrick/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/patrick/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="/Applications/Unity/Hub/Editor/2021.3.33f1/Unity.app/Contents/MacOS/Unity" />
@@ -93,7 +94,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1716117872006</updated>
-      <workItem from="1716117875167" duration="640000" />
+      <workItem from="1716117875167" duration="3025000" />
     </task>
     <servers />
   </component>
