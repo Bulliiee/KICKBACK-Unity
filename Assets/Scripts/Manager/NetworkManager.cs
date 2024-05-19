@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using MessagePack;
 using Modules;
 using UnityEngine;
@@ -161,7 +162,7 @@ namespace Highlands.Server
 
         // private void UpdateLiveLog()
         // {
-        //     var (data, bytesRead) = _liveServer.LiveReceiver();
+        //     var (data, bytesRead) = _liveServer.LiveReceiverAsync();
         //     
         //     if (data != null)
         //     {
@@ -169,15 +170,25 @@ namespace Highlands.Server
         //         MessageHandler.UnPackUDPMessage(data, bytesRead);
         //     }
         // }
-
-        public bool isReceiving = false;
-
-        public void StartReceiveUDPData()
+        
+        public IEnumerator UpdateLiveLogCoroutine()
         {
-            if (currentPlayerLocation == CurrentPlayerLocation.InGame && !isReceiving)
+            while (true)
             {
-                isReceiving = true;
-                StartCoroutine(_liveServer.LiveReceiverCoroutine());
+                // LiveReceiverAsync()를 비동기적으로 호출
+                var receiveTask = _liveServer.LiveReceiverAsync();
+                yield return new WaitUntil(() => receiveTask.IsCompleted);
+
+                var (data, bytesRead) = receiveTask.Result;
+
+                if (data != null)
+                {
+                    Debug.Log("요청 on");
+                    MessageHandler.UnPackUDPMessage(data, bytesRead);
+                }
+
+                // 다음 데이터를 수신하기 전에 잠시 대기 (필요에 따라 조정)
+                yield return null;
             }
         }
 

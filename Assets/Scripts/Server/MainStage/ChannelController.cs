@@ -279,14 +279,20 @@ public class ChannelController : MonoBehaviour
         }
     }
 
+    public bool isReceiving = false;
+    
     // UDP 서버에 연결 설정 및 JOIN 요청
     private void SendGameStartToUDP(int channelIndex)
     {
         // UDP 연결 설정
         NetworkManager.Instance.ConnectLiveServer();
 
-        NetworkManager.Instance.StartReceiveUDPData();
-        
+        if (!isReceiving)
+        {
+            isReceiving = true;
+            StartCoroutine(NetworkManager.Instance.UpdateLiveLogCoroutine());
+        }
+
         // live에 join 요청
         NetworkManager.Instance.SendLiveMessage(
             MessageHandler.PackUDPInitialMessage(channelIndex));
