@@ -165,6 +165,7 @@ namespace Highlands.Server
             
             if (data != null)
             {
+                Debug.Log("요청 on");
                 MessageHandler.UnPackUDPMessage(data, bytesRead);
             }
         }

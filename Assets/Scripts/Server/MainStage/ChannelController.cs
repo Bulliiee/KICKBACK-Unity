@@ -129,6 +129,12 @@ public class ChannelController : MonoBehaviour
         SetPlayerCard();
         SetMap();
         StartButtonActive();
+
+        // 만약 게임 시작이 되었다면 UDP 설정 및 UDP 내부 채널에 JOIN
+        if (NetworkManager.Instance.currentChannelInfo.isOnGame)
+        {
+            SendGameStartToUDP(NetworkManager.Instance.currentChannelInfo.channelIndex);
+        }
     }
 
     // 드롭다운 설정
@@ -273,6 +279,24 @@ public class ChannelController : MonoBehaviour
         }
     }
 
+    // UDP 서버에 연결 설정 및 JOIN 요청
+    private void SendGameStartToUDP(int channelIndex)
+    {
+        // UDP 연결 설정
+        NetworkManager.Instance.ConnectLiveServer();
+        
+        // live에 join 요청
+        NetworkManager.Instance.SendLiveMessage(
+            MessageHandler.PackUDPInitialMessage(channelIndex));
+        
+        // TEST: 좌표 데이터 보내기
+        NetworkManager.Instance.SendLiveMessage(
+            MessageHandler.PackUDPPointMessage(channelIndex,
+                NetworkManager.Instance.currentChannelInfo.myIndex,
+                new Vector3(0.1f, 0.2f, 0.3f),
+                new Quaternion(0.4f, 0.5f, 0.6f, 0.7f)));
+    }
+
     #endregion
 
     #region 채팅
@@ -363,25 +387,11 @@ public class ChannelController : MonoBehaviour
 
     private void StartButtonClicked()
     {
-        int channelIndex = NetworkManager.Instance.currentChannelInfo.channelIndex;
-        
         // business에 시작 요청
         NetworkManager.Instance.SendBusinessMessage(
             MessageHandler.PackStartMessage(Command.START,
                 NetworkManager.Instance.currentChannelInfo.channelIndex,
                 NetworkManager.Instance.currentChannelInfo.gameMode));
-
-        // live에 join 요청
-        NetworkManager.Instance.ConnectLiveServer();
-        NetworkManager.Instance.SendLiveMessage(
-            MessageHandler.PackUDPInitialMessage(channelIndex));
-        
-        // TEST: 좌표 데이터 보내기
-        NetworkManager.Instance.SendLiveMessage(
-            MessageHandler.PackUDPPointMessage(channelIndex,
-                NetworkManager.Instance.currentChannelInfo.myIndex,
-                new Vector3(0.1f, 0.2f, 0.3f),
-                new Quaternion(0.4f, 0.5f, 0.6f, 0.7f)));
     }
 
     // 팀 변경
