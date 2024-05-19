@@ -298,10 +298,13 @@ public class ChannelController : MonoBehaviour
             MessageHandler.PackUDPInitialMessage(channelIndex));
 
         NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.InGame;
-        
+    }
+
+    public void Test()
+    {
         // TEST: 좌표 데이터 보내기
         NetworkManager.Instance.SendLiveMessage(
-            MessageHandler.PackUDPPointMessage(channelIndex,
+            MessageHandler.PackUDPPointMessage(NetworkManager.Instance.currentChannelInfo.channelIndex,
                 NetworkManager.Instance.currentChannelInfo.myIndex,
                 new Vector3(0.1f, 0.2f, 0.3f),
                 new Quaternion(0.4f, 0.5f, 0.6f, 0.7f)));
