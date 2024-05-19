@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using MessagePack;
 using UnityEngine;
 
@@ -70,28 +72,78 @@ namespace Highlands.Server
         }
 
         // 메시지 수신
-        public (byte[], int) LiveReceiver()
+        // 메시지 수신 (비동기 방식으로 변경)
+        public IEnumerator LiveReceiverCoroutine()
         {
-            if (_udpClient == null) return (null, 0);
-            try
-            {
-                while (_udpClient.Receive(ref _ipEndPoint).Length > 0)
-                {
-                    byte[] buffer = _udpClient.Receive(ref _ipEndPoint);
+            if (_udpClient == null) yield break;
 
-                    if (buffer.Length > 0)
+            while (true)
+            {
+                var asyncResult = _udpClient.BeginReceive(null, null);
+
+                while (!asyncResult.IsCompleted)
+                {
+                    yield return null; // 데이터가 도착할 때까지 다음 프레임까지 대기
+                }
+
+                try
+                {
+                    var receivedData = _udpClient.EndReceive(asyncResult, ref _ipEndPoint);
+                    if (receivedData.Length > 0)
                     {
-                        return (buffer, buffer.Length);
+                        Debug.Log("요청 on");
+                        MessageHandler.UnPackUDPMessage(receivedData, receivedData.Length);
                     }
                 }
+                catch (Exception e)
+                {
+                    Debug.Log("라이브서버 응답 읽기 실패 : " + e.Message);
+                }
             }
-            catch (Exception e)
-            {
-                Debug.Log("라이브서버 응답 읽기 실패 : " + e.Message);
-            }
-
-            return (null, 0);
         }
+        // public async Task<(byte[], int)> LiveReceiverAsync()
+        // {
+        //     if (_udpClient == null) return (null, 0);
+        //     try
+        //     {
+        //         // 비동기적으로 데이터 수신
+        //         var udpReceiveResult = await _udpClient.ReceiveAsync();
+        //         byte[] buffer = udpReceiveResult.Buffer;
+        //
+        //         if (buffer.Length > 0)
+        //         {
+        //             return (buffer, buffer.Length);
+        //         }
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Debug.Log("라이브서버 응답 읽기 실패 : " + e.Message);
+        //     }
+        //     return (null, 0);
+        // }
+
+        // public (byte[], int) LiveReceiver()
+        // {
+        //     if (_udpClient == null) return (null, 0);
+        //     try
+        //     {
+        //         while (_udpClient.Receive(ref _ipEndPoint).Length > 0)
+        //         {
+        //             byte[] buffer = _udpClient.Receive(ref _ipEndPoint);
+        //
+        //             if (buffer.Length > 0)
+        //             {
+        //                 return (buffer, buffer.Length);
+        //             }
+        //         }
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Debug.Log("라이브서버 응답 읽기 실패 : " + e.Message);
+        //     }
+        //
+        //     return (null, 0);
+        // }
 
         public void DisconnectFromServer()
         {

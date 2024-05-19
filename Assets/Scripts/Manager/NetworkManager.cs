@@ -24,11 +24,11 @@ namespace Highlands.Server
                 UpdateBusinessLog();
             }
 
-            if (currentPlayerLocation == CurrentPlayerLocation.InGame)
-            {
-                // 라이브 서버 로직
-                UpdateLiveLog();
-            }
+            // if (currentPlayerLocation == CurrentPlayerLocation.InGame)
+            // {
+            //     // 라이브 서버 로직
+            //     UpdateLiveLog();
+            // }
         }
 
         //Todo : GameManager Stanby
@@ -159,14 +159,25 @@ namespace Highlands.Server
             _liveServer.Connect();
         }
 
-        private void UpdateLiveLog()
+        // private void UpdateLiveLog()
+        // {
+        //     var (data, bytesRead) = _liveServer.LiveReceiver();
+        //     
+        //     if (data != null)
+        //     {
+        //         Debug.Log("요청 on");
+        //         MessageHandler.UnPackUDPMessage(data, bytesRead);
+        //     }
+        // }
+
+        public bool isReceiving = false;
+
+        public void StartReceiveUDPData()
         {
-            var (data, bytesRead) = _liveServer.LiveReceiver();
-            
-            if (data != null)
+            if (currentPlayerLocation == CurrentPlayerLocation.InGame && !isReceiving)
             {
-                Debug.Log("요청 on");
-                MessageHandler.UnPackUDPMessage(data, bytesRead);
+                isReceiving = true;
+                StartCoroutine(_liveServer.LiveReceiverCoroutine());
             }
         }
 

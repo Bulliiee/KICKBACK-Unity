@@ -284,6 +284,8 @@ public class ChannelController : MonoBehaviour
     {
         // UDP 연결 설정
         NetworkManager.Instance.ConnectLiveServer();
+
+        NetworkManager.Instance.StartReceiveUDPData();
         
         // live에 join 요청
         NetworkManager.Instance.SendLiveMessage(
