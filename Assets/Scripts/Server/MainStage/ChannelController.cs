@@ -288,6 +288,8 @@ public class ChannelController : MonoBehaviour
         // live에 join 요청
         NetworkManager.Instance.SendLiveMessage(
             MessageHandler.PackUDPInitialMessage(channelIndex));
+
+        NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.InGame;
         
         // TEST: 좌표 데이터 보내기
         NetworkManager.Instance.SendLiveMessage(
