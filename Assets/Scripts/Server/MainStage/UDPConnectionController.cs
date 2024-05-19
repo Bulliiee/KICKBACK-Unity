@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using MessagePack;
 using UnityEngine;
 
 namespace Highlands.Server
@@ -13,20 +14,59 @@ namespace Highlands.Server
         private string hostname = "k10c209.p.ssafy.io";
         // private string hostname = "localhost";
 
+        
+        // 도메인 -> IPEndPoint
+        private IPEndPoint CreateIPEndPointFromDomain(string hostname, int port)
+        {
+            // 도메인 이름으로부터 IP 주소를 가져오기
+            IPAddress[] addresses = Dns.GetHostAddresses(hostname);
+
+            if (addresses.Length == 0)
+            {
+                throw new ArgumentException("해당 호스트 이름에 대한 IP 주소를 찾을 수 없습니다.", nameof(hostname));
+            }
+
+            // 첫 번째 IP 주소를 사용하여 IPEndPoint를 생성
+            // 주로 IPv4 주소를 사용하지만, 특정 도메인이 IPv6 주소만 가지고 있을 경우를 대비하여 체크
+            foreach (var address in addresses)
+            {
+                if (address.AddressFamily == AddressFamily.InterNetwork) // IPv4 주소
+                {
+                    return new IPEndPoint(address, port);
+                }
+            }
+
+            // IPv4 주소가 없는 경우, IPv6 주소를 대신 사용하는 상황에 대비한 코드
+            foreach (var address in addresses)
+            {
+                if (address.AddressFamily == AddressFamily.InterNetworkV6) // IPv6 주소
+                {
+                    return new IPEndPoint(address, port);
+                }
+            }
+
+            throw new ArgumentException("유효한 IPv4 또는 IPv6 주소를 찾을 수 없습니다.", nameof(hostname));
+        }
+
+        // UDP 연결 정보 설정
         public void Connect()
         {
             try
             {
-                // UDP 서버에 연결
-                _udpClient = new UdpClient(hostname, 5058);
-                _ipEndPoint = new IPEndPoint(IPAddress.Any, 0);
-                
-                Debug.Log("LiveServer connect success");
+                // UDP 서버 설정
+                _udpClient = new UdpClient();
+                _ipEndPoint = CreateIPEndPointFromDomain(hostname, 5058);
             }
             catch (Exception e)
             {
                 Debug.Log($"Failed to connect LiveServer: {e.Message}");
             }
+        }
+
+        // 메시지 전송
+        public void Send(byte[] message)
+        {
+            _udpClient.Send(message, message.Length, _ipEndPoint);
         }
 
         // 메시지 수신
@@ -51,14 +91,6 @@ namespace Highlands.Server
             }
 
             return (null, 0);
-        }
-        
-        // 서버로 메시지 보내기
-        public void Deliver(byte[] message)
-        {
-            if (_udpClient == null) return;
-
-            _udpClient.Send(message, message.Length, hostname, 5058);
         }
 
         public void DisconnectFromServer()

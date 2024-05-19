@@ -99,4 +99,35 @@ namespace Highlands.Server
         [Key(8)] public virtual string UserCharacter { get; set; }
         [Key(9)] public virtual string GameMode { get; set; }
     }
+    
+    
+    // UDP
+    [MessagePackObject]
+    public class UDPMessageForm
+    {
+        [Key(0)] public virtual Command command_ { get; set; }
+        [Key(1)] public virtual int channel_number_ { get; set; }
+        [Key(2)] public virtual int user_index_ { get; set; }
+        [Key(3)] public virtual float x_ { get; set; }
+        [Key(4)] public virtual float y_ { get; set; }
+        [Key(5)] public virtual float z_ { get; set; }
+        [Key(6)] public virtual float rw_ { get; set; }
+        [Key(7)] public virtual float rx_ { get; set; }
+        [Key(8)] public virtual float ry_ { get; set; }
+        [Key(9)] public virtual float rz_ { get; set; }
+
+        public override string ToString()
+        {
+            return $"command_: {command_}\n" +
+                   $"channel_number_: {channel_number_}\n" +
+                   $"user_index_: {user_index_}\n" +
+                   $"x_: {x_}\n" +
+                   $"y_: {y_}\n" +
+                   $"z_: {z_}\n" +
+                   $"rw_: {rw_}\n" +
+                   $"rx_: {rx_}\n" +
+                   $"ry_: {ry_}\n" +
+                   $"rz_: {rz_}\n";
+        }
+    }
 }

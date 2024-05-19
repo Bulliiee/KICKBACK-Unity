@@ -299,10 +299,25 @@ public class ChannelController : MonoBehaviour
 
     private void StartButtonClicked()
     {
+        int channelIndex = NetworkManager.Instance.currentChannelInfo.channelIndex;
+        
+        // business에 시작 요청
         NetworkManager.Instance.SendBusinessMessage(
             MessageHandler.PackStartMessage(Command.START, 
-                NetworkManager.Instance.currentChannelInfo.channelIndex, 
+                channelIndex, 
                 NetworkManager.Instance.currentChannelInfo.gameMode));
+
+        // live에 join 요청
+        NetworkManager.Instance.ConnectLiveServer();
+        NetworkManager.Instance.SendLiveMessage(
+            MessageHandler.PackUDPInitialMessage(channelIndex));
+        
+        // TEST: 좌표 데이터 보내기
+        NetworkManager.Instance.SendLiveMessage(
+            MessageHandler.PackUDPPointMessage(channelIndex,
+                NetworkManager.Instance.currentChannelInfo.myIndex,
+                new Vector3(0.1f, 0.2f, 0.3f),
+                new Quaternion(0.4f, 0.5f, 0.6f, 0.7f)));
     }
 
     // 캐릭터 선택 팝업 켜기

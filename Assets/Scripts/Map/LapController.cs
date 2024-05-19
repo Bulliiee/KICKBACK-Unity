@@ -11,14 +11,14 @@ public class LapController : MonoBehaviour
     [SerializeField] private LapTimeController timeController;
 
     [Header("CheckPoints")]
-    public Vector3 respawnPointPosition; // ¸®½ºÆù À§Ä¡
-    public Quaternion respawnPointRotation; // ¸®½ºÆù Rotation
-    public GameObject startPoint; // ½ÃÀÛ ÁöÁ¡
+    public Vector3 respawnPointPosition; // ë¦¬ìŠ¤í° ìœ„ì¹˜
+    public Quaternion respawnPointRotation; // ë¦¬ìŠ¤í° Rotation
+    public GameObject startPoint; // ì‹œì‘ ì§€ì 
 
     [Header("Laps")]
-    public int currentIndex; // ÀÎµ¦½º Ã¼Å·
-    public int checkPointsCnt; // Ã¼Å© Æ÷ÀÎÆ® °³¼ö
-    public int currentLap; // ÇöÀç ¹ÙÄû¼ö
+    public int currentIndex; // ì¸ë±ìŠ¤ ì²´í‚¹
+    public int checkPointsCnt; // ì²´í¬ í¬ì¸íŠ¸ ê°œìˆ˜
+    public int currentLap; // í˜„ì¬ ë°”í€´ìˆ˜
 
     [Header("Results")]
     public TMP_Text currentLapTxt;
@@ -33,16 +33,16 @@ public class LapController : MonoBehaviour
 
         currentLap = 1;
 
-        // 'Respawn' ÅÂ±×¸¦ °¡Áø ¸ğµç ¿ÀºêÁ§Æ® Ã£±â
+        // 'Respawn' íƒœê·¸ë¥¼ ê°€ì§„ ëª¨ë“  ì˜¤ë¸Œì íŠ¸ ì°¾ê¸°
         GameObject[] respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
-        // Ã¼Å©Æ÷ÀÎÆ® °³¼ö ¼³Á¤
+        // ì²´í¬í¬ì¸íŠ¸ ê°œìˆ˜ ì„¤ì •
         checkPointsCnt = respawnPoints.Length;
 
         isFinish = false;
         Result.SetActive(false);
     }
 
-    // Ã¼Å©Æ÷ÀÎÆ® Á¤º¸¸¦ °»½ÅÇÏ´Â ¸Ş¼­µå
+    // ì²´í¬í¬ì¸íŠ¸ ì •ë³´ë¥¼ ê°±ì‹ í•˜ëŠ” ë©”ì„œë“œ
     public void UpdateCheckPoint(int index, Vector3 checkpointPosition, Quaternion checkpointRotation)
     {
         respawnPointPosition = checkpointPosition;
@@ -131,13 +131,13 @@ public class LapController : MonoBehaviour
         {
             if (currentIndex >= checkPointsCnt && currentLap > 3)
             {
-                // Player ÅÂ±×¸¦ °¡Áø ¸ğµç °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ Å½»ö
+                // Player íƒœê·¸ë¥¼ ê°€ì§„ ëª¨ë“  ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ íƒìƒ‰
                 var players = GameObject.FindGameObjectsWithTag("Player");
                 foreach (var player in players)
                 {
                     if (player != this.gameObject)
                     {
-                        // ´Ù¸¥ ÇÃ·¹ÀÌ¾î¿ÍÀÇ Ãæµ¹À» ¹«½Ã
+                        // ë‹¤ë¥¸ í”Œë ˆì´ì–´ì™€ì˜ ì¶©ëŒì„ ë¬´ì‹œ
                         Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>(), true);
                     }
                 }
@@ -146,24 +146,24 @@ public class LapController : MonoBehaviour
 
                 if (timeController.resultTimerText != null)
                 {
-                    timeController.resultTimerText.text = timeController.timerText.text; // °á°úÃ¢ Å¸ÀÌ¸Ó¿¡ ÇöÀç Å¸ÀÌ¸Ó ÅØ½ºÆ®¸¦ º¹»ç
+                    timeController.resultTimerText.text = timeController.timerText.text; // ê²°ê³¼ì°½ íƒ€ì´ë¨¸ì— í˜„ì¬ íƒ€ì´ë¨¸ í…ìŠ¤íŠ¸ë¥¼ ë³µì‚¬
                 }
 
-                // Result°¡ CanvasGroup ÄÄÆ÷³ÍÆ®¸¦ °¡Áö°í ÀÖ´Ù°í °¡Á¤
+                // Resultê°€ CanvasGroup ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì§€ê³  ìˆë‹¤ê³  ê°€ì •
                 CanvasGroup resultCanvasGroup = Result.GetComponent<CanvasGroup>();
                 if (resultCanvasGroup != null)
                 {
-                    float duration = 1.0f; // ÆäÀÌµå ÀÎÇÏ´Â µ¥ °É¸®´Â ½Ã°£(ÃÊ)
+                    float duration = 1.0f; // í˜ì´ë“œ ì¸í•˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„(ì´ˆ)
                     float elapsedTime = 0;
 
-                    // CanvasGroupÀÇ alpha °ªÀ» 0¿¡¼­ 1·Î ¼­¼­È÷ Áõ°¡
+                    // CanvasGroupì˜ alpha ê°’ì„ 0ì—ì„œ 1ë¡œ ì„œì„œíˆ ì¦ê°€
                     while (elapsedTime < duration)
                     {
                         elapsedTime += Time.deltaTime;
                         resultCanvasGroup.alpha = Mathf.Lerp(0, 1, elapsedTime / duration);
                         yield return null;
                     }
-                    resultCanvasGroup.alpha = 1; // ¸¶Áö¸·À¸·Î alpha °ªÀ» ¿ÏÀüÈ÷ 1·Î ¼³Á¤ÇÏ¿© È®½ÇÈ÷ º¸ÀÌ°Ô ÇÔ
+                    resultCanvasGroup.alpha = 1; // ë§ˆì§€ë§‰ìœ¼ë¡œ alpha ê°’ì„ ì™„ì „íˆ 1ë¡œ ì„¤ì •í•˜ì—¬ í™•ì‹¤íˆ ë³´ì´ê²Œ í•¨
                 }
 
                 Result.SetActive(true);
@@ -173,13 +173,13 @@ public class LapController : MonoBehaviour
         {
             if (currentIndex >= checkPointsCnt && currentLap > 2)
             {
-                // Player ÅÂ±×¸¦ °¡Áø ¸ğµç °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ Å½»ö
+                // Player íƒœê·¸ë¥¼ ê°€ì§„ ëª¨ë“  ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ íƒìƒ‰
                 var players = GameObject.FindGameObjectsWithTag("Player");
                 foreach (var player in players)
                 {
                     if (player != this.gameObject)
                     {
-                        // ´Ù¸¥ ÇÃ·¹ÀÌ¾î¿ÍÀÇ Ãæµ¹À» ¹«½Ã
+                        // ë‹¤ë¥¸ í”Œë ˆì´ì–´ì™€ì˜ ì¶©ëŒì„ ë¬´ì‹œ
                         Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>(), true);
                     }
                 }
@@ -188,24 +188,24 @@ public class LapController : MonoBehaviour
 
                 if (timeController.resultTimerText != null)
                 {
-                    timeController.resultTimerText.text = timeController.timerText.text; // °á°úÃ¢ Å¸ÀÌ¸Ó¿¡ ÇöÀç Å¸ÀÌ¸Ó ÅØ½ºÆ®¸¦ º¹»ç
+                    timeController.resultTimerText.text = timeController.timerText.text; // ê²°ê³¼ì°½ íƒ€ì´ë¨¸ì— í˜„ì¬ íƒ€ì´ë¨¸ í…ìŠ¤íŠ¸ë¥¼ ë³µì‚¬
                 }
 
-                // Result°¡ CanvasGroup ÄÄÆ÷³ÍÆ®¸¦ °¡Áö°í ÀÖ´Ù°í °¡Á¤
+                // Resultê°€ CanvasGroup ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì§€ê³  ìˆë‹¤ê³  ê°€ì •
                 CanvasGroup resultCanvasGroup = Result.GetComponent<CanvasGroup>();
                 if (resultCanvasGroup != null)
                 {
-                    float duration = 1.0f; // ÆäÀÌµå ÀÎÇÏ´Â µ¥ °É¸®´Â ½Ã°£(ÃÊ)
+                    float duration = 1.0f; // í˜ì´ë“œ ì¸í•˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„(ì´ˆ)
                     float elapsedTime = 0;
 
-                    // CanvasGroupÀÇ alpha °ªÀ» 0¿¡¼­ 1·Î ¼­¼­È÷ Áõ°¡
+                    // CanvasGroupì˜ alpha ê°’ì„ 0ì—ì„œ 1ë¡œ ì„œì„œíˆ ì¦ê°€
                     while (elapsedTime < duration)
                     {
                         elapsedTime += Time.deltaTime;
                         resultCanvasGroup.alpha = Mathf.Lerp(0, 1, elapsedTime / duration);
                         yield return null;
                     }
-                    resultCanvasGroup.alpha = 1; // ¸¶Áö¸·À¸·Î alpha °ªÀ» ¿ÏÀüÈ÷ 1·Î ¼³Á¤ÇÏ¿© È®½ÇÈ÷ º¸ÀÌ°Ô ÇÔ
+                    resultCanvasGroup.alpha = 1; // ë§ˆì§€ë§‰ìœ¼ë¡œ alpha ê°’ì„ ì™„ì „íˆ 1ë¡œ ì„¤ì •í•˜ì—¬ í™•ì‹¤íˆ ë³´ì´ê²Œ í•¨
                 }
 
                 Result.SetActive(true);
@@ -215,13 +215,13 @@ public class LapController : MonoBehaviour
         {
             if (currentIndex >= checkPointsCnt && currentLap > 1)
             {
-                // Player ÅÂ±×¸¦ °¡Áø ¸ğµç °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ Å½»ö
+                // Player íƒœê·¸ë¥¼ ê°€ì§„ ëª¨ë“  ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ íƒìƒ‰
                 var players = GameObject.FindGameObjectsWithTag("Player");
                 foreach (var player in players)
                 {
                     if (player != this.gameObject)
                     {
-                        // ´Ù¸¥ ÇÃ·¹ÀÌ¾î¿ÍÀÇ Ãæµ¹À» ¹«½Ã
+                        // ë‹¤ë¥¸ í”Œë ˆì´ì–´ì™€ì˜ ì¶©ëŒì„ ë¬´ì‹œ
                         Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>(), true);
                     }
                 }
@@ -230,24 +230,24 @@ public class LapController : MonoBehaviour
 
                 if (timeController.resultTimerText != null)
                 {
-                    timeController.resultTimerText.text = timeController.timerText.text; // °á°úÃ¢ Å¸ÀÌ¸Ó¿¡ ÇöÀç Å¸ÀÌ¸Ó ÅØ½ºÆ®¸¦ º¹»ç
+                    timeController.resultTimerText.text = timeController.timerText.text; // ê²°ê³¼ì°½ íƒ€ì´ë¨¸ì— í˜„ì¬ íƒ€ì´ë¨¸ í…ìŠ¤íŠ¸ë¥¼ ë³µì‚¬
                 }
 
-                // Result°¡ CanvasGroup ÄÄÆ÷³ÍÆ®¸¦ °¡Áö°í ÀÖ´Ù°í °¡Á¤
+                // Resultê°€ CanvasGroup ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì§€ê³  ìˆë‹¤ê³  ê°€ì •
                 CanvasGroup resultCanvasGroup = Result.GetComponent<CanvasGroup>();
                 if (resultCanvasGroup != null)
                 {
-                    float duration = 1.0f; // ÆäÀÌµå ÀÎÇÏ´Â µ¥ °É¸®´Â ½Ã°£(ÃÊ)
+                    float duration = 1.0f; // í˜ì´ë“œ ì¸í•˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„(ì´ˆ)
                     float elapsedTime = 0;
 
-                    // CanvasGroupÀÇ alpha °ªÀ» 0¿¡¼­ 1·Î ¼­¼­È÷ Áõ°¡
+                    // CanvasGroupì˜ alpha ê°’ì„ 0ì—ì„œ 1ë¡œ ì„œì„œíˆ ì¦ê°€
                     while (elapsedTime < duration)
                     {
                         elapsedTime += Time.deltaTime;
                         resultCanvasGroup.alpha = Mathf.Lerp(0, 1, elapsedTime / duration);
                         yield return null;
                     }
-                    resultCanvasGroup.alpha = 1; // ¸¶Áö¸·À¸·Î alpha °ªÀ» ¿ÏÀüÈ÷ 1·Î ¼³Á¤ÇÏ¿© È®½ÇÈ÷ º¸ÀÌ°Ô ÇÔ
+                    resultCanvasGroup.alpha = 1; // ë§ˆì§€ë§‰ìœ¼ë¡œ alpha ê°’ì„ ì™„ì „íˆ 1ë¡œ ì„¤ì •í•˜ì—¬ í™•ì‹¤íˆ ë³´ì´ê²Œ í•¨
                 }
 
                 Result.SetActive(true);

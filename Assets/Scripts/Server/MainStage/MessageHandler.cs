@@ -282,8 +282,48 @@ namespace Highlands.Server
         #region 라이브
 
         // 1. 게임시작 할 때 전송할 메시지
-
+        public static byte[] PackUDPInitialMessage(int channelIndex)
+        {
+            UDPMessageForm message = new UDPMessageForm
+            {
+                command_ = Command.JOIN,
+                channel_number_ = channelIndex
+            };
+            
+            return MessagePackSerializer.Serialize(message);
+        }
+        
         // 2. 게임이 끝났을 때 전송할 메시지
+        
+        // 3. 좌표 데이터 송신
+        public static byte[] PackUDPPointMessage(int channelIndex, int userIndex, Vector3 position, Quaternion rotation)
+        {
+            UDPMessageForm message = new UDPMessageForm
+            {
+                command_ = Command.RPOSITION,
+                channel_number_ = channelIndex,
+                user_index_ = userIndex,
+                x_ = position.x,
+                y_ = position.y,
+                z_ = position.z,
+                rw_ = rotation.w,
+                rx_ = rotation.x,
+                ry_ = rotation.y,
+                rz_ = rotation.z
+            };
+            
+            return MessagePackSerializer.Serialize(message);
+        }
+        
+        // 4. 수신 데이터 처리
+        public static void UnPackUDPMessage(byte[] buffer, int bytesRead)
+        {
+            UDPMessageForm receivedMessage =
+                MessagePackSerializer.Deserialize<UDPMessageForm>(buffer.AsSpan().Slice(0, bytesRead)
+                    .ToArray());
+            
+            Debug.Log(receivedMessage.ToString());
+        }
 
         #endregion
     }

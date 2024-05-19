@@ -162,12 +162,16 @@ namespace Highlands.Server
         private void UpdateLiveLog()
         {
             var (data, bytesRead) = _liveServer.LiveReceiver();
-            // 핸들링
+            
+            if (data != null)
+            {
+                MessageHandler.UnPackUDPMessage(data, bytesRead);
+            }
         }
 
         public void SendLiveMessage(byte[] buffer)
         {
-            _liveServer.Deliver(buffer);
+            _liveServer.Send(buffer);
             Debug.Log("Live send complete");
         }
 
