@@ -12,6 +12,7 @@
         ITEM,
         END,
         CHAT,
+        TEMP,
         MAP,
         RPOSITION,
         SPOSITION,

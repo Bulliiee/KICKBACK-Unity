@@ -53,20 +53,28 @@ public class ChannelController : MonoBehaviour
         {
             startButton.SetActive(true);
             readyButton.SetActive(false);
-            dropdown.gameObject.SetActive(true);
         }
         else
         {
             startButton.SetActive(false);
             readyButton.SetActive(true);
-            dropdown.gameObject.SetActive(false);
         }
 
         // 게임 모드에 따라 버튼 변경
         if (NetworkManager.Instance.currentChannelInfo.gameMode == "speed")
         {
             changeTeamButton.gameObject.SetActive(false);
-            dropdown.gameObject.SetActive(true);
+
+            if (NetworkManager.Instance.currentChannelInfo.channelManager.Equals(
+                    GameManager.Instance.loginUserInfo.NickName))
+            {
+                dropdown.gameObject.SetActive(true);
+            }
+            else
+            {
+                dropdown.gameObject.SetActive(false);
+            }
+            
         }
         else if (NetworkManager.Instance.currentChannelInfo.gameMode == "soccer")
         {
@@ -168,6 +176,10 @@ public class ChannelController : MonoBehaviour
 
             Image playerCharacter = playerCard[i].transform.GetChild(1).GetComponent<Image>();
             playerCharacter.SetActive(false);
+
+            Image ready = playerCard[i].transform.GetChild(2).GetComponent<Image>();
+            ready.SetActive(false);
+
         }
 
         // 재설정
@@ -181,6 +193,18 @@ public class ChannelController : MonoBehaviour
                 Image playerCharacter = playerCard[i].transform.GetChild(1).GetComponent<Image>();
                 playerCharacter.sprite = characterSprites[NetworkManager.Instance.currentChannelInfo.userCharacter[i]];
                 playerCharacter.SetActive(true);
+                Image ready = playerCard[i].transform.GetChild(2).GetComponent<Image>();
+
+                if (NetworkManager.Instance.currentChannelInfo.isReady[i] && i != 0)
+                {
+                    characterSelectButton.SetActive(false);
+                    ready.SetActive(true);
+                }
+                else
+                {
+                    characterSelectButton.SetActive(true);
+                    ready.SetActive(false);
+                }
             }
         }
     }
