@@ -40,7 +40,16 @@ namespace Highlands.Server
     }
 
     [MessagePackObject]
-    public class StartOrEndMessage // Start,End
+    public class StartMessage // Start
+    {
+        [Key(0)] public virtual Command Command { get; set; }
+        [Key(1)] public virtual int ChannelIndex { get; set; }
+        [Key(2)] public virtual string GameMode { get; set; }
+        [Key(3)] public virtual string EscapeString { get; set; }
+    }
+    
+    [MessagePackObject]
+    public class EndMessage // SEnd
     {
         [Key(0)] public virtual Command Command { get; set; }
         [Key(1)] public virtual int ChannelIndex { get; set; }

@@ -10,7 +10,8 @@ namespace Highlands.Server
         private UdpClient _udpClient;
         private IPEndPoint _ipEndPoint;
 
-        private string hostname = "k10c209.p.ssafy.io";
+        // private string hostname = "k10c209.p.ssafy.io";
+        private string hostname = "localhost";
 
         public void Connect()
         {

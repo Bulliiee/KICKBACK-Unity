@@ -105,9 +105,23 @@ namespace Highlands.Server
         }
         
         // 6, 7. 게임 시작, 종료할 때 전송할 메시지
-        public static byte[] PackStartOrEndMessage(Command command, int channelIndex)
+        public static byte[] PackStartMessage(Command command, int channelIndex, string gameMode)
         {
-            var message = new StartOrEndMessage
+            var message = new StartMessage
+            {
+                Command = command,
+                ChannelIndex = channelIndex,
+                GameMode = gameMode,
+                EscapeString = "\n"
+            };
+
+            return MessagePackSerializer.Serialize(message);
+        }
+        
+        // , 종료할 때 전송할 메시지
+        public static byte[] PackEndMessage(Command command, int channelIndex)
+        {
+            var message = new StartMessage
             {
                 Command = command,
                 ChannelIndex = channelIndex,

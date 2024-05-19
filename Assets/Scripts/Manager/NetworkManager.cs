@@ -154,6 +154,11 @@ namespace Highlands.Server
 
         private UDPConnectionController _liveServer = new UDPConnectionController();
 
+        public void ConnectLiveServer()
+        {
+            _liveServer.Connect();
+        }
+
         private void UpdateLiveLog()
         {
             var (data, bytesRead) = _liveServer.LiveReceiver();

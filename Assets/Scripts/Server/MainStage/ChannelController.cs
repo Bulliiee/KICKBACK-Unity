@@ -112,6 +112,8 @@ public class ChannelController : MonoBehaviour
         }
     }
 
+    #region 설정
+
     // 채널 정보 설정
     public void SetChannelInfo(ChannelInfo channelInfo)
     {
@@ -154,9 +156,8 @@ public class ChannelController : MonoBehaviour
             }
         }
     }
-
+    
     // 플레이어 카드 설정
-    // TODO: 레디
     private void SetPlayerCard()
     {
         // 기존 플레이어 카드 지우기
@@ -184,6 +185,8 @@ public class ChannelController : MonoBehaviour
         }
     }
 
+    #endregion
+    
     #region 채팅
 
     private void ChattingSendButtonClicked()
@@ -273,7 +276,9 @@ public class ChannelController : MonoBehaviour
     private void StartButtonClicked()
     {
         NetworkManager.Instance.SendBusinessMessage(
-            MessageHandler.PackJLRMessage(NetworkManager.Instance.currentChannelInfo.channelIndex, Command.START));
+            MessageHandler.PackStartMessage(Command.START, 
+                NetworkManager.Instance.currentChannelInfo.channelIndex, 
+                NetworkManager.Instance.currentChannelInfo.gameMode));
     }
 
     // 캐릭터 선택 팝업 켜기
