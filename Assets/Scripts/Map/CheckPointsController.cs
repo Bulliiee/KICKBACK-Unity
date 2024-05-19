@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CheckPointsController : MonoBehaviour
 {
-    [SerializeField] private LapController lapController;
+    [SerializeField] public LapController lapController;
     [SerializeField] private int index;
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // LapController¿¡ ÇöÀç Ã¼Å©Æ÷ÀÎÆ® Á¤º¸¸¦ °»½ÅÇÏ¶ó°í ¾Ë¸³´Ï´Ù.
+            // LapControllerì— í˜„ì¬ ì²´í¬í¬ì¸íŠ¸ ì •ë³´ë¥¼ ê°±ì‹ í•˜ë¼ê³  ì•Œë¦½ë‹ˆë‹¤.
             lapController.UpdateCheckPoint(index, other.transform.position, other.transform.rotation);
         }
     }

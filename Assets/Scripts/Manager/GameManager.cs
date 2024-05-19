@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Highlands.Server;
 using Modules;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,14 +34,14 @@ public class GameManager : Singleton<GameManager>
         if (SceneManager.GetActiveScene().name != "MainStage")
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainStage");
-
+    
             // 씬 로드가 완료될 때까지 대기합니다.
             while (!asyncLoad.isDone)
             {
                 yield return null;
             }
         }
-
+    
         GameObject UI = GameObject.Find("UI");
         // 씬 로드가 완료된 후, 캔버스 상태를 변경합니다.
         for (int i = 0; i < canvases.Length; i++)
@@ -53,7 +54,31 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void GoToIngame()
+    // 인게임으로 씬 전환
+    public void GoToIngame(string currentMapName)
     {
+        string[] mapNames =
+        {
+            "Cebu",
+            "Mexico",
+            "Downhill",
+            "Football Stadium"
+        };
+
+        string[] sceneNames =
+        {
+            "Cebu Track",
+            "Mexico Track",
+            "Downhill Track",
+            "FootBall Track"
+        };
+
+        for (int i = 0; i < mapNames.Length; i++)
+        {
+            if (currentMapName == mapNames[i])
+            {
+                LoadingSceneManager.LoadScene(sceneNames[i]);
+            }
+        }
     }
 }

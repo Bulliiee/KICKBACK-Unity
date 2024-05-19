@@ -298,6 +298,8 @@ public class ChannelController : MonoBehaviour
             MessageHandler.PackUDPInitialMessage(channelIndex));
 
         NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.InGame;
+
+        GameManager.Instance.GoToIngame(NetworkManager.Instance.currentChannelInfo.mapName);
     }
 
     public void Test()

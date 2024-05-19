@@ -253,6 +253,7 @@ public class LapController : MonoBehaviour
                 Result.SetActive(true);
             }
         }
-        nickName.text = DataManager.Instance.loginUserInfo.dataBody.nickname;
+
+        nickName.text = GameManager.Instance.loginUserInfo.NickName;
     }
 }

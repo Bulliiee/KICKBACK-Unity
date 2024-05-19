@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FinishLineController : MonoBehaviour
 {
-    [SerializeField] private LapController controller;
+    [SerializeField] public LapController controller;
+    
     public AudioSource[] audioSources;
     public AudioClip[] audioClips;
+
     private void OnTriggerExit(Collider other)
     {
         controller.UpdateLap();

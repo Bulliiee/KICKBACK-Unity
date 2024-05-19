@@ -11,7 +11,7 @@ public class ResultManager : MonoBehaviour
     
     private IEnumerator LapTimeUpdate()
     {
-        string url = "https://k10c209.p.ssafy.io/api/v1"; // ¿äÃ» URL
+        string url = "https://k10c209.p.ssafy.io/api/v1"; // ìš”ì²­ URL
         string requestUrl = url + "/record/updateSpeedRecord2";
 
         string jsonRequestBody = "";
@@ -40,7 +40,7 @@ public class ResultManager : MonoBehaviour
 
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonRequestBody);
 
-        // ¿äÃ» »ı¼º
+        // ìš”ì²­ ìƒì„±
         using (UnityWebRequest request = new UnityWebRequest(requestUrl, "PUT"))
         {
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
@@ -49,15 +49,15 @@ public class ResultManager : MonoBehaviour
             request.SetRequestHeader("Authorization", DataManager.Instance.accessToken);
             yield return request.SendWebRequest();
 
-            // ¿äÃ» ¼º°ø ½Ã
+            // ìš”ì²­ ì„±ê³µ ì‹œ
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("·¦Å¸ÀÓ °»½Å ¼º°ø");
+                Debug.Log("ë©íƒ€ì„ ê°±ì‹  ì„±ê³µ");
             }
-            // ¿äÃ» ½ÇÆĞ ½Ã
+            // ìš”ì²­ ì‹¤íŒ¨ ì‹œ
             else
             {
-                Debug.Log("·¦Å¸ÀÓ °»½Å ½ÇÆĞ");
+                Debug.Log("ë©íƒ€ì„ ê°±ì‹  ì‹¤íŒ¨");
                 yield break;
             }
         }
