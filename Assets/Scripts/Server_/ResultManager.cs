@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Highlands.Server;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -65,7 +66,9 @@ public class ResultManager : MonoBehaviour
 
     public void GotoRoom()
     {
-        SceneManager.LoadScene("Room");
+        // SceneManager.LoadScene("Room");
+        NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackEndMessage(Command.END, NetworkManager.Instance.currentChannelInfo.channelIndex));
+        GameManager.Instance.ChangeMainStageCanvas("lobby");
         StartCoroutine(LapTimeUpdate());
     }
 }

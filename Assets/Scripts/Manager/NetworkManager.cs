@@ -154,6 +154,7 @@ namespace Highlands.Server
         #region 라이브 서버
 
         private UDPConnectionController _liveServer = new UDPConnectionController();
+        public IngameController IngameController;
 
         public void ConnectLiveServer()
         {
@@ -183,8 +184,9 @@ namespace Highlands.Server
 
                 if (data != null)
                 {
-                    Debug.Log("요청 on");
-                    MessageHandler.UnPackUDPMessage(data, bytesRead);
+                    // 다른 플레이어 좌표 업데이트
+                    IngameController.SetOtherPlayerPosition(MessageHandler.UnPackUDPMessage(data, bytesRead));
+                    // MessageHandler.UnPackUDPMessage(data, bytesRead);
                 }
 
                 // 다음 데이터를 수신하기 전에 잠시 대기 (필요에 따라 조정)
@@ -195,7 +197,7 @@ namespace Highlands.Server
         public void SendLiveMessage(byte[] buffer)
         {
             _liveServer.Send(buffer);
-            Debug.Log("Live send complete");
+            // Debug.Log("Live send complete");
         }
 
         #endregion

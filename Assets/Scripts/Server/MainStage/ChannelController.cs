@@ -287,11 +287,11 @@ public class ChannelController : MonoBehaviour
         // UDP 연결 설정
         NetworkManager.Instance.ConnectLiveServer();
 
-        if (!isReceiving)
-        {
-            isReceiving = true;
-            StartCoroutine(NetworkManager.Instance.UpdateLiveLogCoroutine());
-        }
+        // if (!isReceiving)
+        // {
+        //     isReceiving = true;
+        //     StartCoroutine(NetworkManager.Instance.UpdateLiveLogCoroutine());
+        // }
 
         // live에 join 요청
         NetworkManager.Instance.SendLiveMessage(

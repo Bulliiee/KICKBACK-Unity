@@ -265,10 +265,17 @@ namespace Highlands.Server
                     }
                     catch (Exception e)
                     {
-                        channelController = 
-                            GameObject.Find("ChannelController").GetComponent<ChannelController>();
-                        
-                        channelController.SetChannelInfo(channelInfo);
+                        try
+                        {
+                            channelController =
+                                GameObject.Find("ChannelController").GetComponent<ChannelController>();
+
+                            channelController.SetChannelInfo(channelInfo);
+                        }
+                        catch (Exception ee)
+                        {
+                            NetworkManager.Instance.currentChannelInfo = channelInfo;
+                        }
                     }
                     
                     break;
@@ -317,13 +324,13 @@ namespace Highlands.Server
         }
         
         // 4. 수신 데이터 처리
-        public static void UnPackUDPMessage(byte[] buffer, int bytesRead)
+        public static UDPMessageForm UnPackUDPMessage(byte[] buffer, int bytesRead)
         {
             UDPMessageForm receivedMessage =
                 MessagePackSerializer.Deserialize<UDPMessageForm>(buffer.AsSpan().Slice(0, bytesRead)
                     .ToArray());
             
-            Debug.Log(receivedMessage.ToString());
+            return receivedMessage;
         }
 
         #endregion
