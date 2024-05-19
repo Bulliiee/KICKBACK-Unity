@@ -229,6 +229,7 @@ namespace Highlands.Server
                     channelInfo.channelName = receivedMessage.ChannelName;
                     channelInfo.channelManager = receivedMessage.ChannelManager;
                     channelInfo.mapName = receivedMessage.MapName;
+                    channelInfo.isOnGame = receivedMessage.IsOnGame;
                     
                     // 리스트 형태 파싱
                     string channelUserListString = receivedMessage.List.TrimStart('[').TrimEnd(']');

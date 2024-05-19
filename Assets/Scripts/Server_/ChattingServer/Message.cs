@@ -98,6 +98,7 @@ namespace Highlands.Server
         [Key(7)] public virtual string TeamColor { get; set; }
         [Key(8)] public virtual string UserCharacter { get; set; }
         [Key(9)] public virtual string GameMode { get; set; }
+        [Key(10)] public virtual bool IsOnGame { get; set; }
     }
     
     
