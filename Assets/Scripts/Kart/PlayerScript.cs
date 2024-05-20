@@ -13,19 +13,19 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private CameraFollowing cameraFollowing;
 
     [Header("Movement")]
-    [SerializeField] private float maxSpeed = 30f; // ÃÖ´ë ¼Óµµ
+    [SerializeField] private float maxSpeed = 30f; // ìµœëŒ€ ì†ë„
     [SerializeField] private float boostSpeed;
-    [SerializeField] private float forceMultiplier = 1200f; // ÈûÀÇ ¹è¼ö
-    [SerializeField] private float decelerationForce = 5f; // °¨¼Ó·Â
-    [SerializeField] private float reverseForceMultiplier = 0.1f; // ÈÄÁø Èû ¹è¼ö
-    public LayerMask roadLayerMask; // Road LayerMask ¼³Á¤
+    [SerializeField] private float forceMultiplier = 1200f; // í˜ì˜ ë°°ìˆ˜
+    [SerializeField] private float decelerationForce = 5f; // ê°ì†ë ¥
+    [SerializeField] private float reverseForceMultiplier = 0.1f; // í›„ì§„ í˜ ë°°ìˆ˜
+    public LayerMask roadLayerMask; // Road LayerMask ì„¤ì •
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 4f;
-    [SerializeField] private float fallMultiplier = 10f; // Á¡ÇÁ ÈÄ ¶³¾îÁö´Â Áß·Â °¡¼Óµµ °è¼ö
+    [SerializeField] private float fallMultiplier = 10f; // ì í”„ í›„ ë–¨ì–´ì§€ëŠ” ì¤‘ë ¥ ê°€ì†ë„ ê³„ìˆ˜
     private bool isJumping = false;
-    private int jumpCount = 0; // Á¡ÇÁ È½¼ö °ü¸® º¯¼ö
-    private int maxJump = 1; // ÃÖ´ë Á¡ÇÁ È½¼ö
+    private int jumpCount = 0; // ì í”„ íšŸìˆ˜ ê´€ë¦¬ ë³€ìˆ˜
+    private int maxJump = 1; // ìµœëŒ€ ì í”„ íšŸìˆ˜
 
     [Header("Steering & Drift")]
     [SerializeField] private float rotateSpeed = 40f;
@@ -35,12 +35,12 @@ public class PlayerScript : MonoBehaviour
     public float tiltAngle = 10f;
 
     [Header("Booster")]
-    public Slider driftSlider; // µå¸®ÇÁÆ® °ÔÀÌÁö ½½¶óÀÌ´õ
-    [SerializeField] private float driftFillRate = 0.2f; // °ÔÀÌÁö ÃæÀü·ü
+    public Slider driftSlider; // ë“œë¦¬í”„íŠ¸ ê²Œì´ì§€ ìŠ¬ë¼ì´ë”
+    [SerializeField] private float driftFillRate = 0.2f; // ê²Œì´ì§€ ì¶©ì „ë¥ 
     private float driftDecreaseRate = 1.5f;
-    public int maxBoost = 2; // ÃÖ´ë ºÎ½ºÅÍ °³¼ö
-    public int currentBoost = 0; // ÇöÀç ºÎ½ºÅÍ °³¼ö
-    public float boostDuration = 5f; // ºÎ½ºÅÍ È°¼ºÈ­ À¯Áö ½Ã°£
+    public int maxBoost = 2; // ìµœëŒ€ ë¶€ìŠ¤í„° ê°œìˆ˜
+    public int currentBoost = 0; // í˜„ì¬ ë¶€ìŠ¤í„° ê°œìˆ˜
+    public float boostDuration = 5f; // ë¶€ìŠ¤í„° í™œì„±í™” ìœ ì§€ ì‹œê°„
     private bool isBoosting = false;
 
     [Header("LapControl")]
@@ -54,10 +54,10 @@ public class PlayerScript : MonoBehaviour
     public TrailRenderer RightSkid;
 
     [Header("Audio")]
-    public AudioSource movingAudioSource; // ¿òÁ÷ÀÓ ¼Ò¸®¿ë AudioSource
-    public AudioSource boostingAudioSource; // ºÎ½ºÅÍ ¼Ò¸®¿ë AudioSource
-    public AudioSource boostWindAudioSource; // ºÎ½ºÅÍ »ç¿ë ½Ã ¹Ù¶÷ ¼Ò¸® AudioSource
-    public AudioSource driftAudioSource; // µå¸®ÇÁÆ® ¼Ò¸®¿ë AudioSource
+    public AudioSource movingAudioSource; // ì›€ì§ì„ ì†Œë¦¬ìš© AudioSource
+    public AudioSource boostingAudioSource; // ë¶€ìŠ¤í„° ì†Œë¦¬ìš© AudioSource
+    public AudioSource boostWindAudioSource; // ë¶€ìŠ¤í„° ì‚¬ìš© ì‹œ ë°”ëŒ ì†Œë¦¬ AudioSource
+    public AudioSource driftAudioSource; // ë“œë¦¬í”„íŠ¸ ì†Œë¦¬ìš© AudioSource
     public AudioClip[] audioClips;
 
 
@@ -66,8 +66,8 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
-        // RigidbodyÀÇ Áß·Â ¼³Á¤
-        rb.useGravity = true; // RigidbodyÀÇ ±âº» Áß·Â »ç¿ë
+        // Rigidbodyì˜ ì¤‘ë ¥ ì„¤ì •
+        rb.useGravity = true; // Rigidbodyì˜ ê¸°ë³¸ ì¤‘ë ¥ ì‚¬ìš©
 
         originalRotateSpeed = rotateSpeed;
     }
@@ -82,13 +82,13 @@ public class PlayerScript : MonoBehaviour
             Boosts();
             Respawn();
 
-            // LeftShift Å° ÀÔ·Â °¨ÁöÇÏ¿© Drift µ¿ÀÛ ½ÇÇà
+            // LeftShift í‚¤ ì…ë ¥ ê°ì§€í•˜ì—¬ Drift ë™ì‘ ì‹¤í–‰
             if (Input.GetKey(KeyCode.LeftShift) && IsGrounded())
             {
-                if (!driftAudioSource.isPlaying) // ¿Àµğ¿À°¡ ÇöÀç Àç»ı ÁßÀÌÁö ¾ÊÀ» ¶§¸¸
+                if (!driftAudioSource.isPlaying) // ì˜¤ë””ì˜¤ê°€ í˜„ì¬ ì¬ìƒ ì¤‘ì´ì§€ ì•Šì„ ë•Œë§Œ
                 {
-                    driftAudioSource.clip = audioClips[3]; // ¹è¿­ 1¹ø Å¬¸³ (ºÎ½ºÅÍ ¼Ò¸®)
-                    driftAudioSource.Play(); // ¿Àµğ¿À Å¬¸³ Àç»ı ½ÃÀÛ
+                    driftAudioSource.clip = audioClips[3]; // ë°°ì—´ 1ë²ˆ í´ë¦½ (ë¶€ìŠ¤í„° ì†Œë¦¬)
+                    driftAudioSource.Play(); // ì˜¤ë””ì˜¤ í´ë¦½ ì¬ìƒ ì‹œì‘
                 }
 
                 Drift();
@@ -119,7 +119,7 @@ public class PlayerScript : MonoBehaviour
 
         bool isOnRoad = Physics.Raycast(transform.position, -transform.up, 1f, roadLayerMask);
 
-        float speedMultiplier = isOnRoad ? 1.0f : 0.7f; // RoadÀÏ °æ¿ì 1.0, NotRoadÀÏ °æ¿ì 0.6 ¹è¼Ó
+        float speedMultiplier = isOnRoad ? 1.0f : 0.7f; // Roadì¼ ê²½ìš° 1.0, NotRoadì¼ ê²½ìš° 0.6 ë°°ì†
 
         if (Mathf.Abs(verticalInput) > 0.01f)
         {
@@ -162,21 +162,21 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            // ºÎ½ºÆ® È°¼ºÈ­ ½Ã
+            // ë¶€ìŠ¤íŠ¸ í™œì„±í™” ì‹œ
             RaycastHit hit;
             if (Physics.Raycast(transform.position, -transform.up, out hit, 1.5f, roadLayerMask))
             {
-                // Áö¸é°úÀÇ Ãæµ¹À» °¨ÁöÇÏ°í, Áö¸éÀÇ ³ë¸Ö º¤ÅÍ¸¦ »ç¿ëÇÏ¿© ÀÌµ¿ ¹æÇâÀ» Á¶Á¤
+                // ì§€ë©´ê³¼ì˜ ì¶©ëŒì„ ê°ì§€í•˜ê³ , ì§€ë©´ì˜ ë…¸ë©€ ë²¡í„°ë¥¼ ì‚¬ìš©í•˜ì—¬ ì´ë™ ë°©í–¥ì„ ì¡°ì •
                 Vector3 groundNormal = hit.normal;
                 Vector3 projectedForward = Vector3.ProjectOnPlane(transform.forward * boostSpeed * speedMultiplier, groundNormal).normalized;
 
-                // Áö¸é¿¡ ÆòÇàÇÏ°Ô ºÎ½ºÆ® Àû¿ë
+                // ì§€ë©´ì— í‰í–‰í•˜ê²Œ ë¶€ìŠ¤íŠ¸ ì ìš©
                 Vector3 boostForce = projectedForward * boostSpeed * speedMultiplier - rb.velocity;
                 rb.AddForce(boostForce, ForceMode.VelocityChange);
             }
             else
             {
-                // °øÁß¿¡ ¶°ÀÖÀ» ¶§(Áï, Áö¸é°ú Ãæµ¹ÇÏÁö ¾ÊÀ» ¶§) ±âÁ¸ÀÇ ·ÎÁ÷ Àû¿ë
+                // ê³µì¤‘ì— ë– ìˆì„ ë•Œ(ì¦‰, ì§€ë©´ê³¼ ì¶©ëŒí•˜ì§€ ì•Šì„ ë•Œ) ê¸°ì¡´ì˜ ë¡œì§ ì ìš©
                 Vector3 boostForce = transform.forward * boostSpeed * speedMultiplier - rb.velocity;
                 rb.AddForce(boostForce, ForceMode.VelocityChange);
             }
@@ -190,7 +190,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && (IsGrounded() || jumpCount < maxJump))
         {
-            jumpCount++; // Á¡ÇÁ È½¼ö Áõ°¡
+            jumpCount++; // ì í”„ íšŸìˆ˜ ì¦ê°€
             isJumping = true;
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             animator.SetBool("Jump", true);
@@ -216,42 +216,42 @@ public class PlayerScript : MonoBehaviour
         isBoosting = true;
         currentBoost--;
 
-        // °øÁß¿¡ ¶°ÀÖ´ÂÁö ¿©ºÎ¸¦ È®ÀÎ
+        // ê³µì¤‘ì— ë– ìˆëŠ”ì§€ ì—¬ë¶€ë¥¼ í™•ì¸
         bool isInAir = !Physics.Raycast(transform.position, -transform.up, 1.5f, roadLayerMask);
-        float currentBoostDuration = isInAir ? 0.3f : boostDuration; // °øÁß¿¡ ¶°ÀÖÀ¸¸é 1ÃÊ, ¾Æ´Ï¸é ±âº» ºÎ½ºÅÍ ½Ã°£ »ç¿ë
+        float currentBoostDuration = isInAir ? 0.3f : boostDuration; // ê³µì¤‘ì— ë– ìˆìœ¼ë©´ 1ì´ˆ, ì•„ë‹ˆë©´ ê¸°ë³¸ ë¶€ìŠ¤í„° ì‹œê°„ ì‚¬ìš©
 
         BoostEffect(true);
 
-        boostingAudioSource.clip = audioClips[1]; // ¹è¿­ 2¹ø Å¬¸³ (ºÎ½ºÅÍ ¼Ò¸®)
-        boostingAudioSource.Play(); // ¿Àµğ¿À Å¬¸³ Àç»ı ½ÃÀÛ
+        boostingAudioSource.clip = audioClips[1]; // ë°°ì—´ 2ë²ˆ í´ë¦½ (ë¶€ìŠ¤í„° ì†Œë¦¬)
+        boostingAudioSource.Play(); // ì˜¤ë””ì˜¤ í´ë¦½ ì¬ìƒ ì‹œì‘
         boostWindAudioSource.clip = audioClips[2];
         boostWindAudioSource.Play();
 
-        // ÇöÀç ºÎ½ºÅÍ À¯Áö ½Ã°£ ´ë±â
+        // í˜„ì¬ ë¶€ìŠ¤í„° ìœ ì§€ ì‹œê°„ ëŒ€ê¸°
         yield return new WaitForSeconds(currentBoostDuration);
 
-        // Boost Á¾·á
+        // Boost ì¢…ë£Œ
         isBoosting = false;
         BoostEffect(false);
     }
 
     public IEnumerator BoostPadRoutine()
     {
-        // Boost ½ÃÀÛ
+        // Boost ì‹œì‘
         isBoosting = true;
         BoostEffect(true);
 
-        // ¿Àµğ¿À Å¬¸³À» ¸Å¹ø ¼³Á¤ÇÏ°í Àç»ıÇÏµµ·Ï º¯°æ
-        boostingAudioSource.clip = audioClips[1]; // ¹è¿­ 2¹ø Å¬¸³ (ºÎ½ºÅÍ ¼Ò¸®)
-        boostingAudioSource.Play(); // ¿Àµğ¿À Å¬¸³ Àç»ı ½ÃÀÛ
+        // ì˜¤ë””ì˜¤ í´ë¦½ì„ ë§¤ë²ˆ ì„¤ì •í•˜ê³  ì¬ìƒí•˜ë„ë¡ ë³€ê²½
+        boostingAudioSource.clip = audioClips[1]; // ë°°ì—´ 2ë²ˆ í´ë¦½ (ë¶€ìŠ¤í„° ì†Œë¦¬)
+        boostingAudioSource.Play(); // ì˜¤ë””ì˜¤ í´ë¦½ ì¬ìƒ ì‹œì‘
 
         boostWindAudioSource.clip = audioClips[2];
         boostWindAudioSource.Play();
 
-        // Boost À¯Áö ½Ã°£
+        // Boost ìœ ì§€ ì‹œê°„
         yield return new WaitForSeconds(boostDuration);
 
-        // Boost Á¾·á
+        // Boost ì¢…ë£Œ
         isBoosting = false;
         BoostEffect(false);
     }
@@ -283,7 +283,7 @@ public class PlayerScript : MonoBehaviour
     private void Steer()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        // ÇöÀç ¼Óµµ¸¦ ±â¹İÀ¸·Î ÇÑ È¸Àü ¼Óµµ Á¶Àı
+        // í˜„ì¬ ì†ë„ë¥¼ ê¸°ë°˜ìœ¼ë¡œ í•œ íšŒì „ ì†ë„ ì¡°ì ˆ
         float speedFactor = rb.velocity.magnitude / maxSpeed;
         speedFactor = Mathf.Pow(speedFactor, 2);
         float rotateAmount = horizontalInput * rotateSpeed * Mathf.Max(speedFactor, 1) * Time.deltaTime;
@@ -294,10 +294,10 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            // µå¸®ÇÁÆ®°¡ ³¡³ª¸é Â÷·®À» ¿ø·¡ yÃà ±âÁØÀ¸·Î È¸Àü »óÅÂ·Î º¹¿ø
+            // ë“œë¦¬í”„íŠ¸ê°€ ëë‚˜ë©´ ì°¨ëŸ‰ì„ ì›ë˜ yì¶• ê¸°ì¤€ìœ¼ë¡œ íšŒì „ ìƒíƒœë¡œ ë³µì›
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.eulerAngles.y, 0), Time.deltaTime * 5);
 
-            // ¿©±â¼­µµ µå¸®ÇÁÆ®°¡ ³¡³ª¸é rotateSpeed¸¦ º¹¿ø
+            // ì—¬ê¸°ì„œë„ ë“œë¦¬í”„íŠ¸ê°€ ëë‚˜ë©´ rotateSpeedë¥¼ ë³µì›
             rotateSpeed = Mathf.Lerp(rotateSpeed, originalRotateSpeed, Time.deltaTime * 5);
         }
     }
@@ -309,12 +309,12 @@ public class PlayerScript : MonoBehaviour
 
         if (Mathf.Abs(driftDirection) > 0.1f)
         {
-            // µå¸®ÇÁÆ® Áß È¸Àü¼Óµµ¸¦ Áõ°¡
+            // ë“œë¦¬í”„íŠ¸ ì¤‘ íšŒì „ì†ë„ë¥¼ ì¦ê°€
             currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, originalRotateSpeed * 5f, Time.deltaTime * 2);
 
             if (verticalInput > 0)
             {
-                // ¹Ì²ô·¯Áü È¿°ú Ãß°¡
+                // ë¯¸ë„ëŸ¬ì§ íš¨ê³¼ ì¶”ê°€
                 Vector3 driftForce = transform.right * driftDirection * driftPower;
                 rb.AddForce(driftForce, ForceMode.Force);
                 FillDriftGauge();
@@ -322,23 +322,23 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            // µå¸®ÇÁÆ®°¡ ³¡³ª¸é È¸Àü¼Óµµ¸¦ Á¡Â÷ º¹¿ø
+            // ë“œë¦¬í”„íŠ¸ê°€ ëë‚˜ë©´ íšŒì „ì†ë„ë¥¼ ì ì°¨ ë³µì›
             currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, originalRotateSpeed, Time.deltaTime * 20);
         }
-        // È¸Àü¼Óµµ ¾÷µ¥ÀÌÆ®
+        // íšŒì „ì†ë„ ì—…ë°ì´íŠ¸
         rotateSpeed = currentRotationSpeed;
 
-        // µå¸®ÇÁÆ® Áß ¼Óµµ¸¦ Á¶Àı
+        // ë“œë¦¬í”„íŠ¸ ì¤‘ ì†ë„ë¥¼ ì¡°ì ˆ
         rb.velocity *= Mathf.Lerp(0.9f, 0.7f, rb.velocity.magnitude / maxSpeed);
     }
 
     private void FillDriftGauge()
     {
-        // µå¸®ÇÁÆ® °¨Áö¸¦ À§ÇØ Â÷·®ÀÇ ÀÌµ¿ ¹æÇâ°ú ÇöÀç ¹Ù¶óº¸°í ÀÖ´Â ¹æÇâÀÇ Â÷ÀÌ¸¦ °è»ê
+        // ë“œë¦¬í”„íŠ¸ ê°ì§€ë¥¼ ìœ„í•´ ì°¨ëŸ‰ì˜ ì´ë™ ë°©í–¥ê³¼ í˜„ì¬ ë°”ë¼ë³´ê³  ìˆëŠ” ë°©í–¥ì˜ ì°¨ì´ë¥¼ ê³„ì‚°
         float forwardDotProduct = Vector3.Dot(transform.forward, rb.velocity.normalized);
-        float driftStrength = 1 - Mathf.Abs(forwardDotProduct); // Â÷ÀÌ°¡ Å¬¼ö·Ï µå¸®ÇÁÆ® »óÅÂ·Î °£ÁÖ.
+        float driftStrength = 1 - Mathf.Abs(forwardDotProduct); // ì°¨ì´ê°€ í´ìˆ˜ë¡ ë“œë¦¬í”„íŠ¸ ìƒíƒœë¡œ ê°„ì£¼.
 
-        // µå¸®ÇÁÆ® °­µµ¿¡ µû¶ó °ÔÀÌÁö¸¦ ÃæÀü. °­µµ°¡ °­ÇÒ¼ö·Ï ´õ ¸¹ÀÌ ÃæÀü
+        // ë“œë¦¬í”„íŠ¸ ê°•ë„ì— ë”°ë¼ ê²Œì´ì§€ë¥¼ ì¶©ì „. ê°•ë„ê°€ ê°•í• ìˆ˜ë¡ ë” ë§ì´ ì¶©ì „
         if (driftSlider.value < 1)
         {
             driftSlider.value += driftStrength * driftFillRate * Time.deltaTime;
@@ -369,7 +369,7 @@ public class PlayerScript : MonoBehaviour
             if (!hit.collider.isTrigger)
             {
                 isJumping = false;
-                jumpCount = 0; // ¶¥¿¡ ´ê¾ÒÀ» ¶§ Á¡ÇÁ È½¼ö ÃÊ±âÈ­
+                jumpCount = 0; // ë•…ì— ë‹¿ì•˜ì„ ë•Œ ì í”„ íšŸìˆ˜ ì´ˆê¸°í™”
                 return true;
             }
         }
@@ -384,32 +384,32 @@ public class PlayerScript : MonoBehaviour
             this.transform.position = new Vector3(lapController.respawnPointPosition.x, lapController.respawnPointPosition.y + 2.0f, lapController.respawnPointPosition.z);
             this.transform.rotation = lapController.respawnPointRotation;
 
-            // ¿òÁ÷ÀÓ ¸ØÃã
+            // ì›€ì§ì„ ë©ˆì¶¤
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
-            // Ãæµ¹ ¹æÁö ÄÚ·çÆ¾À» ½ÃÀÛ
+            // ì¶©ëŒ ë°©ì§€ ì½”ë£¨í‹´ì„ ì‹œì‘
             StartCoroutine(PreventCollision());
         }
     }
 
     public IEnumerator PreventCollision()
     {
-        // Player ÅÂ±×¸¦ °¡Áø ¸ğµç °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ Å½»ö
+        // Player íƒœê·¸ë¥¼ ê°€ì§„ ëª¨ë“  ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ íƒìƒ‰
         var players = GameObject.FindGameObjectsWithTag("Player");
         foreach (var player in players)
         {
             if (player != this.gameObject)
             {
-                // Àá½Ã µ¿¾È ´Ù¸¥ ÇÃ·¹ÀÌ¾î¿ÍÀÇ Ãæµ¹À» ¹«½Ã
+                // ì ì‹œ ë™ì•ˆ ë‹¤ë¥¸ í”Œë ˆì´ì–´ì™€ì˜ ì¶©ëŒì„ ë¬´ì‹œ
                 Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>(), true);
             }
         }
 
-        // ¼³Á¤ÇÑ ½Ã°£(¿¹: 2ÃÊ) µ¿¾È ´ë±â
+        // ì„¤ì •í•œ ì‹œê°„(ì˜ˆ: 2ì´ˆ) ë™ì•ˆ ëŒ€ê¸°
         yield return new WaitForSeconds(2f);
 
-        // Ãæµ¹ ¹«½Ã¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+        // ì¶©ëŒ ë¬´ì‹œë¥¼ í•´ì œí•©ë‹ˆë‹¤.
         foreach (var player in players)
         {
             if (player != this.gameObject)

@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // UnityEngine.UI ³×ÀÓ½ºÆäÀÌ½º Ãß°¡
-using TMPro; // TMPro ³×ÀÓ½ºÆäÀÌ½º Ãß°¡
+using UnityEngine.UI; // UnityEngine.UI ë„¤ì„ìŠ¤í˜ì´ìŠ¤ ì¶”ê°€
+using TMPro; // TMPro ë„¤ì„ìŠ¤í˜ì´ìŠ¤ ì¶”ê°€
 
 public class LapTimeController : MonoBehaviour
 {
     [SerializeField] private LapController controller;
-    public TextMeshProUGUI timerText; // Å¸ÀÌ¸Ó ÅØ½ºÆ®
-    public TextMeshProUGUI resultTimerText; // °á°úÃ¢ÀÇ Å¸ÀÌ¸Ó ÅØ½ºÆ® ÂüÁ¶¸¦ À§ÇÑ ÇÊµå
+    public TextMeshProUGUI timerText; // íƒ€ì´ë¨¸ í…ìŠ¤íŠ¸
+    public TextMeshProUGUI resultTimerText; // ê²°ê³¼ì°½ì˜ íƒ€ì´ë¨¸ í…ìŠ¤íŠ¸ ì°¸ì¡°ë¥¼ ìœ„í•œ í•„ë“œ
     private float startTime;
 
     void Start()
@@ -18,7 +18,7 @@ public class LapTimeController : MonoBehaviour
 
     void Update()
     {
-        if (!controller.isFinish) // °æ±â°¡ ³¡³ªÁö ¾Ê¾ÒÀ» ¶§¸¸ Å¸ÀÌ¸Ó ¾÷µ¥ÀÌÆ®
+        if (!controller.isFinish) // ê²½ê¸°ê°€ ëë‚˜ì§€ ì•Šì•˜ì„ ë•Œë§Œ íƒ€ì´ë¨¸ ì—…ë°ì´íŠ¸
         {
             float time = Time.time - startTime;
 

@@ -37,7 +37,7 @@ namespace Highlands.Server
 
         #region 인증
 
-        private HTTPController _httpController = new HTTPController();
+        public HTTPController _httpController = new HTTPController();
 
         // Get요청 보내기
         public void GetRequest<T>(string requestData, string requestUrl, Action<T> resultCallback)

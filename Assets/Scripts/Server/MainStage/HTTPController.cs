@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 public class HTTPController
 {
     private string url = "https://k10c209.p.ssafy.io/api/v1";
-    private string accessToken = "";
+    public string accessToken = "";
 
     // 요청 보내기
     public IEnumerator SendPostRequest<T>(T t, string requestUrl, Action<long> resultCallback)

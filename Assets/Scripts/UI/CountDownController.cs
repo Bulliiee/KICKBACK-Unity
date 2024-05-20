@@ -20,14 +20,14 @@ public class CountDownController : MonoBehaviour
         for (int i = 0; i < sprites.Length; i++)
         {
             countdownImage.sprite = sprites[i];
-            // ÆäÀÌµåÀÎ ½ÃÀÛ
-            PlayCountdownSound(i); // ÀÎµ¦½º¿¡ ÇØ´çÇÏ´Â ¼Ò¸® Àç»ý
+            // íŽ˜ì´ë“œì¸ ì‹œìž‘
+            PlayCountdownSound(i); // ì¸ë±ìŠ¤ì— í•´ë‹¹í•˜ëŠ” ì†Œë¦¬ ìž¬ìƒ
 
-            // ¸¶Áö¸· ½ºÇÁ¶óÀÌÆ®¸¦ Á¦¿ÜÇÏ°í 0.5ÃÊ ±â´Ù¸² (ÆäÀÌµå¾Æ¿ô µ¿¾È)
+            // ë§ˆì§€ë§‰ ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ì œì™¸í•˜ê³  0.5ì´ˆ ê¸°ë‹¤ë¦¼ (íŽ˜ì´ë“œì•„ì›ƒ ë™ì•ˆ)
             if (i < sprites.Length - 1)
             {
                 StartCoroutine(FadeImage(true, 1f));
-                // ÆäÀÌµå¾Æ¿ô ½ÃÀÛ
+                // íŽ˜ì´ë“œì•„ì›ƒ ì‹œìž‘
                 StartCoroutine(FadeImage(false, 1f));
                 yield return new WaitForSecondsRealtime(1);
             }
@@ -35,12 +35,12 @@ public class CountDownController : MonoBehaviour
             {
                 StartCoroutine(FadeImage(true, 0.3f));
 
-                // ¸¶Áö¸· ½ºÇÁ¶óÀÌÆ®¿¡¼­´Â ÆäÀÌµå¾Æ¿ô ¾øÀÌ ¹Ù·Î ÀüÈ¯
-                yield return new WaitForSecondsRealtime(0.3f); // ÆäÀÌµåÀÎ°ú ÇÔ²² 0.5ÃÊ ±â´Ù¸²
+                // ë§ˆì§€ë§‰ ìŠ¤í”„ë¼ì´íŠ¸ì—ì„œëŠ” íŽ˜ì´ë“œì•„ì›ƒ ì—†ì´ ë°”ë¡œ ì „í™˜
+                yield return new WaitForSecondsRealtime(0.3f); // íŽ˜ì´ë“œì¸ê³¼ í•¨ê»˜ 0.5ì´ˆ ê¸°ë‹¤ë¦¼
             }
         }
 
-        FinishCountdown(); // °ÔÀÓ ½ÃÀÛ Ã³¸®
+        FinishCountdown(); // ê²Œìž„ ì‹œìž‘ ì²˜ë¦¬
     }
 
 
@@ -59,7 +59,7 @@ public class CountDownController : MonoBehaviour
             yield return null;
         }
 
-        // ÃÖÁ¾ ¾ËÆÄ°ª ¼³Á¤
+        // ìµœì¢… ì•ŒíŒŒê°’ ì„¤ì •
         Color finalColor = countdownImage.color;
         finalColor.a = endAlpha;
         countdownImage.color = finalColor;
@@ -78,6 +78,7 @@ public class CountDownController : MonoBehaviour
     {
         countDown.SetActive(false);
         isCountDown = false;
-        CameraFollowing.isStarting = false; // ÀÎÆ®·Î¾À Á¾·á
+        CameraFollowing.isStarting = false; // ì¸íŠ¸ë¡œì”¬ ì¢…ë£Œ
+        GameObject.Find("IngameController").GetComponent<IngameController>().PlayMoveAnimation();
     }
 }

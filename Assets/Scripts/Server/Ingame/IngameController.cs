@@ -14,7 +14,7 @@ public class IngameController : MonoBehaviour
     [SerializeField] public List<GameObject> PlayerCharacters; // 실제 플레이어 캐릭터
 
     [SerializeField] public int myIndex; // 내 인덱스
-    
+
     public bool isReceiving = false;
 
     // Start is called before the first frame update
@@ -22,7 +22,7 @@ public class IngameController : MonoBehaviour
     {
         NetworkManager.Instance.IngameController = this;
         SpawnPlayer();
-        
+
         if (!isReceiving)
         {
             isReceiving = true;
@@ -54,6 +54,19 @@ public class IngameController : MonoBehaviour
         {
             PlayerCharacters.Add(Instantiate(PlayerPrefabs[characterNumber[i]]));
             PlayerCharacters[i].transform.position = SpawnPoints[i].position;
+
+            // if (NetworkManager.Instance.currentChannelInfo.mapName == "Downhill")
+            // {
+            //     // 1. Transform 컴포넌트의 Rotation 값 가져오기
+            //     Vector3 currentRotation = PlayerCharacters[i].transform.rotation.eulerAngles;
+            //
+            //     // 2. Y축 Rotation 값에 180 더하기
+            //     currentRotation.y += 180f;
+            //
+            //     // 3. 변경된 Rotation 값을 Transform 컴포넌트에 적용
+            //     PlayerCharacters[i].transform.rotation = Quaternion.Euler(currentRotation);
+            // }
+            
             // 내가 아닐 경우
             if (i != myIndex)
             {
@@ -86,6 +99,7 @@ public class IngameController : MonoBehaviour
     // 다른 플레이어 좌표 업데이트
     public void SetOtherPlayerPosition(UDPMessageForm messageForm)
     {
+        Debug.Log("좌표 설정!!!!!!!!!!!!!1");
         float interpolationFactor = 0.1f; // 조절 가능
 
         Vector3 receivedPosition = new Vector3(messageForm.x_, messageForm.y_, messageForm.z_);
@@ -100,5 +114,18 @@ public class IngameController : MonoBehaviour
             PlayerCharacters[messageForm.user_index_].transform.rotation,
             receivecRotation,
             interpolationFactor);
+    }
+
+    // 다른 플레이어 애니메이션 변경
+    public void PlayMoveAnimation()
+    {
+        for (int i = 0; i < NetworkManager.Instance.currentChannelInfo.channelUserList.Count; i++)
+        {
+            // 내가 아닐 경우
+            if (i != myIndex)
+            {
+                PlayerCharacters[i].GetComponent<Animator>().SetBool("Move", true);
+            }
+        }
     }
 }

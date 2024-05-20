@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &567407294162979701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 567407294162979703}
+  - component: {fileID: 567407294162979702}
+  m_Layer: 0
+  m_Name: IngameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &567407294162979703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567407294162979701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &567407294162979702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567407294162979701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7926284c9ee51844c804073804862e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerPrefabs:
+  - {fileID: 8411721332758485670, guid: d7298905f13cce042b40e870920d3153, type: 3}
+  - {fileID: 8411721332758485670, guid: 4274065b3a69aaf4e8f071ab5015bd12, type: 3}
+  - {fileID: 8411721332758485670, guid: 2789ccff944aab346acb99529b748654, type: 3}
+  - {fileID: 8411721332758485670, guid: 7f6eb660bc8c35d4292c22856435bee8, type: 3}
+  - {fileID: 8411721332758485670, guid: d2b649464500a0c4085132b903359d89, type: 3}
+  - {fileID: 8411721332758485670, guid: 6f5d5be374e524a4aa0b2daae374e0b2, type: 3}
+  - {fileID: 8411721332758485670, guid: bf3b33095d048dc428e5d764964b0fab, type: 3}
+  - {fileID: 8411721332758485670, guid: c319cda566fdc5641a56e977c7ca52d0, type: 3}
+  - {fileID: 8411721332758485670, guid: dcafdc136027a0145b530bd47a7f4a86, type: 3}
+  - {fileID: 8411721332758485670, guid: abd190d47b1ff484da5639e1f4345b61, type: 3}
+  SpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _checkPointsControllers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _boostpads:
+  - {fileID: 0}
+  PlayerCharacters: []
+  myIndex: 0
+  isReceiving: 0

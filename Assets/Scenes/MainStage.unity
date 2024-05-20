@@ -17248,8 +17248,8 @@ MonoBehaviour:
   mapSprites:
   - {fileID: 21300000, guid: cda6fb9a4559c1544a29a516aa69d2f2, type: 3}
   - {fileID: 21300000, guid: 712c6311f40a1fb4e97bfdede763663e, type: 3}
-  - {fileID: 21300000, guid: 52cdc283b812a9e4cbde57366a72002e, type: 3}
   - {fileID: 21300000, guid: cfa4f13f3ff912442b0d975ada59a144, type: 3}
+  - {fileID: 21300000, guid: 52cdc283b812a9e4cbde57366a72002e, type: 3}
   characterSprites:
   - {fileID: 21300000, guid: cff6c5d9853f19645a7d9ded74056e1f, type: 3}
   - {fileID: 21300000, guid: 9146427eb9edc4f4c907aec41de6a385, type: 3}

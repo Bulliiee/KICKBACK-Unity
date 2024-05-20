@@ -180,6 +180,7 @@ MonoBehaviour:
   - {fileID: 997810826}
   PlayerCharacters: []
   myIndex: 0
+  isReceiving: 0
 --- !u!4 &77320483
 Transform:
   m_ObjectHideFlags: 0

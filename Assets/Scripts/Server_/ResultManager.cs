@@ -47,7 +47,7 @@ public class ResultManager : MonoBehaviour
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
-            request.SetRequestHeader("Authorization", DataManager.Instance.accessToken);
+            request.SetRequestHeader("Authorization", NetworkManager.Instance._httpController.accessToken);
             yield return request.SendWebRequest();
 
             // 요청 성공 시
@@ -68,7 +68,7 @@ public class ResultManager : MonoBehaviour
     {
         // SceneManager.LoadScene("Room");
         NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackEndMessage(Command.END, NetworkManager.Instance.currentChannelInfo.channelIndex));
-        GameManager.Instance.ChangeMainStageCanvas("lobby");
+        GameManager.Instance.ChangeMainStageCanvas("Channel Canvas");
         StartCoroutine(LapTimeUpdate());
     }
 }
