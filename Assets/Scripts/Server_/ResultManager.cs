@@ -68,6 +68,7 @@ public class ResultManager : MonoBehaviour
     {
         // SceneManager.LoadScene("Room");
         NetworkManager.Instance.SendBusinessMessage(MessageHandler.PackEndMessage(Command.END, NetworkManager.Instance.currentChannelInfo.channelIndex));
+        NetworkManager.Instance.currentPlayerLocation = CurrentPlayerLocation.WaitingRoom;
         GameManager.Instance.ChangeMainStageCanvas("Channel Canvas");
         StartCoroutine(LapTimeUpdate());
     }

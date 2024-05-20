@@ -106,14 +106,17 @@ public class IngameController : MonoBehaviour
         Quaternion receivecRotation =
             new Quaternion(messageForm.rx_, messageForm.ry_, messageForm.rz_, messageForm.rw_);
 
-        PlayerCharacters[messageForm.user_index_].transform.position = Vector3.Lerp(
-            PlayerCharacters[messageForm.user_index_].transform.position,
-            receivedPosition,
-            interpolationFactor);
-        PlayerCharacters[messageForm.user_index_].transform.rotation = Quaternion.Lerp(
-            PlayerCharacters[messageForm.user_index_].transform.rotation,
-            receivecRotation,
-            interpolationFactor);
+        PlayerCharacters[messageForm.user_index_].transform.position = receivedPosition;
+        PlayerCharacters[messageForm.user_index_].transform.rotation = receivecRotation;
+
+        // PlayerCharacters[messageForm.user_index_].transform.position = Vector3.Lerp(
+        //     PlayerCharacters[messageForm.user_index_].transform.position,
+        //     receivedPosition,
+        //     interpolationFactor);
+        // PlayerCharacters[messageForm.user_index_].transform.rotation = Quaternion.Lerp(
+        //     PlayerCharacters[messageForm.user_index_].transform.rotation,
+        //     receivecRotation,
+        //     interpolationFactor);
     }
 
     // 다른 플레이어 애니메이션 변경
